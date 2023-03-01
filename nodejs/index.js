@@ -5,10 +5,10 @@ var cool = require("cool-ascii-faces");
 var app = express();
 var port = process.env.PORT || 12345;
 
-app.get("/", (req,res => {
-    res.send(cool());
+app.get("/faces", (request,response) => {
+    response.send(cool());
     console.log("New request");
-}));
+});
 
 
 app.listen(port, ()=>{
