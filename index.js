@@ -3,10 +3,15 @@ var express = require("express");
 var cool = require("cool-ascii-faces");
 
 var app = express();
+var port = process.env.PORT || 12345;
 
 app.get("/", (req,res => {
     res.send(cool());
-    console.log("new request");
+    console.log("New request");
 }));
 
-console.log(cool());
+
+app.listen(port, ()=>{
+    console.log(`Server ready in port ${port}`);
+});
+
