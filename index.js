@@ -41,15 +41,4 @@ app.get("/samples/RDQ", (request,response) => {
     console.log("New request");
 });
 
-//L06
-var contacts = [
-    {
-        name : "pepe",
-        phone : 12345
-    },
-    {
-        name: "pablo",
-        phone: 6789
-    }
-];
 
