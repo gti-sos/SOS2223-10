@@ -40,3 +40,16 @@ app.get("/samples/RDQ", (request,response) => {
     response.send(`La media de la poblacion mayor de 16 años en jaen es: ${media}`)
     console.log("New request");
 });
+
+//L06
+var contacts = [
+    {
+        name : "pepe",
+        phone : 12345
+    },
+    {
+        name: "pablo",
+        phone: 6789
+    }
+];
+
