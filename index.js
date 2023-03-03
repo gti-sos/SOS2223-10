@@ -7,7 +7,7 @@ var app = express();
 var port = process.env.PORT || 12345;
 
 app.get("/faces", (request,response) => {
-    res.send(cool());
+    response.send(cool());
     console.log("New request");
 });
 
