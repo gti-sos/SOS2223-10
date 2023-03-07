@@ -79,7 +79,7 @@ app.get("/samples/RPP", (request,response) =>{
 });
 
 app.get("/samples/JRM", (request,response) => {
-var datos_joaquin = [
+var economy_stats = [
     {period:1999, territory:"Jaén", finished_house:3704, half_price_m_two:440, tourist:857295},
     {period:1998, territory:"Sevilla", finished_house:7176, half_price_m_two:534, tourist:1247438},
     {period:2000, territory:"Cádiz", finished_house:13501, half_price_m_two:644, tourist:2682429},
@@ -92,7 +92,7 @@ var datos_joaquin = [
     {period:2013, territory:"Cordoba", finished_house:1384, half_price_m_two:1202, tourist:1333216},
  ];
 
- var datos = datos_joaquin.filter(ciudad => ciudad.territory == "Sevilla");
+ var datos = economy_stats.filter(ciudad => ciudad.territory == "Sevilla");
  media = 0;
  suma = 0;
  for (let i =0;i<datos.length;i++){
@@ -103,3 +103,5 @@ var datos_joaquin = [
 console.log("La media de turistas en Sevilla es: ",media)
 response.send(`La media de turistas en sevilla es: ${media}`)
 });
+
+const BASE_API_URL = "/api/v1/economy_stats";
