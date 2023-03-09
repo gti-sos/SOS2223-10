@@ -129,8 +129,52 @@ var environment_stats = [
 
 app.get(BASE_API_URL + "/environment-stats/loadInitialData", (request, response) => {
     response.json(environment_stats);
-    response.send(`Fire average in Almería is: ${avg}`)
+    console.log("New GET to /environment-stats")
 });
+app.get(BASE_API_URL + "/environment-stats", (request, response) => {
+    response.json(environment_stats);
+    console.log("New GET to /environment-stats")
+});
+
+app.post(BASE_API_URL + "/environment-stats", (req, res) => {
+
+
+    var newStat = req.body;
+    console.log(`new_stat = <${JSON.stringify(newStat,null,2)}>`);
+
+    const statIndex = environment_stats.findIndex(
+        (stat) =>
+          stat.year === newStat.year &&
+          stat.city.toLowerCase() === newStat.city.toLowerCase() &&
+          stat.protected_space === newStat.protected_space &&
+          stat.area === newStat.area &&
+          stat.fire === newStat.fire
+      );
+
+      if (statIndex !== -1) {
+        // If stat exists Conflict 409
+        console.log(`Conflict: environment stat with same properties already exists`);
+        res.sendStatus(409);
+      } else {
+        // If stat doesn´t exist Status 201
+        environment_stats.push(newStat);
+        console.log("Environment stat added to array");
+        res.sendStatus(201);
+      }
+
+   
+    console.log("New POST to /environment-stats");
+
+  
+});
+app.delete(BASE_API_URL + "/environment-stats", (req, res) => {
+    environment_stats = []; // eliminar todos los elementos de la matriz
+    console.log("All environment stats deleted");
+    res.sendStatus(204); // enviar respuesta con código de estado 204
+  });
+
+
+
 
 
 
@@ -162,3 +206,4 @@ app.get(BASE_API_URL + "api/v1/economy_stats", (request, response) => {
     response.json(economy_stats);
 
 });
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
