@@ -1,12 +1,12 @@
 var express = require("express");
+var bodyParser = require("body-parser"); 
 
 var cool = require("cool-ascii-faces");
 const { request, response } = require("express");
 const BASE_API_URL = "/api/v1";
-
-
 var app = express();
 var port = process.env.PORT || 12345;
+app.use(bodyParser.json());
 
 app.get("/cool", (request,response) => {
     response.send(cool());
@@ -106,6 +106,8 @@ console.log("La media de turistas en Sevilla es: ",media)
 response.send(`La media de turistas en sevilla es: ${media}`)
 });
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+//Rushabh
 
 var environment_stats = [ 
         {year:2016, city:"Almería", protected_space:18, area: 163.937, fire: 57},
@@ -124,8 +126,18 @@ var environment_stats = [
       ];
 
 
-app.get("BASE_API_URL/environment-stats", (request,response) =>{
-    
+app.get(BASE_API_URL+"/environment-stats/loadInitialData", (request,response) =>{
     response.json(environment_stats);
-      response.send(`Fire average in Almería is: ${avg}`)
+    console.log("New GET to /enviroment-stats")
+});
+
+app.post(BASE_API_URL+"/environment-stats", (request,response) =>{
+    var new_stat = request.body;
+
+
+    console.log(`newStat= <${JSON.stringify(new_stat,null,2)}`);
+    console.log("New POST to /enviroment-stats");
+    environment_stats.push(new_stat);
+    response.sendStatus(201);
+
 });
