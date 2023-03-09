@@ -10,6 +10,8 @@ var raw_data = [
   {year:2017, city:"Almería", protected_space:18, area: 163.937, fire: 87},
   {year:2017, city:"Cádiz", protected_space:29, area: 231.22, fire: 94},
   {year:2017, city:"Córdoba", protected_space:19, area: 134.597, fire: 78},
+  {year:2017, city:"Almería", protected_space:29, area: 123.937, fire: 95},
+  
 ]
 
 avg  = 0;
@@ -31,4 +33,4 @@ for (let i =0;i<data2.length;i++){
 console.log("Fire avg in Almería is ", avg);
 
 
-console.log(data);
+//console.log(data);

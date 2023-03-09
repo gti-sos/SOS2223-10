@@ -6,8 +6,8 @@ const { request, response } = require("express");
 var app = express();
 var port = process.env.PORT || 12345;
 
-app.get("/faces", (request,response) => {
-    res.send(cool());
+app.get("/cool", (request,response) => {
+    response.send(cool());
     console.log("New request");
 });
 
@@ -40,3 +40,68 @@ app.get("/samples/RDQ", (request,response) => {
     response.send(`La media de la poblacion mayor de 16 años en jaen es: ${media}`)
     console.log("New request");
 });
+
+app.get("/samples/RPP", (request,response) =>{
+    var raw_data = [ 
+        {year:2016, city:"Almería", protected_space:18, area: 163.937, fire: 57},
+        {year:2016, city:"Cádiz", protected_space:29, area: 231.22, fire: 108},
+        {year:2016, city:"Córdoba", protected_space:19, area: 134.597, fire: 90},
+        {year:2016, city:"Granada", protected_space:17, area: 220.314, fire: 119},
+        {year:2016, city:"Huelva", protected_space:24, area: 319.11, fire: 155},
+        {year:2016, city:"Jaén", protected_space:17, area: 317.381, fire: 172},
+        {year:2016, city:"Málaga", protected_space:28, area: 89.272, fire: 111},
+        {year:2016, city:"Sevilla", protected_space:24, area: 220.868, fire: 124},
+        {year:2017, city:"Almería", protected_space:18, area: 163.937, fire: 87},
+        {year:2017, city:"Cádiz", protected_space:29, area: 231.22, fire: 94},
+        {year:2017, city:"Córdoba", protected_space:19, area: 134.597, fire: 78},
+        {year:2017, city:"Almería", protected_space:29, area: 123.937, fire: 95},
+        
+      ];
+      
+      avg  = 0;
+      sum = 0;
+      avg1=0;
+      sum2=0;
+      var data = raw_data.filter(cities => cities.city == "Almería" );
+      var data2 = raw_data.filter(cities => cities.city == "Córdoba" );
+      
+      for (let i =0;i<data.length;i++){
+          var sum = sum + data[i].fire;
+          var avg =  sum/data.length;
+      }
+      for (let i =0;i<data2.length;i++){
+          var sum2 = sum2 + data2[i].fire;
+          var avg1 =  sum2/data2.length;
+      }
+      
+     console.log("Fire avg in Almería is ", avg);
+      response.send(`Fire average in Almería is: ${avg}`)
+});
+
+app.get("/samples/JRM", (request,response) => {
+var economy_stats = [
+    {period:1999, territory:"Jaén", finished_house:3704, half_price_m_two:440, tourist:857295},
+    {period:1998, territory:"Sevilla", finished_house:7176, half_price_m_two:534, tourist:1247438},
+    {period:2000, territory:"Cádiz", finished_house:13501, half_price_m_two:644, tourist:2682429},
+    {period:2000, territory:"Granada", finished_house:3672, half_price_m_two:644, tourist:2228642},
+    {period:2008, territory:"Almería", finished_house:16746, half_price_m_two:1674, tourist:2225479},
+    {period:2011, territory:"Sevilla", finished_house:6667, half_price_m_two:1576, tourist:2732934},
+    {period:2012, territory:"Malaga", finished_house:3797, half_price_m_two:1618, tourist:7073502},
+    {period:2012, territory:"Sevilla", finished_house:6313, half_price_m_two:1414, tourist:2673617},
+    {period:2013, territory:"Sevilla", finished_house:2790, half_price_m_two:1296, tourist:2616499},
+    {period:2013, territory:"Cordoba", finished_house:1384, half_price_m_two:1202, tourist:1333216},
+ ];
+
+ var datos = economy_stats.filter(ciudad => ciudad.territory == "Sevilla");
+ media = 0;
+ suma = 0;
+ for (let i =0;i<datos.length;i++){
+    var suma = suma + datos[i].tourist;
+    var media =  suma/datos.length;
+}
+
+console.log("La media de turistas en Sevilla es: ",media)
+response.send(`La media de turistas en sevilla es: ${media}`)
+});
+
+const BASE_API_URL = "/api/v1/economy_stats";
