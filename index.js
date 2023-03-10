@@ -140,38 +140,100 @@ app.post(BASE_API_URL + "/environment-stats", (req, res) => {
 
 
     var newStat = req.body;
-    console.log(`new_stat = <${JSON.stringify(newStat,null,2)}>`);
+    console.log(`new_stat = <${JSON.stringify(newStat, null, 2)}>`);
 
     const statIndex = environment_stats.findIndex(
         (stat) =>
-          stat.year === newStat.year &&
-          stat.city.toLowerCase() === newStat.city.toLowerCase() &&
-          stat.protected_space === newStat.protected_space &&
-          stat.area === newStat.area &&
-          stat.fire === newStat.fire
-      );
+            stat.year === newStat.year &&
+            stat.city.toLowerCase() === newStat.city.toLowerCase() &&
+            stat.protected_space === newStat.protected_space &&
+            stat.area === newStat.area &&
+            stat.fire === newStat.fire
+    );
 
-      if (statIndex !== -1) {
+    if (statIndex !== -1) {
         // If stat exists Conflict 409
         console.log(`Conflict: environment stat with same properties already exists`);
         res.sendStatus(409);
-      } else {
+    } else {
         // If stat doesn´t exist Status 201
         environment_stats.push(newStat);
         console.log("Environment stat added to array");
         res.sendStatus(201);
-      }
+    }
 
-   
+
     console.log("New POST to /environment-stats");
 
-  
+
 });
 app.delete(BASE_API_URL + "/environment-stats", (req, res) => {
     environment_stats = []; // eliminar todos los elementos de la matriz
     console.log("All environment stats deleted");
     res.sendStatus(204); // enviar respuesta con código de estado 204
-  });
+});
+
+//tildes
+function stripAccents(text) {
+    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+
+app.get(BASE_API_URL + "/environment-stats/:city", (request, response) => {
+
+    const city = stripAccents(request.params.city.toLowerCase());
+    const cityStats = environment_stats.filter((stat) => stripAccents(stat.city.toLowerCase()) === city);
+    response.json(cityStats);
+    console.log(`New GET to /environment-stats/${city}`);
+});
+
+app.put(BASE_API_URL + "/environment-stats/:city", (req, res) => {
+    const city = stripAccents(req.params.city.toLowerCase());
+    const updatedStat = req.body;
+    console.log(`new_stat = <${JSON.stringify(updatedStat, null, 2)}>`);
+    const statIndex = environment_stats.findIndex(
+        (stat) =>
+            stripAccents(stat.city.toLowerCase()) === stripAccents(city.toLowerCase())
+    );
+    if (statIndex === -1) {
+        // Si el objeto no existe Not Found 404
+        console.log(`Environment stat with city ${city} not found`);
+        res.sendStatus(404);
+    } else {
+        // Si el objeto existe, actualizar sus propiedades
+        environment_stats[statIndex] = {
+            year: updatedStat.year || environment_stats[statIndex].year,
+            city: environment_stats[statIndex].city,
+            protected_space: updatedStat.protected_space || environment_stats[statIndex].protected_space,
+            area: updatedStat.area || environment_stats[statIndex].area,
+            fire: updatedStat.fire || environment_stats[statIndex].fire
+        };
+        console.log(`Environment stat with city ${city} updated`);
+        res.sendStatus(200);
+    }
+    console.log("New PUT to /environment-stats/:city");
+});
+
+app.delete(BASE_API_URL + "/environment-stats/:city", (req, res) => {
+    const city = stripAccents(req.params.city.toLowerCase());
+    const originalLength = environment_stats.length;
+    environment_stats = environment_stats.filter((stat) => {
+        return stripAccents(stat.city.toLowerCase()) !== city;
+    });
+    const newLength = environment_stats.length;
+    if (newLength === originalLength) {
+        console.log(`City ${city} not found in environment stats array`);
+        res.sendStatus(404);
+    } else {
+        console.log(`City ${city} deleted from environment stats array`);
+        res.sendStatus(200);
+    }
+    console.log(`New DELETE to /environment-stats/${city}`);
+});
+app.put(BASE_API_URL + "/environment-stats", (req, res) => {
+    res.status(405).send('Method not Allowed');
+    console.log(`Error 405 Method not Allowed`);
+
+});
 
 
 
