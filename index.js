@@ -194,6 +194,10 @@ app.put(BASE_API_URL + "/environment-stats/:city", (req, res) => {
         (stat) =>
             stripAccents(stat.city.toLowerCase()) === stripAccents(city.toLowerCase())
     );
+
+    if (updatedStat.city && stripAccents(updatedStat.city.toLowerCase()) !== stripAccents(city.toLowerCase())) {
+        return res.status(400).send('Ciudad en body no es el mismo que URL');
+    }
     if (statIndex === -1) {
         // Si el objeto no existe Not Found 404
         console.log(`Environment stat with city ${city} not found`);
@@ -202,7 +206,7 @@ app.put(BASE_API_URL + "/environment-stats/:city", (req, res) => {
         // Si el objeto existe, actualizar sus propiedades
         environment_stats[statIndex] = {
             year: updatedStat.year || environment_stats[statIndex].year,
-            city: environment_stats[statIndex].city,
+            city: updatedStat.city || environment_stats[statIndex].city,
             protected_space: updatedStat.protected_space || environment_stats[statIndex].protected_space,
             area: updatedStat.area || environment_stats[statIndex].area,
             fire: updatedStat.fire || environment_stats[statIndex].fire
@@ -230,6 +234,11 @@ app.delete(BASE_API_URL + "/environment-stats/:city", (req, res) => {
     console.log(`New DELETE to /environment-stats/${city}`);
 });
 app.put(BASE_API_URL + "/environment-stats", (req, res) => {
+    res.status(405).send('Method not Allowed');
+    console.log(`Error 405 Method not Allowed`);
+
+});
+app.post(BASE_API_URL + "/environment-stats/:city", (req, res) => {
     res.status(405).send('Method not Allowed');
     console.log(`Error 405 Method not Allowed`);
 
