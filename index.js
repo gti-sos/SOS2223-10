@@ -19,7 +19,7 @@ app.listen(port, ()=>{
 });
 
 app.get("/samples/RDQ", (request,response) => {
-    var datos_rafa = [
+    var employment_stats = [
         {period:1998,province:"sevilla",population_over_16_years:1349525,activity_men_percentage:65.5,activity_women_percentage:36.3},
         {period:1999,province:"granada",population_over_16_years:652275,activity_men_percentage:60.2,activity_women_percentage:35.3},
         {period:2004,province:"jaen",population_over_16_years:527475,activity_men_percentage:64.3,activity_women_percentage:37.9},
@@ -129,3 +129,6 @@ app.get("BASE_API_URL/environment-stats", (request,response) =>{
     response.json(environment_stats);
       response.send(`Fire average in Almería is: ${avg}`)
 });
+app.get("BASE_API_URL/employment-stats"),(request,response) =>{
+    response.json()
+}
