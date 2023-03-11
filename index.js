@@ -348,7 +348,7 @@ app.put(BASE_API_URL + "/economy_stats/:territory", (req, res) => {
         // Si el objeto existe, actualizar sus propiedades
         economy_stats[statIndex] = {
             period: updatedStat.period || economy_stats[statIndex].period,
-            territory: economy_stats[statIndex].period,
+            territory: updatedStat.territory || economy_stats[statIndex].territory,
             finished_house: updatedStat.finished_house|| economy_stats[statIndex].finished_house,
             half_price_m_two: updatedStat.half_price_m_two || economy_stats[statIndex].half_price_m_two,
             tourist: updatedStat.tourist || economy_stats[statIndex].tourist
@@ -363,7 +363,7 @@ app.delete(BASE_API_URL + "/economy_stats/:territory", (req, res) => {
     const territory = stripAccents(req.params.territory.toLowerCase());
     const originalLength = economy_stats.length;
     economy_stats = economy_stats.filter((stat) => {
-        return stripAccents(stat.territory.toLowerCase()) !== economy;
+        return stripAccents(stat.territory.toLowerCase()) !== territory;
     });
     const newLength = economy_stats.length;
     if (newLength === originalLength) {
