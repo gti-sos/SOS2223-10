@@ -1,12 +1,26 @@
-var express = require("express");
-var bodyParser = require("body-parser");
+/////Modulo Rushabh
 
-var cool = require("cool-ascii-faces");
-const { request, response } = require("express");
-const BASE_API_URL = "/api/v1";
-var app = express();
-var port = process.env.PORT || 12345;
-app.use(bodyParser.json());
+
+const { express } = require('./Module-RPP/api-RPP');
+const { cool } = require('./Module-RPP/api-RPP');
+const { bodyParser } = require('./Module-RPP/api-RPP');
+const { app } = require('./Module-RPP/api-RPP');
+const { port } = require('./Module-RPP/api-RPP');
+const { environment_stats } = require('./Module-RPP/api-RPP');
+const { BASE_API_URL } = require('./Module-RPP/api-RPP');
+/////////////////////////////////////////////////////////////////////////
+
+
+//var express = require("express");
+//var bodyParser = require("body-parser");
+
+//var cool = require("cool-ascii-faces");
+//const { request, response } = require("express");
+//const BASE_API_URL = "/api/v1";
+//var app = express();
+//var port = process.env.PORT || 12345;
+//app.use(bodyParser.json());
+
 
 app.get("/cool", (request, response) => {
     response.send(cool());
@@ -18,19 +32,19 @@ app.listen(port, () => {
     console.log(`Server ready in port ${port}`);
 });
 
-app.get("/samples/RDQ", (request,response) => {
+app.get("/samples/RDQ", (request, response) => {
     var datos_rafa = [
-        {period:1998,province:"sevilla",population_over_16_years:1349525,activity_men_percentage:65.5,activity_women_percentage:36.3},
-        {period:1999,province:"granada",population_over_16_years:652275,activity_men_percentage:60.2,activity_women_percentage:35.3},
-        {period:2004,province:"jaen",population_over_16_years:527475,activity_men_percentage:64.3,activity_women_percentage:37.9},
-        {period:2006,province:"huelva",population_over_16_years:403650,activity_men_percentage:65.8,activity_women_percentage:40.0},
-        {period:2007,province:"malaga",population_over_16_years:1242900,activity_men_percentage:68.1,activity_women_percentage:47.0},
-        {period:2009,province:"cadiz",population_over_16_years:995375,activity_men_percentage:67.9,activity_women_percentage:45.6},
-        {period:2011,province:"almeria",population_over_16_years:557825,activity_men_percentage:71.5,activity_women_percentage:57.2},
-        {period:2012,province:"jaen",population_over_16_years:550700,activity_men_percentage:63.2,activity_women_percentage:46.0},
-        {period:2014,province:"sevilla",population_over_16_years:1571050,activity_men_percentage:65.6,activity_women_percentage:53.8},
-        {period:2014,province:"almeria",population_over_16_years:587775,activity_men_percentage:69.2,activity_women_percentage:53.6}
-    
+        { period: 1998, province: "sevilla", population_over_16_years: 1349525, activity_men_percentage: 65.5, activity_women_percentage: 36.3 },
+        { period: 1999, province: "granada", population_over_16_years: 652275, activity_men_percentage: 60.2, activity_women_percentage: 35.3 },
+        { period: 2004, province: "jaen", population_over_16_years: 527475, activity_men_percentage: 64.3, activity_women_percentage: 37.9 },
+        { period: 2006, province: "huelva", population_over_16_years: 403650, activity_men_percentage: 65.8, activity_women_percentage: 40.0 },
+        { period: 2007, province: "malaga", population_over_16_years: 1242900, activity_men_percentage: 68.1, activity_women_percentage: 47.0 },
+        { period: 2009, province: "cadiz", population_over_16_years: 995375, activity_men_percentage: 67.9, activity_women_percentage: 45.6 },
+        { period: 2011, province: "almeria", population_over_16_years: 557825, activity_men_percentage: 71.5, activity_women_percentage: 57.2 },
+        { period: 2012, province: "jaen", population_over_16_years: 550700, activity_men_percentage: 63.2, activity_women_percentage: 46.0 },
+        { period: 2014, province: "sevilla", population_over_16_years: 1571050, activity_men_percentage: 65.6, activity_women_percentage: 53.8 },
+        { period: 2014, province: "almeria", population_over_16_years: 587775, activity_men_percentage: 69.2, activity_women_percentage: 53.6 }
+
     ];
     var filtrado = datos_rafa.filter(v => v.province == "jaen");
     var suma = 0;
@@ -110,139 +124,6 @@ app.get("/samples/JRM", (request, response) => {
 /////////////////////////////////////////////////////////////////////////////////////////////
 //Rushabh
 
-var environment_stats = [
-    { year: 2016, city: "Almería", protected_space: 18, area: 163.937, fire: 57 },
-    { year: 2016, city: "Cádiz", protected_space: 29, area: 231.22, fire: 108 },
-    { year: 2016, city: "Córdoba", protected_space: 19, area: 134.597, fire: 90 },
-    { year: 2016, city: "Granada", protected_space: 17, area: 220.314, fire: 119 },
-    { year: 2016, city: "Huelva", protected_space: 24, area: 319.11, fire: 155 },
-    { year: 2016, city: "Jaén", protected_space: 17, area: 317.381, fire: 172 },
-    { year: 2016, city: "Málaga", protected_space: 28, area: 89.272, fire: 111 },
-    { year: 2016, city: "Sevilla", protected_space: 24, area: 220.868, fire: 124 },
-    { year: 2017, city: "Almería", protected_space: 18, area: 163.937, fire: 87 },
-    { year: 2017, city: "Cádiz", protected_space: 29, area: 231.22, fire: 94 },
-    { year: 2017, city: "Córdoba", protected_space: 19, area: 134.597, fire: 78 },
-    { year: 2017, city: "Almería", protected_space: 29, area: 123.937, fire: 95 },
-
-];
-
-
-app.get(BASE_API_URL + "/environment-stats/loadInitialData", (request, response) => {
-    response.json(environment_stats);
-    console.log("New GET to /environment-stats")
-});
-app.get(BASE_API_URL + "/environment-stats", (request, response) => {
-    response.json(environment_stats);
-    console.log("New GET to /environment-stats")
-});
-
-app.post(BASE_API_URL + "/environment-stats", (req, res) => {
-
-
-    var newStat = req.body;
-    console.log(`new_stat = <${JSON.stringify(newStat, null, 2)}>`);
-
-    const statIndex = environment_stats.findIndex(
-        (stat) =>
-            stat.year === newStat.year &&
-            stat.city.toLowerCase() === newStat.city.toLowerCase() &&
-            stat.protected_space === newStat.protected_space &&
-            stat.area === newStat.area &&
-            stat.fire === newStat.fire
-    );
-
-    if (statIndex !== -1) {
-        // If stat exists Conflict 409
-        console.log(`Conflict: environment stat with same properties already exists`);
-        res.sendStatus(409);
-    } else {
-        // If stat doesn´t exist Status 201
-        environment_stats.push(newStat);
-        console.log("Environment stat added to array");
-        res.sendStatus(201);
-    }
-
-
-    console.log("New POST to /environment-stats");
-
-
-});
-app.delete(BASE_API_URL + "/environment-stats", (req, res) => {
-    environment_stats = []; // eliminar todos los elementos de la matriz
-    console.log("All environment stats deleted");
-    res.sendStatus(204); // enviar respuesta con código de estado 204
-});
-
-//tildes
-function stripAccents(text) {
-    return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
-
-app.get(BASE_API_URL + "/environment-stats/:city", (request, response) => {
-
-    const city = stripAccents(request.params.city.toLowerCase());
-    const cityStats = environment_stats.filter((stat) => stripAccents(stat.city.toLowerCase()) === city);
-    response.json(cityStats);
-    console.log(`New GET to /environment-stats/${city}`);
-});
-
-app.put(BASE_API_URL + "/environment-stats/:city", (req, res) => {
-    const city = stripAccents(req.params.city.toLowerCase());
-    const updatedStat = req.body;
-    console.log(`new_stat = <${JSON.stringify(updatedStat, null, 2)}>`);
-    const statIndex = environment_stats.findIndex(
-        (stat) =>
-            stripAccents(stat.city.toLowerCase()) === stripAccents(city.toLowerCase())
-    );
-
-    if (updatedStat.city && stripAccents(updatedStat.city.toLowerCase()) !== stripAccents(city.toLowerCase())) {
-        return res.status(400).send('Ciudad en body no es el mismo que URL');
-    }
-    if (statIndex === -1) {
-        // Si el objeto no existe Not Found 404
-        console.log(`Environment stat with city ${city} not found`);
-        res.sendStatus(404);
-    } else {
-        // Si el objeto existe, actualizar sus propiedades
-        environment_stats[statIndex] = {
-            year: updatedStat.year || environment_stats[statIndex].year,
-            city: updatedStat.city || environment_stats[statIndex].city,
-            protected_space: updatedStat.protected_space || environment_stats[statIndex].protected_space,
-            area: updatedStat.area || environment_stats[statIndex].area,
-            fire: updatedStat.fire || environment_stats[statIndex].fire
-        };
-        console.log(`Environment stat with city ${city} updated`);
-        res.sendStatus(200);
-    }
-    console.log("New PUT to /environment-stats/:city");
-});
-
-app.delete(BASE_API_URL + "/environment-stats/:city", (req, res) => {
-    const city = stripAccents(req.params.city.toLowerCase());
-    const originalLength = environment_stats.length;
-    environment_stats = environment_stats.filter((stat) => {
-        return stripAccents(stat.city.toLowerCase()) !== city;
-    });
-    const newLength = environment_stats.length;
-    if (newLength === originalLength) {
-        console.log(`City ${city} not found in environment stats array`);
-        res.sendStatus(404);
-    } else {
-        console.log(`City ${city} deleted from environment stats array`);
-        res.sendStatus(200);
-    }
-    console.log(`New DELETE to /environment-stats/${city}`);
-});
-app.put(BASE_API_URL + "/environment-stats", (req, res) => {
-    res.status(405).send('Method not Allowed');
-    console.log(`Error 405 Method not Allowed`);
-
-});
-app.post(BASE_API_URL + "/environment-stats/:city", (req, res) => {
-    res.status(405).send('Method not Allowed');
-    console.log(`Error 405 Method not Allowed`);
-
-});
 
 
 
@@ -348,7 +229,7 @@ app.put(BASE_API_URL + "/economy_stats/:territory", (req, res) => {
         economy_stats[statIndex] = {
             period: updatedStat.period || economy_stats[statIndex].period,
             territory: updatedStat.territory || economy_stats[statIndex].territory,
-            finished_house: updatedStat.finished_house|| economy_stats[statIndex].finished_house,
+            finished_house: updatedStat.finished_house || economy_stats[statIndex].finished_house,
             half_price_m_two: updatedStat.half_price_m_two || economy_stats[statIndex].half_price_m_two,
             tourist: updatedStat.tourist || economy_stats[statIndex].tourist
         };
@@ -383,18 +264,18 @@ app.put(BASE_API_URL + "/economy_stats", (req, res) => {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 // RAFA
 var employment_stats = [
-    {period:1998,province:"sevilla",population_over_16_years:1349525,activity_men_percentage:65.5,activity_women_percentage:36.3},
-    {period:1999,province:"granada",population_over_16_years:652275,activity_men_percentage:60.2,activity_women_percentage:35.3},
-    {period:2004,province:"jaen",population_over_16_years:527475,activity_men_percentage:64.3,activity_women_percentage:37.9},
-    {period:2006,province:"huelva",population_over_16_years:403650,activity_men_percentage:65.8,activity_women_percentage:40.0},
-    {period:2007,province:"malaga",population_over_16_years:1242900,activity_men_percentage:68.1,activity_women_percentage:47.0},
-    {period:2009,province:"cadiz",population_over_16_years:995375,activity_men_percentage:67.9,activity_women_percentage:45.6},
-    {period:2011,province:"almeria",population_over_16_years:557825,activity_men_percentage:71.5,activity_women_percentage:57.2},
-    {period:2012,province:"jaen",population_over_16_years:550700,activity_men_percentage:63.2,activity_women_percentage:46.0},
-    {period:2014,province:"sevilla",population_over_16_years:1571050,activity_men_percentage:65.6,activity_women_percentage:53.8},
-    {period:2014,province:"almeria",population_over_16_years:587775,activity_men_percentage:69.2,activity_women_percentage:53.6}
+    { period: 1998, province: "sevilla", population_over_16_years: 1349525, activity_men_percentage: 65.5, activity_women_percentage: 36.3 },
+    { period: 1999, province: "granada", population_over_16_years: 652275, activity_men_percentage: 60.2, activity_women_percentage: 35.3 },
+    { period: 2004, province: "jaen", population_over_16_years: 527475, activity_men_percentage: 64.3, activity_women_percentage: 37.9 },
+    { period: 2006, province: "huelva", population_over_16_years: 403650, activity_men_percentage: 65.8, activity_women_percentage: 40.0 },
+    { period: 2007, province: "malaga", population_over_16_years: 1242900, activity_men_percentage: 68.1, activity_women_percentage: 47.0 },
+    { period: 2009, province: "cadiz", population_over_16_years: 995375, activity_men_percentage: 67.9, activity_women_percentage: 45.6 },
+    { period: 2011, province: "almeria", population_over_16_years: 557825, activity_men_percentage: 71.5, activity_women_percentage: 57.2 },
+    { period: 2012, province: "jaen", population_over_16_years: 550700, activity_men_percentage: 63.2, activity_women_percentage: 46.0 },
+    { period: 2014, province: "sevilla", population_over_16_years: 1571050, activity_men_percentage: 65.6, activity_women_percentage: 53.8 },
+    { period: 2014, province: "almeria", population_over_16_years: 587775, activity_men_percentage: 69.2, activity_women_percentage: 53.6 }
 ];
-app.get(BASE_API_URL + "/employment_stats/loadInitialData",(request,response)=>{
+app.get(BASE_API_URL + "/employment_stats/loadInitialData", (request, response) => {
     response.json(employment_stats);
     console.log("Get to employment_stats/loadInitialData")
 });
@@ -408,17 +289,17 @@ app.get(BASE_API_URL + "/employment_stats/:province", (request, response) => {
     response.json(employmentStats);
     console.log(`New GET to /economy_stats/${province}`);
 });
-app.post(BASE_API_URL + "/employment_stats",(req, res) => {
+app.post(BASE_API_URL + "/employment_stats", (req, res) => {
     var newStat = req.body; //guardamos los valores que envia el formulario.
     console.log(`new_stat = <${JSON.stringify(newStat, null, 2)}>`); // con stringify convertimos en string
 
     const statIndex = employment_stats.findIndex( //findIndex devuelve el indice del primer elemento 
         (propiedades) =>                                 //que cumpla las condiciones que se indican
-        propiedades.period === newStat.period &&         //en caso contrario devolvera -1.  
-        propiedades.province.toLowerCase() === newStat.province.toLowerCase() &&
-        propiedades.population_over_16_years === newStat.population_over_16_years &&
-        propiedades.activity_men_percentage === newStat.activity_men_percentage &&
-        propiedades.activity_women_percentage === newStat.activity_women_percentage
+            propiedades.period === newStat.period &&         //en caso contrario devolvera -1.  
+            propiedades.province.toLowerCase() === newStat.province.toLowerCase() &&
+            propiedades.population_over_16_years === newStat.population_over_16_years &&
+            propiedades.activity_men_percentage === newStat.activity_men_percentage &&
+            propiedades.activity_women_percentage === newStat.activity_women_percentage
     );
 
     if (statIndex !== -1) {
@@ -450,7 +331,7 @@ app.post(BASE_API_URL + "/employment_stats",(req, res) => {
             employment_stats[statIndex] = {
                 period: updatedStat.period || employment_stats[statIndex].period,
                 province: updatedStat.province || employment_stats[statIndex].province,
-                population_over_16_years: updatedStat.population_over_16_years|| employment_stats[statIndex].population_over_16_years,
+                population_over_16_years: updatedStat.population_over_16_years || employment_stats[statIndex].population_over_16_years,
                 activity_men_percentage: updatedStat.activity_men_percentage || employment_stats[statIndex].activity_men_percentage,
                 activity_women_percentage: updatedStat.activity_women_percentage || employment_stats[statIndex].activity_women_percentage
             };
@@ -459,7 +340,7 @@ app.post(BASE_API_URL + "/employment_stats",(req, res) => {
         }
         console.log("New PUT to /employment_stats/:province");
     });
-    
+
     app.delete(BASE_API_URL + "/employment_stats/:province", (req, res) => {
         const city = stripAccents(req.params.province.toLowerCase());
         const originalLength = employment_stats.length;
@@ -479,8 +360,10 @@ app.post(BASE_API_URL + "/employment_stats",(req, res) => {
     app.put(BASE_API_URL + "/employment_stats", (req, res) => {
         res.status(405).send('Method not Allowed');
         console.log(`Error 405 Method not Allowed`);
-    
+
     });
 
 });
- 
+
+
+
