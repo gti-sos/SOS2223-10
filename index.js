@@ -408,6 +408,9 @@ app.get(BASE_API_URL + "/employment_stats/:province", (request, response) => {
     response.json(employmentStats);
     console.log(`New GET to /economy_stats/${province}`);
 });
+
+
+
 app.post(BASE_API_URL + "/employment_stats",(req, res) => {
     var newStat = req.body; //guardamos los valores que envia el formulario.
     console.log(`new_stat = <${JSON.stringify(newStat, null, 2)}>`); // con stringify convertimos en string
@@ -420,18 +423,17 @@ app.post(BASE_API_URL + "/employment_stats",(req, res) => {
         propiedades.activity_men_percentage === newStat.activity_men_percentage &&
         propiedades.activity_women_percentage === newStat.activity_women_percentage
     );
-
-    if (statIndex !== -1) {
-        // If stat exists Conflict 409
-        console.log(`Conflict: employment stat with same properties already exists`);
-        res.sendStatus(409);
-    } else {
-        // If stat doesn´t exist Status 201
-        environment_stats.push(newStat);
-        console.log("Employment stat added to array");
-        res.sendStatus(201);
-    }
-    console.log("New POST to /employment_stats");
+        if (statIndex !== -1 ) {
+            // If stat exists Conflict 409
+            console.log(`Conflict: employment stat with same properties already exists`);
+            res.sendStatus(409);
+        } else {
+            // If stat doesn´t exist Status 201
+            environment_stats.push(newStat);
+            console.log("Employment stat added to array");
+            res.sendStatus(201);
+        }
+        console.log("New POST to /employment_stats");
 
     app.put(BASE_API_URL + "/employment_stats/:province", (req, res) => {
         const province = stripAccents(req.params.province.toLowerCase());
@@ -476,11 +478,13 @@ app.post(BASE_API_URL + "/employment_stats",(req, res) => {
         }
         console.log(`New DELETE to /employment-stats/${province}`);
     });
+    /*
     app.put(BASE_API_URL + "/employment_stats", (req, res) => {
         res.status(405).send('Method not Allowed');
         console.log(`Error 405 Method not Allowed`);
     
     });
+    */
 
 });
  
