@@ -182,6 +182,11 @@ app.post(BASE_API_URL + "/economy_stats", (req, res) => {
         // If stat exists Conflict 409
         console.log(`Conflict: economy stat with same properties already exists`);
         res.sendStatus(409);
+    
+    } else if(newStat.length !== 5){
+        console.log(`Conflict: El numero de campos es incorrecto`);
+        res.sendStatus(400);
+
     } else {
         // If stat doesn´t exist Status 201
         economy_stats.push(newStat);
@@ -220,10 +225,16 @@ app.put(BASE_API_URL + "/economy_stats/:territory", (req, res) => {
         (stat) =>
             stripAccents(stat.territory.toLowerCase()) === stripAccents(territory.toLowerCase())
     );
+
+    if (updatedStat.territory && stripAccents(updatedStat.territory.toLowerCase()) !== stripAccents(territory.toLowerCase())) {
+        return res.status(400).send('Ciudad en body no es el mismo que URL');
+    }
+
     if (statIndex === -1) {
         // Si el objeto no existe Not Found 404
         console.log(`Economy stat with city ${territory} not found`);
         res.sendStatus(404);
+
     } else {
         // Si el objeto existe, actualizar sus propiedades
         economy_stats[statIndex] = {
@@ -256,6 +267,10 @@ app.delete(BASE_API_URL + "/economy_stats/:territory", (req, res) => {
     console.log(`New DELETE to /economy_stats/${territory}`);
 });
 app.put(BASE_API_URL + "/economy_stats", (req, res) => {
+    res.status(405).send('Method not Allowed');
+    console.log(`Error 405 Method not Allowed`);
+});
+app.post(BASE_API_URL + "/environment-stats/:city", (req, res) => {
     res.status(405).send('Method not Allowed');
     console.log(`Error 405 Method not Allowed`);
 
@@ -306,6 +321,12 @@ app.post(BASE_API_URL + "/employment_stats", (req, res) => {
         // If stat exists Conflict 409
         console.log(`Conflict: employment stat with same properties already exists`);
         res.sendStatus(409);
+    
+    }
+    else if(newStat.length !== 5){
+        console.log(`Conflict: El numero de campos es incorrecto`);
+        res.sendStatus(400);
+
     } else {
         // If stat doesn´t exist Status 201
         environment_stats.push(newStat);
@@ -313,6 +334,7 @@ app.post(BASE_API_URL + "/employment_stats", (req, res) => {
         res.sendStatus(201);
     }
     console.log("New POST to /employment_stats");
+});
 
     app.put(BASE_API_URL + "/employment_stats/:province", (req, res) => {
         const province = stripAccents(req.params.province.toLowerCase());
@@ -322,6 +344,9 @@ app.post(BASE_API_URL + "/employment_stats", (req, res) => {
             (stat) =>
                 stripAccents(stat.province.toLowerCase()) === stripAccents(province.toLowerCase())
         );
+        if (updatedStat.province && stripAccents(updatedStat.province.toLowerCase()) !== stripAccents(province.toLowerCase())) {
+            return res.status(400).send('Ciudad en body no es el mismo que URL');
+        }
         if (statIndex === -1) {
             // Si el objeto no existe Not Found 404
             console.log(`employment stat with province ${province} not found`);
@@ -363,7 +388,13 @@ app.post(BASE_API_URL + "/employment_stats", (req, res) => {
 
     });
 
-});
+    app.post(BASE_API_URL + "/environment-stats/:province", (req, res) => {
+        res.status(405).send('Method not Allowed');
+        console.log(`Error 405 Method not Allowed`);
+    
+    });
+
+
 
 
 
