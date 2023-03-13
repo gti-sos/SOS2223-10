@@ -11,6 +11,20 @@ const { BASE_API_URL } = require('./Module-RPP/api-RPP');
 /////////////////////////////////////////////////////////////////////////
 
 
+/////Modulo Joaquin
+
+
+//const { express } = require('./Module-JRM/api-JRM');
+//const { cool } = require('./Module-JRM/api-JRM');
+//const { bodyParser } = require('./Module-JRM/api-JRM');
+//const { app } = require('./Module-JRM/api-JRM');
+//const { port } = require('./Module-JRM/api-JRM');
+//const { economy_stats } = require('./Module-JRM/api-JRM');
+//const { BASE_API_URL } = require('./Module-JRM/api-JRM');
+
+/////////////////////////////////////////////////////////////////////////
+
+
 //var express = require("express");
 //var bodyParser = require("body-parser");
 
@@ -141,6 +155,7 @@ app.get("/samples/JRM", (request, response) => {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Joaquin
+
 var economy_stats = [
     { period: 1999, territory: "Jaén", finished_house: 3704, half_price_m_two: 440, tourist: 857295 },
     { period: 1998, territory: "Sevilla", finished_house: 7176, half_price_m_two: 534, tourist: 1247438 },
@@ -270,11 +285,12 @@ app.put(BASE_API_URL + "/economy_stats", (req, res) => {
     res.status(405).send('Method not Allowed');
     console.log(`Error 405 Method not Allowed`);
 });
-app.post(BASE_API_URL + "/environment-stats/:city", (req, res) => {
+app.post(BASE_API_URL + "/economy_stats/:territory", (req, res) => {
     res.status(405).send('Method not Allowed');
     console.log(`Error 405 Method not Allowed`);
 
 });
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 // RAFA
@@ -316,18 +332,18 @@ app.post(BASE_API_URL + "/employment_stats", (req, res) => {
             propiedades.activity_men_percentage === newStat.activity_men_percentage &&
             propiedades.activity_women_percentage === newStat.activity_women_percentage
     );
+    if (!newStat.period || !newStat.province || !newStat.population_over_16_years || !newStat.activity_men_percentage || !newStat.activity_women_percentage) {
+        console.log("Bad Request: missing required fields");
+        res.sendStatus(400);
+        return;
+    }
 
     if (statIndex !== -1) {
         // If stat exists Conflict 409
         console.log(`Conflict: employment stat with same properties already exists`);
         res.sendStatus(409);
     
-    }
-    else if(newStat.length !== 5){
-        console.log(`Conflict: El numero de campos es incorrecto`);
-        res.sendStatus(400);
-
-    } else {
+    }else {
         // If stat doesn´t exist Status 201
         environment_stats.push(newStat);
         console.log("Employment stat added to array");
