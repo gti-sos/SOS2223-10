@@ -308,21 +308,21 @@ var employment_stats = [
     { period: 2014, province: "sevilla", population_over_16_years: 1571050, activity_men_percentage: 65.6, activity_women_percentage: 53.8 },
     { period: 2014, province: "almeria", population_over_16_years: 587775, activity_men_percentage: 69.2, activity_women_percentage: 53.6 }
 ];
-app.get(BASE_API_URL + "/employment_stats/loadInitialData", (request, response) => {
+app.get(BASE_API_URL + "/employment-stats/loadInitialData", (request, response) => {
     response.json(employment_stats);
-    console.log("Get to employment_stats/loadInitialData")
+    console.log("Get to employment-stats/loadInitialData")
 });
-app.get(BASE_API_URL + "/employment_stats", (request, response) => {
+app.get(BASE_API_URL + "/employment-stats", (request, response) => {
     response.json(employment_stats);
-    console.log("New GET to /employment_stats")
+    console.log("New GET to /employment-stats")
 });
-app.get(BASE_API_URL + "/employment_stats/:province", (request, response) => {
+app.get(BASE_API_URL + "/employment-stats/:province", (request, response) => {
     const province = stripAccents(request.params.province.toLowerCase());
     const employmentStats = employment_stats.filter((stat) => stripAccents(stat.province.toLowerCase()) === province);
     response.json(employmentStats);
     console.log(`New GET to /economy_stats/${province}`);
 });
-app.post(BASE_API_URL + "/employment_stats", (req, res) => {
+app.post(BASE_API_URL + "/employment-stats", (req, res) => {
     var newStat = req.body; //guardamos los valores que envia el formulario.
     console.log(`new_stat = <${JSON.stringify(newStat, null, 2)}>`); // con stringify convertimos en string
 
@@ -351,10 +351,10 @@ app.post(BASE_API_URL + "/employment_stats", (req, res) => {
         console.log("Employment stat added to array");
         res.sendStatus(201);
     }
-    console.log("New POST to /employment_stats");
+    console.log("New POST to /employment-stats");
 });
 
-    app.put(BASE_API_URL + "/employment_stats/:province", (req, res) => {
+    app.put(BASE_API_URL + "/employment-stats/:province", (req, res) => {
         const province = stripAccents(req.params.province.toLowerCase());
         const updatedStat = req.body;
         console.log(`new_stat = <${JSON.stringify(updatedStat, null, 2)}>`);
@@ -372,22 +372,22 @@ app.post(BASE_API_URL + "/employment_stats", (req, res) => {
         } else {
             // Si el objeto existe, actualizar sus propiedades
             employment_stats[statIndex] = {
-                period: updatedStat.period || employment_stats[statIndex].period,
-                province: updatedStat.province || employment_stats[statIndex].province,
-                population_over_16_years: updatedStat.population_over_16_years || employment_stats[statIndex].population_over_16_years,
-                activity_men_percentage: updatedStat.activity_men_percentage || employment_stats[statIndex].activity_men_percentage,
-                activity_women_percentage: updatedStat.activity_women_percentage || employment_stats[statIndex].activity_women_percentage
+                period: updatedStat.period || employment-stats[statIndex].period,
+                province: updatedStat.province || employment-stats[statIndex].province,
+                population_over_16_years: updatedStat.population_over_16_years || employment-stats[statIndex].population_over_16_years,
+                activity_men_percentage: updatedStat.activity_men_percentage || employment-stats[statIndex].activity_men_percentage,
+                activity_women_percentage: updatedStat.activity_women_percentage || employment-stats[statIndex].activity_women_percentage
             };
             console.log(`employment stat with city ${province} updated`);
             res.sendStatus(200);
         }
-        console.log("New PUT to /employment_stats/:province");
+        console.log("New PUT to /employment-stats/:province");
     });
 
-    app.delete(BASE_API_URL + "/employment_stats/:province", (req, res) => {
+    app.delete(BASE_API_URL + "/employment-stats/:province", (req, res) => {
         const city = stripAccents(req.params.province.toLowerCase());
         const originalLength = employment_stats.length;
-        environment_stats = employment_stats.filter((stat) => {
+        environment_stats = employment-stats.filter((stat) => {
             return stripAccents(stat.province.toLowerCase()) !== province;
         });
         const newLength = employment_stats.length;
@@ -400,7 +400,7 @@ app.post(BASE_API_URL + "/employment_stats", (req, res) => {
         }
         console.log(`New DELETE to /employment-stats/${province}`);
     });
-    app.put(BASE_API_URL + "/employment_stats", (req, res) => {
+    app.put(BASE_API_URL + "/employment-stats", (req, res) => {
         res.status(405).send('Method not Allowed');
         console.log(`Error 405 Method not Allowed`);
 
