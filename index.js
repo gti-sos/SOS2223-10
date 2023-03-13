@@ -305,7 +305,7 @@ app.delete(BASE_API_URL + "/economy-stats/:territory", (req, res) => {
     }
     console.log(`New DELETE to /economy-stats/${territory}`);
 });
-app.put(BASE_API_URL + "/economy_stats", (req, res) => {
+app.put(BASE_API_URL + "/economy-stats", (req, res) => {
     res.status(405).send('Method not Allowed');
     console.log(`Error 405 Method not Allowed`);
 });
