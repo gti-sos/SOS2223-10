@@ -1,3 +1,5 @@
+
+
 /////Modulo Rushabh
 
 
@@ -13,28 +15,26 @@ const { BASE_API_URL } = require('./Module-RPP/api-RPP');
 
 /////Modulo Joaquin
 
-
-//const { express } = require('./Module-JRM/api-JRM');
-//const { cool } = require('./Module-JRM/api-JRM');
-//const { bodyParser } = require('./Module-JRM/api-JRM');
-//const { app } = require('./Module-JRM/api-JRM');
-//const { port } = require('./Module-JRM/api-JRM');
 //const { economy_stats } = require('./Module-JRM/api-JRM');
-//const { BASE_API_URL } = require('./Module-JRM/api-JRM');
+
+
+
+
+
 
 /////////////////////////////////////////////////////////////////////////
 
+/*
+var express = require("express");
+var bodyParser = require("body-parser");
 
-//var express = require("express");
-//var bodyParser = require("body-parser");
-
-//var cool = require("cool-ascii-faces");
-//const { request, response } = require("express");
-//const BASE_API_URL = "/api/v1";
-//var app = express();
-//var port = process.env.PORT || 12345;
-//app.use(bodyParser.json());
-
+var cool = require("cool-ascii-faces");
+const { request, response } = require("express");
+const BASE_API_URL = "/api/v1";
+var app = express();
+var port = process.env.PORT || 12345;
+app.use(bodyParser.json());
+*/
 
 app.get("/cool", (request, response) => {
     response.send(cool());
@@ -169,16 +169,30 @@ var economy_stats = [
     { period: 2013, territory: "Cordoba", finished_house: 1384, half_price_m_two: 1202, tourist: 1333216 },
 ];
 
-app.get(BASE_API_URL + "/economy_stats/loadInitialData", (request, response) => {
+app.get(BASE_API_URL + "/economy-stats/loadInitialData", (request, response) => {
+
+    if(economy_stats.length===0) {
+        economy_stats.push({ period: 1999, territory: "Jaén", finished_house: 3704, half_price_m_two: 440, tourist: 857295 },
+        { period: 1998, territory: "Sevilla", finished_house: 7176, half_price_m_two: 534, tourist: 1247438 },
+        { period: 2000, territory: "Cádiz", finished_house: 13501, half_price_m_two: 644, tourist: 2682429 },
+        { period: 2000, territory: "Granada", finished_house: 3672, half_price_m_two: 644, tourist: 2228642 },
+        { period: 2008, territory: "Almería", finished_house: 16746, half_price_m_two: 1674, tourist: 2225479 },
+        { period: 2011, territory: "Sevilla", finished_house: 6667, half_price_m_two: 1576, tourist: 2732934 },
+        { period: 2012, territory: "Malaga", finished_house: 3797, half_price_m_two: 1618, tourist: 7073502 },
+        { period: 2012, territory: "Sevilla", finished_house: 6313, half_price_m_two: 1414, tourist: 2673617 },
+        { period: 2013, territory: "Sevilla", finished_house: 2790, half_price_m_two: 1296, tourist: 2616499 },
+        { period: 2013, territory: "Cordoba", finished_house: 1384, half_price_m_two: 1202, tourist: 1333216 } )
+    }
     response.json(economy_stats);
-    console.log("New GET to /economy_stats")
+    console.log("New GET to /economy-stats")
+
 });
-app.get(BASE_API_URL + "/economy_stats", (request, response) => {
+app.get(BASE_API_URL + "/economy-stats", (request, response) => {
     response.json(economy_stats);
-    console.log("New GET to /economy_stats")
+    console.log("New GET to /economy-stats")
 });
 
-app.post(BASE_API_URL + "/economy_stats", (req, res) => {
+app.post(BASE_API_URL + "/economy-stats", (req, res) => {
 
 
     var newStat = req.body;
@@ -212,11 +226,11 @@ app.post(BASE_API_URL + "/economy_stats", (req, res) => {
     }
 
 
-    console.log("New POST to /economy_stats");
+    console.log("New POST to /economy-stats");
 
 
 });
-app.delete(BASE_API_URL + "/economy_stats", (req, res) => {
+app.delete(BASE_API_URL + "/economy-stats", (req, res) => {
     economy_stats = []; // eliminar todos los elementos de la matriz
     console.log("All economy stats deleted");
     res.sendStatus(204); // enviar respuesta con código de estado 204
@@ -227,14 +241,22 @@ function stripAccents(text) {
     return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 }
 
-app.get(BASE_API_URL + "/economy_stats/:territory", (request, response) => {
+app.get(BASE_API_URL + "/economy-stats/:territory", (request, response) => {
     const territory = stripAccents(request.params.territory.toLowerCase());
     const territoryStats = economy_stats.filter((stat) => stripAccents(stat.territory.toLowerCase()) === territory);
-    response.json(territoryStats);
-    console.log(`New GET to /economy_stats/${territory}`);
+    //response.json(territoryStats);
+    console.log(`New GET to /economy-stats/${territory}`);
+
+    if (territoryStats.length === 0) {
+        console.log(`economy stats for territory ${territory} not found`);
+        response.sendStatus(404);
+    } else {
+        response.json(territoryStats);
+        console.log(`New GET to /economy-stats/${territory}`);
+    }
 });
 
-app.put(BASE_API_URL + "/economy_stats/:territory", (req, res) => {
+app.put(BASE_API_URL + "/economy-stats/:territory", (req, res) => {
     const territory = stripAccents(req.params.territory.toLowerCase());
     const updatedStat = req.body;
     console.log(`new_stat = <${JSON.stringify(updatedStat, null, 2)}>`);
@@ -264,10 +286,10 @@ app.put(BASE_API_URL + "/economy_stats/:territory", (req, res) => {
         console.log(`economy stat with city ${territory} updated`);
         res.sendStatus(200);
     }
-    console.log("New PUT to /economy_stats/:territory");
+    console.log("New PUT to /economy-stats/:territory");
 });
 
-app.delete(BASE_API_URL + "/economy_stats/:territory", (req, res) => {
+app.delete(BASE_API_URL + "/economy-stats/:territory", (req, res) => {
     const territory = stripAccents(req.params.territory.toLowerCase());
     const originalLength = economy_stats.length;
     economy_stats = economy_stats.filter((stat) => {
@@ -281,13 +303,13 @@ app.delete(BASE_API_URL + "/economy_stats/:territory", (req, res) => {
         console.log(`Territory ${territory} deleted from economy stats array`);
         res.sendStatus(200);
     }
-    console.log(`New DELETE to /economy_stats/${territory}`);
+    console.log(`New DELETE to /economy-stats/${territory}`);
 });
 app.put(BASE_API_URL + "/economy_stats", (req, res) => {
     res.status(405).send('Method not Allowed');
     console.log(`Error 405 Method not Allowed`);
 });
-app.post(BASE_API_URL + "/economy_stats/:territory", (req, res) => {
+app.post(BASE_API_URL + "/economy-stats/:territory", (req, res) => {
     res.status(405).send('Method not Allowed');
     console.log(`Error 405 Method not Allowed`);
 
