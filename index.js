@@ -184,6 +184,12 @@ app.post(BASE_API_URL + "/economy_stats", (req, res) => {
     var newStat = req.body;
     console.log(`new_stat = <${JSON.stringify(newStat, null, 2)}>`);
 
+    if (!newStat.period || !newStat.territory || !newStat.finished_house || !newStat.half_price_m_two|| !newStat.tourist) {
+        console.log("Bad Request: missing required fields");
+        res.sendStatus(400);
+        return;
+    }
+
     const statIndex = economy_stats.findIndex(
         (stat) =>
             stat.period === newStat.period &&
@@ -198,10 +204,6 @@ app.post(BASE_API_URL + "/economy_stats", (req, res) => {
         console.log(`Conflict: economy stat with same properties already exists`);
         res.sendStatus(409);
     
-    } else if(newStat.length !== 5){
-        console.log(`Conflict: El numero de campos es incorrecto`);
-        res.sendStatus(400);
-
     } else {
         // If stat doesn´t exist Status 201
         economy_stats.push(newStat);
