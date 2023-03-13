@@ -356,18 +356,18 @@ app.post(BASE_API_URL + "/employment_stats", (req, res) => {
             propiedades.activity_men_percentage === newStat.activity_men_percentage &&
             propiedades.activity_women_percentage === newStat.activity_women_percentage
     );
+    if (!newStat.period || !newStat.province || !newStat.population_over_16_years || !newStat.activity_men_percentage || !newStat.activity_women_percentage) {
+        console.log("Bad Request: missing required fields");
+        res.sendStatus(400);
+        return;
+    }
 
     if (statIndex !== -1) {
         // If stat exists Conflict 409
         console.log(`Conflict: employment stat with same properties already exists`);
         res.sendStatus(409);
     
-    }
-    else if(newStat.length !== 5){
-        console.log(`Conflict: El numero de campos es incorrecto`);
-        res.sendStatus(400);
-
-    } else {
+    }else {
         // If stat doesn´t exist Status 201
         environment_stats.push(newStat);
         console.log("Employment stat added to array");
