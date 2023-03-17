@@ -385,9 +385,9 @@ app.post(BASE_API_URL + "/employment-stats", (req, res) => {
     });
 
     app.delete(BASE_API_URL + "/employment-stats/:province", (req, res) => {
-        const city = stripAccents(req.params.province.toLowerCase());
+        const province = stripAccents(req.params.province.toLowerCase());
         const originalLength = employment_stats.length;
-        environment_stats = employment-stats.filter((stat) => {
+        environment_stats = employment_stats.filter((stat) => {
             return stripAccents(stat.province.toLowerCase()) !== province;
         });
         const newLength = employment_stats.length;
