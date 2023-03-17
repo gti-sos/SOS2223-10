@@ -1,5 +1,4 @@
-/*
-var express = require("express");
+/*var express = require("express");
 var bodyParser = require("body-parser");
 
 var cool = require("cool-ascii-faces");
@@ -10,10 +9,6 @@ var port = process.env.PORT || 12345;
 app.use(bodyParser.json());
 
 
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Joaquin
 var economy_stats = [
     { period: 1999, territory: "Jaén", finished_house: 3704, half_price_m_two: 440, tourist: 857295 },
     { period: 1998, territory: "Sevilla", finished_house: 7176, half_price_m_two: 534, tourist: 1247438 },
@@ -55,8 +50,8 @@ app.post(BASE_API_URL + "/economy_stats", (req, res) => {
         // If stat exists Conflict 409
         console.log(`Conflict: economy stat with same properties already exists`);
         res.sendStatus(409);
-    
-    } else if(newStat.length !== 5){
+
+    } else if (newStat.length !== 5) {
         console.log(`Conflict: El numero de campos es incorrecto`);
         res.sendStatus(400);
 
