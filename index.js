@@ -1,4 +1,5 @@
-
+var Datastore = require('nedb');
+var db = new Datastore();
 
 /////Modulo Rushabh
 
@@ -12,6 +13,8 @@ const { environment_stats } = require('./Module-RPP/api-RPP');
 const { BASE_API_URL } = require('./Module-RPP/api-RPP');
 /////////////////////////////////////////////////////////////////////////
 
+app.use("/",express.static("./public"));
+app.use(bodyParser.json());
 
 /////Modulo Joaquin
 
@@ -24,16 +27,17 @@ const { BASE_API_URL } = require('./Module-RPP/api-RPP');
 
 /////////////////////////////////////////////////////////////////////////
 
+
 /*
-var express = require("express");
 var bodyParser = require("body-parser");
 
 var cool = require("cool-ascii-faces");
 const { request, response } = require("express");
-const BASE_API_URL = "/api/v1";
-var app = express();
+const backend = require('./backend');
+const BASE_API_URL = "/api/v1"; 
 var port = process.env.PORT || 12345;
 app.use(bodyParser.json());
+backend(app);
 */
 
 app.get("/cool", (request, response) => {
@@ -318,6 +322,7 @@ app.post(BASE_API_URL + "/economy-stats/:territory", (req, res) => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 // RAFA
+var vacio =[ ]
 var employment_stats = [
     { period: 1998, province: "sevilla", population_over_16_years: 1349525, activity_men_percentage: 65.5, activity_women_percentage: 36.3 },
     { period: 1999, province: "granada", population_over_16_years: 652275, activity_men_percentage: 60.2, activity_women_percentage: 35.3 },
@@ -330,13 +335,15 @@ var employment_stats = [
     { period: 2014, province: "sevilla", population_over_16_years: 1571050, activity_men_percentage: 65.6, activity_women_percentage: 53.8 },
     { period: 2014, province: "almeria", population_over_16_years: 587775, activity_men_percentage: 69.2, activity_women_percentage: 53.6 }
 ];
+db.insert(employment_stats); 
+//Get de contenedor vacío
+app.get(BASE_API_URL + "/employment-stats", (request, response) => {
+    response.json(vacio);
+    console.log("New GET to /employment-stats")
+});
 app.get(BASE_API_URL + "/employment-stats/loadInitialData", (request, response) => {
     response.json(employment_stats);
     console.log("Get to employment-stats/loadInitialData")
-});
-app.get(BASE_API_URL + "/employment-stats", (request, response) => {
-    response.json(employment_stats);
-    console.log("New GET to /employment-stats")
 });
 app.get(BASE_API_URL + "/employment-stats/:province", (request, response) => {
     const province = stripAccents(request.params.province.toLowerCase());
@@ -375,7 +382,7 @@ app.post(BASE_API_URL + "/employment-stats", (req, res) => {
     }
     console.log("New POST to /employment-stats");
 });
-
+    //actualizar un dato dando la provincia
     app.put(BASE_API_URL + "/employment-stats/:province", (req, res) => {
         const province = stripAccents(req.params.province.toLowerCase());
         const updatedStat = req.body;
@@ -405,11 +412,11 @@ app.post(BASE_API_URL + "/employment-stats", (req, res) => {
         }
         console.log("New PUT to /employment-stats/:province");
     });
-
+    //Borrar un dato dando la provincia
     app.delete(BASE_API_URL + "/employment-stats/:province", (req, res) => {
         const province = stripAccents(req.params.province.toLowerCase());
         const originalLength = employment_stats.length;
-        environment_stats = employment_stats.filter((stat) => {
+        employment_stats = employment_stats.filter((stat) => {
             return stripAccents(stat.province.toLowerCase()) !== province;
         });
         const newLength = employment_stats.length;
@@ -433,3 +440,4 @@ app.post(BASE_API_URL + "/employment-stats", (req, res) => {
         console.log(`Error 405 Method not Allowed`);
     
     });
+    app.use("/",express.static("./public")); 
