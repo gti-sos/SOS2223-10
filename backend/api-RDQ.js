@@ -1,3 +1,4 @@
+/*
 const BASE_API_URL = "/api/v1";
 module.exports = (app) =>{
     var vacio =[ ]
@@ -120,3 +121,4 @@ app.post(BASE_API_URL + "/employment-stats", (req, res) => {
 
     
 }
+*/

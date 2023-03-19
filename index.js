@@ -1,3 +1,5 @@
+const { json } = require('body-parser');
+const { request, response } = require('express');
 var Datastore = require('nedb');
 var db = new Datastore();
 
@@ -13,7 +15,7 @@ const { environment_stats } = require('./Module-RPP/api-RPP');
 const { BASE_API_URL } = require('./Module-RPP/api-RPP');
 /////////////////////////////////////////////////////////////////////////
 
-app.use("/",express.static("./public"));
+app.use("/", express.static("./public"));
 app.use(bodyParser.json());
 
 /////Modulo Joaquin
@@ -175,17 +177,17 @@ var economy_stats = [
 
 app.get(BASE_API_URL + "/economy-stats/loadInitialData", (request, response) => {
 
-    if(economy_stats.length===0) {
+    if (economy_stats.length === 0) {
         economy_stats.push({ period: 1999, territory: "Jaén", finished_house: 3704, half_price_m_two: 440, tourist: 857295 },
-        { period: 1998, territory: "Sevilla", finished_house: 7176, half_price_m_two: 534, tourist: 1247438 },
-        { period: 2000, territory: "Cádiz", finished_house: 13501, half_price_m_two: 644, tourist: 2682429 },
-        { period: 2000, territory: "Granada", finished_house: 3672, half_price_m_two: 644, tourist: 2228642 },
-        { period: 2008, territory: "Almería", finished_house: 16746, half_price_m_two: 1674, tourist: 2225479 },
-        { period: 2011, territory: "Sevilla", finished_house: 6667, half_price_m_two: 1576, tourist: 2732934 },
-        { period: 2012, territory: "Malaga", finished_house: 3797, half_price_m_two: 1618, tourist: 7073502 },
-        { period: 2012, territory: "Sevilla", finished_house: 6313, half_price_m_two: 1414, tourist: 2673617 },
-        { period: 2013, territory: "Sevilla", finished_house: 2790, half_price_m_two: 1296, tourist: 2616499 },
-        { period: 2013, territory: "Cordoba", finished_house: 1384, half_price_m_two: 1202, tourist: 1333216 } )
+            { period: 1998, territory: "Sevilla", finished_house: 7176, half_price_m_two: 534, tourist: 1247438 },
+            { period: 2000, territory: "Cádiz", finished_house: 13501, half_price_m_two: 644, tourist: 2682429 },
+            { period: 2000, territory: "Granada", finished_house: 3672, half_price_m_two: 644, tourist: 2228642 },
+            { period: 2008, territory: "Almería", finished_house: 16746, half_price_m_two: 1674, tourist: 2225479 },
+            { period: 2011, territory: "Sevilla", finished_house: 6667, half_price_m_two: 1576, tourist: 2732934 },
+            { period: 2012, territory: "Malaga", finished_house: 3797, half_price_m_two: 1618, tourist: 7073502 },
+            { period: 2012, territory: "Sevilla", finished_house: 6313, half_price_m_two: 1414, tourist: 2673617 },
+            { period: 2013, territory: "Sevilla", finished_house: 2790, half_price_m_two: 1296, tourist: 2616499 },
+            { period: 2013, territory: "Cordoba", finished_house: 1384, half_price_m_two: 1202, tourist: 1333216 })
     }
     response.json(economy_stats);
     console.log("New GET to /economy-stats")
@@ -202,7 +204,7 @@ app.post(BASE_API_URL + "/economy-stats", (req, res) => {
     var newStat = req.body;
     console.log(`new_stat = <${JSON.stringify(newStat, null, 2)}>`);
 
-    if (!newStat.period || !newStat.territory || !newStat.finished_house || !newStat.half_price_m_two|| !newStat.tourist) {
+    if (!newStat.period || !newStat.territory || !newStat.finished_house || !newStat.half_price_m_two || !newStat.tourist) {
         console.log("Bad Request: missing required fields");
         res.sendStatus(400);
         return;
@@ -221,7 +223,7 @@ app.post(BASE_API_URL + "/economy-stats", (req, res) => {
         // If stat exists Conflict 409
         console.log(`Conflict: economy stat with same properties already exists`);
         res.sendStatus(409);
-    
+
     } else {
         // If stat doesn´t exist Status 201
         economy_stats.push(newStat);
@@ -322,7 +324,7 @@ app.post(BASE_API_URL + "/economy-stats/:territory", (req, res) => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 // RAFA
-var vacio =[ ]
+var vacio = []
 var employment_stats = [
     { period: 1998, province: "sevilla", population_over_16_years: 1349525, activity_men_percentage: 65.5, activity_women_percentage: 36.3 },
     { period: 1999, province: "granada", population_over_16_years: 652275, activity_men_percentage: 60.2, activity_women_percentage: 35.3 },
@@ -335,10 +337,10 @@ var employment_stats = [
     { period: 2014, province: "sevilla", population_over_16_years: 1571050, activity_men_percentage: 65.6, activity_women_percentage: 53.8 },
     { period: 2014, province: "almeria", population_over_16_years: 587775, activity_men_percentage: 69.2, activity_women_percentage: 53.6 }
 ];
-db.insert(employment_stats); 
+
 //Get de contenedor vacío
 app.get(BASE_API_URL + "/employment-stats", (request, response) => {
-    response.json(vacio);
+    response.json(employment_stats);
     console.log("New GET to /employment-stats")
 });
 app.get(BASE_API_URL + "/employment-stats/loadInitialData", (request, response) => {
@@ -351,6 +353,21 @@ app.get(BASE_API_URL + "/employment-stats/:province", (request, response) => {
     response.json(employmentStats);
     console.log(`New GET to /economy_stats/${province}`);
 });
+app.get(BASE_API_URL + "/employment-stats/:province", (request, response) => {
+    const province = stripAccents(request.params.province.toLowerCase());
+    const provinceStats = employment_stats.filter((stat) => stripAccents(stat.province.toLowerCase()) === province);
+    //response.json(territoryStats);
+    console.log(`New GET to /economy-stats/${province}`);
+
+    if (provinceStats.length === 0) {
+        console.log(`economy stats for territory ${province} not found`);
+        response.sendStatus(404);
+    } else {
+        response.json(provinceStats);
+        console.log(`New GET to /economy-stats/${province}`);
+    }
+});
+
 app.post(BASE_API_URL + "/employment-stats", (req, res) => {
     var newStat = req.body; //guardamos los valores que envia el formulario.
     console.log(`new_stat = <${JSON.stringify(newStat, null, 2)}>`); // con stringify convertimos en string
@@ -373,8 +390,8 @@ app.post(BASE_API_URL + "/employment-stats", (req, res) => {
         // If stat exists Conflict 409
         console.log(`Conflict: employment stat with same properties already exists`);
         res.sendStatus(409);
-    
-    }else {
+
+    } else {
         // If stat doesn´t exist Status 201
         environment_stats.push(newStat);
         console.log("Employment stat added to array");
@@ -382,62 +399,114 @@ app.post(BASE_API_URL + "/employment-stats", (req, res) => {
     }
     console.log("New POST to /employment-stats");
 });
-    //actualizar un dato dando la provincia
-    app.put(BASE_API_URL + "/employment-stats/:province", (req, res) => {
-        const province = stripAccents(req.params.province.toLowerCase());
-        const updatedStat = req.body;
-        console.log(`new_stat = <${JSON.stringify(updatedStat, null, 2)}>`);
-        const statIndex = employment_stats.findIndex(
-            (stat) =>
-                stripAccents(stat.province.toLowerCase()) === stripAccents(province.toLowerCase())
-        );
-        if (updatedStat.province && stripAccents(updatedStat.province.toLowerCase()) !== stripAccents(province.toLowerCase())) {
-            return res.status(400).send('Ciudad en body no es el mismo que URL');
-        }
-        if (statIndex === -1) {
-            // Si el objeto no existe Not Found 404
-            console.log(`employment stat with province ${province} not found`);
-            res.sendStatus(404);
-        } else {
-            // Si el objeto existe, actualizar sus propiedades
-            employment_stats[statIndex] = {
-                period: updatedStat.period || employment-stats[statIndex].period,
-                province: updatedStat.province || employment-stats[statIndex].province,
-                population_over_16_years: updatedStat.population_over_16_years || employment-stats[statIndex].population_over_16_years,
-                activity_men_percentage: updatedStat.activity_men_percentage || employment-stats[statIndex].activity_men_percentage,
-                activity_women_percentage: updatedStat.activity_women_percentage || employment-stats[statIndex].activity_women_percentage
-            };
-            console.log(`employment stat with city ${province} updated`);
-            res.sendStatus(200);
-        }
-        console.log("New PUT to /employment-stats/:province");
+//actualizar un dato dando la provincia
+app.put(BASE_API_URL + "/employment-stats/:province", (req, res) => {
+    const province = stripAccents(req.params.province.toLowerCase());
+    const updatedStat = req.body;
+    console.log(`new_stat = <${JSON.stringify(updatedStat, null, 2)}>`);
+    const statIndex = employment_stats.findIndex(
+        (stat) =>
+            stripAccents(stat.province.toLowerCase()) === stripAccents(province.toLowerCase())
+    );
+    if (updatedStat.province && stripAccents(updatedStat.province.toLowerCase()) !== stripAccents(province.toLowerCase())) {
+        return res.status(400).send('Ciudad en body no es el mismo que URL');
+    }
+    if (statIndex === -1) {
+        // Si el objeto no existe Not Found 404
+        console.log(`employment stat with province ${province} not found`);
+        res.sendStatus(404);
+    } else {
+        // Si el objeto existe, actualizar sus propiedades
+        employment_stats[statIndex] = {
+            period: updatedStat.period || employment - stats[statIndex].period,
+            province: updatedStat.province || employment - stats[statIndex].province,
+            population_over_16_years: updatedStat.population_over_16_years || employment - stats[statIndex].population_over_16_years,
+            activity_men_percentage: updatedStat.activity_men_percentage || employment - stats[statIndex].activity_men_percentage,
+            activity_women_percentage: updatedStat.activity_women_percentage || employment - stats[statIndex].activity_women_percentage
+        };
+        console.log(`employment stat with city ${province} updated`);
+        res.sendStatus(200);
+    }
+    console.log("New PUT to /employment-stats/:province");
+});
+//Borrar un dato dando la provincia
+app.delete(BASE_API_URL + "/employment-stats/:province", (req, res) => {
+    const province = stripAccents(req.params.province.toLowerCase());
+    const originalLength = employment_stats.length;
+    employment_stats = employment_stats.filter((stat) => {
+        return stripAccents(stat.province.toLowerCase()) !== province;
     });
-    //Borrar un dato dando la provincia
-    app.delete(BASE_API_URL + "/employment-stats/:province", (req, res) => {
-        const province = stripAccents(req.params.province.toLowerCase());
-        const originalLength = employment_stats.length;
-        employment_stats = employment_stats.filter((stat) => {
-            return stripAccents(stat.province.toLowerCase()) !== province;
-        });
-        const newLength = employment_stats.length;
-        if (newLength === originalLength) {
-            console.log(`province ${province} not found in employment stats array`);
-            res.sendStatus(404);
-        } else {
-            console.log(`province ${province} deleted from employment stats array`);
-            res.sendStatus(200);
-        }
-        console.log(`New DELETE to /employment-stats/${province}`);
-    });
-    app.put(BASE_API_URL + "/employment-stats", (req, res) => {
-        res.status(405).send('Method not Allowed');
-        console.log(`Error 405 Method not Allowed`);
+    const newLength = employment_stats.length;
+    if (newLength === originalLength) {
+        console.log(`province ${province} not found in employment stats array`);
+        res.sendStatus(404);
+    } else {
+        console.log(`province ${province} deleted from employment stats array`);
+        res.sendStatus(200);
+    }
+    console.log(`New DELETE to /employment-stats/${province}`);
+});
+app.put(BASE_API_URL + "/employment-stats", (req, res) => {
+    res.status(405).send('Method not Allowed');
+    console.log(`Error 405 Method not Allowed`);
 
-    });
+});
 
-    app.post(BASE_API_URL + "/environment-stats/:province", (req, res) => {
-        res.status(405).send('Method not Allowed');
-        console.log(`Error 405 Method not Allowed`);
-    
+app.post(BASE_API_URL + "/environment-stats/:province", (req, res) => {
+    res.status(405).send('Method not Allowed');
+    console.log(`Error 405 Method not Allowed`);
+
+});
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////RAFA CODIGO NUEVO------FALTA APLICAR LAS RESTRICCIONES.
+app.use("/", express.static("./public"));
+db.insert(employment_stats);
+
+app.get(BASE_API_URL + "/employment", (request, response) => {
+    console.log("New GET /employment");
+    db.find({}, (err, employment_stats) => {
+        if (err) {
+            console.log(`Error get /employment-stats: ${err}`);
+            response.sendStatus(500);
+        } else {
+            console.log(`employment returned ${employment_stats.length}`);
+            response.status(200).json(employment_stats.map((v) => {
+                delete v._id;
+                return v;
+            }));
+        }
     });
-    app.use("/",express.static("./public")); 
+});
+app.post(BASE_API_URL + "/employment", (request, response) => {
+    var newEmployment = request.body;
+    console.log(`new Employment = ${JSON.stringify(newEmployment, null, 2)}`);
+
+    console.log("New POST to /employment");
+    db.insert(newEmployment);
+
+    response.sendStatus(201);
+});
+app.delete(BASE_API_URL + "/employment/:name", (request, response) => {
+    var name = request.params.name;
+    console.log(`New DELETE to /employments/${name}`);
+    db.remove({ "name": name }, {}, (err, numRemove) => {//{nombre de la propiedad : variable si (existe alguna con el mismo nombre)}
+        if (err) {
+            console.log(`Error deleting /employment-stats:${name} ${err}`);
+            response.sendStatus(500);
+        } else {
+            console.log(`Employment returned ${numRemove}`);
+            response.sendStatus(200)
+        };
+    });
+});
+app.get("https://sos2223-10.ew.r.appspot.com/api/v1/employment-stats/docs", (req, res) => {
+
+    res.status(301).redirect("https://documenter.getpostman.com/view/25969335/2s93JzM1Bb");
+
+})
+//LOCALHOST
+app.get(BASE_API_URL +"/venga", (req, res) => {
+    console.log("Se ejecuta");
+    res.status(301).redirect("https://documenter.getpostman.com/view/25969335/2s93JzM1Bb");
+
+})
