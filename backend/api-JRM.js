@@ -1,3 +1,5 @@
+//var Datastore = require('nedb');
+//var db = new Datastore();
 const BASE_API_URL = "/api/v1";
 module.exports = (app) =>{
     var economy_stats = [
@@ -12,7 +14,7 @@ module.exports = (app) =>{
         { period: 2013, territory: "Sevilla", finished_house: 2790, half_price_m_two: 1296, tourist: 2616499 },
         { period: 2013, territory: "Cordoba", finished_house: 1384, half_price_m_two: 1202, tourist: 1333216 },
     ];
-    
+    //db.insert(economy_stats);
     app.get(BASE_API_URL + "/economy-stats/loadInitialData", (request, response) => {
     
         if(economy_stats.length===0) {
