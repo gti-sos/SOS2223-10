@@ -30,7 +30,21 @@ var environment_stats = [
 ];
 
 
+
 app.get(BASE_API_URL + "/environment-stats/loadInitialData", (request, response) => {
+    if (environment_stats.length==0){
+        environment_stats.push({ year: 2016, city: "Almería", protected_space: 18, area: 163.937, fire: 57 },
+        { year: 2016, city: "Cádiz", protected_space: 29, area: 231.22, fire: 108 },
+        { year: 2016, city: "Córdoba", protected_space: 19, area: 134.597, fire: 90 },
+        { year: 2016, city: "Granada", protected_space: 17, area: 220.314, fire: 119 },
+        { year: 2016, city: "Huelva", protected_space: 24, area: 319.11, fire: 155 },
+        { year: 2016, city: "Jaén", protected_space: 17, area: 317.381, fire: 172 },
+        { year: 2016, city: "Málaga", protected_space: 28, area: 89.272, fire: 111 },
+        { year: 2016, city: "Sevilla", protected_space: 24, area: 220.868, fire: 124 },
+        { year: 2017, city: "Almería", protected_space: 18, area: 163.937, fire: 87 },
+        { year: 2017, city: "Cádiz", protected_space: 29, area: 231.22, fire: 94 },
+       )
+    }
     response.json(environment_stats);
     console.log("New GET to /environment-stats")
 });
@@ -92,7 +106,7 @@ app.get(BASE_API_URL + "/environment-stats/:city", (request, response) => {
 
     const city = stripAccents(request.params.city.toLowerCase());
     const cityStats = environment_stats.filter((stat) => stripAccents(stat.city.toLowerCase()) === city);
-   
+
     if (cityStats.length === 0) {
         console.log(`Environment stats for city ${city} not found`);
         response.sendStatus(404);
@@ -186,5 +200,5 @@ module.exports = {
     port,
     environment_stats,
     BASE_API_URL,
-    
+
 };
