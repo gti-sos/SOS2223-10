@@ -1,7 +1,8 @@
-//var Datastore = require('nedb');
-//var db = new Datastore();
+var Datastore = require('nedb');
+var db = new Datastore();
 const BASE_API_URL = "/api/v1";
 module.exports = (app) => {
+
     var environment_stats = [
         { year: 2016, city: "Almería", protected_space: 18, area: 163.937, fire: 57 },
         { year: 2016, city: "Cádiz", protected_space: 29, area: 231.22, fire: 108 },
@@ -20,26 +21,55 @@ module.exports = (app) => {
 
 
     app.get(BASE_API_URL + "/environment-stats/loadInitialData", (request, response) => {
+        if (environment_stats.length === 0) {
+            environment_stats.push(
+                { year: 2016, city: "Almería", protected_space: 18, area: 163.937, fire: 57 },
+                { year: 2016, city: "Cádiz", protected_space: 29, area: 231.22, fire: 108 },
+                { year: 2016, city: "Córdoba", protected_space: 19, area: 134.597, fire: 90 },
+                { year: 2016, city: "Granada", protected_space: 17, area: 220.314, fire: 119 },
+                { year: 2016, city: "Huelva", protected_space: 24, area: 319.11, fire: 155 },
+                { year: 2016, city: "Jaén", protected_space: 17, area: 317.381, fire: 172 },
+                { year: 2016, city: "Málaga", protected_space: 28, area: 89.272, fire: 111 },
+                { year: 2016, city: "Sevilla", protected_space: 24, area: 220.868, fire: 124 },
+                { year: 2017, city: "Almería", protected_space: 18, area: 163.937, fire: 87 },
+                { year: 2017, city: "Cádiz", protected_space: 29, area: 231.22, fire: 94 },
+            );
+            console.log("Inserted data into environment_stats");
+            db.insert(environment_stats, (err, docs) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log(`Inserted ${docs.length} documents into environment_stats`);
+                }
+            });
+        }
         response.json(environment_stats);
-        console.log("New GET to /environment-stats")
+        console.log("New GET to /environment-stats");
     });
+    
     app.get(BASE_API_URL + "/environment-stats", (request, response) => {
-        response.json(environment_stats);
-        console.log("New GET to /environment-stats")
+        db.find({}, (err, environment_stats) => {
+            if (err) {
+                console.error(err);
+                response.status(500).send(err);
+            } else {
+                response.json(environment_stats.map((c) => {
+                    delete c._id;
+                    console.log("New GET to /environment-stats");
+                    return c;
+                }));
+            }
+        });
     });
 
     app.post(BASE_API_URL + "/environment-stats", (req, res) => {
-
-
-        var newStat = req.body;
-
-
+        const newStat = req.body;
         if (!newStat.year || !newStat.city || !newStat.protected_space || !newStat.area || !newStat.fire) {
             console.log("Bad Request: missing required fields");
             res.sendStatus(400);
             return;
         }
-
+        
         const statIndex = environment_stats.findIndex(
             (stat) =>
                 stat.year === newStat.year &&
@@ -48,30 +78,46 @@ module.exports = (app) => {
                 stat.area === newStat.area &&
                 stat.fire === newStat.fire
         );
-
+    
         if (statIndex !== -1) {
             // If stat exists Conflict 409
             console.log(`Conflict: environment stat with same properties already exists`);
             res.sendStatus(409);
-        } else {
-            // If stat doesn´t exist Status 201
-            environment_stats.push(newStat);
-            console.log("Environment stat added to array");
-            res.sendStatus(201);
+            return;
         }
+    
+        // If stat doesn´t exist Status 201
+        environment_stats.push(newStat);
+        console.log("Environment stat added to array");
+    
+        // Insert newStat in the database
+        db.insert(newStat, (err, newDoc) => {
+            if (err) {
+                console.log(`Error inserting newStat into database: ${err}`);
+                res.sendStatus(500);
+            } else {
+                console.log(`newStat with id ${newDoc._id} inserted into database`);
+                res.status(201).json(newDoc);
+            }
+        });
+    
         console.log(`new_stat = <${JSON.stringify(newStat, null, 2)}>`);
-
-
         console.log("New POST to /environment-stats");
-
-
     });
+    
+
     app.delete(BASE_API_URL + "/environment-stats", (req, res) => {
-        environment_stats = []; // eliminar todos los elementos de la matriz
-        console.log("All environment stats deleted");
-        res.sendStatus(204); // enviar respuesta con código de estado 204
+        db.remove({}, { multi: true }, (err, numRemoved) => {
+            if (err) {
+                console.error(err);
+                res.status(500).send(err);
+            } else {
+                console.log(`All ${numRemoved} environment stats from database`);
+                res.sendStatus(204);
+                environment_stats=[];
+            }
+        });
     });
-
     //tildes
     function stripAccents(text) {
         return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
@@ -80,17 +126,24 @@ module.exports = (app) => {
     app.get(BASE_API_URL + "/environment-stats/:city", (request, response) => {
 
         const city = stripAccents(request.params.city.toLowerCase());
-        const cityStats = environment_stats.filter((stat) => stripAccents(stat.city.toLowerCase()) === city);
-
-        if (cityStats.length === 0) {
-            console.log(`Environment stats for city ${city} not found`);
-            response.sendStatus(404);
-        } else {
-            response.json(cityStats);
-            console.log(`New GETT to /environment-stats/${city}`);
-        }
-
+    
+        db.find({ city: city }, (err, docs) => {
+            if (err) {
+                console.log(`Error finding environment stats for city ${city}`);
+                response.sendStatus(500);
+            } else {
+                if (docs.length === 0) {
+                    console.log(`Environment stats for city ${city} not found`);
+                    response.sendStatus(404);
+                } else {
+                    response.json(docs);
+                    console.log(`New GETT to /environment-stats/${city}`);
+                }
+            }
+        });
     });
+    
+  
 
     app.get(BASE_API_URL + "/environment-stats/:city/:year", (request, response) => {
 
@@ -133,6 +186,9 @@ module.exports = (app) => {
                 area: updatedStat.area || environment_stats[statIndex].area,
                 fire: updatedStat.fire || environment_stats[statIndex].fire
             };
+            // Actualizar la base de datos con las nuevas estadísticas de ambiente
+        db.set('environment_stats', environment_stats).write();
+
             console.log(`Environment stat with city ${city} updated`);
             res.sendStatus(200);
         }
@@ -165,6 +221,13 @@ module.exports = (app) => {
         console.log(`Error 405 Method not Allowed`);
 
     });
+
+    app.get(BASE_API_URL +"/economy-stats/docs", (req, res) => {
+        console.log("Se ejecuta");
+        res.status(301).redirect("https://documenter.getpostman.com/view/26063123/2s93JzN1dM");
+    
+    });
+
 }
 
 
