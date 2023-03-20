@@ -221,6 +221,13 @@ module.exports = (app) => {
         console.log(`Error 405 Method not Allowed`);
 
     });
+
+    app.get(BASE_API_URL +"/economy-stats/docs", (req, res) => {
+        console.log("Se ejecuta");
+        res.status(301).redirect("https://documenter.getpostman.com/view/26063123/2s93JzN1dM");
+    
+    });
+
 }
 
 
