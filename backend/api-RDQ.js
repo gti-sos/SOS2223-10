@@ -60,8 +60,105 @@ app.get(BASE_API_URL+"/employment-stats/loadInitialData", (request,response) => 
         }
     });
 });
+//activity_women_percentage
+app.get(BASE_API_URL+"/employment-stats/:activity_women_percentage", (request,response) => {
+    var mujer = request.params.activity_men_percentage;
+    console.log(`New GET to /employment-stats/${mujer}`);
 
+    db.find({activity_women_percentage : mujer}).skip(0).limit(employment_stats.length).exec((err, data) =>{
+        if(err){
+            console.log(`Error geting /employment-stats/${mujer}: ${err}`);
+            response.sendStatus(500);
+        }else{
+            if(data.length!= 0){
+                console.log(`data returned ${data.length}`);
+                response.json(data.map((d)=>{
+                    delete d._id;
+                    return d;
+                }));
+            }
+             else{
+                console.log(`Data not found /employment-stats/${mujer}: ${err}`);
+                response.status(404).send("Data not found");
+             }        
+        }
+    });
+});
+//activity_men_percentage
+app.get(BASE_API_URL+"/employment-stats/:activity_men_percentage", (request,response) => {
+    var hombre = request.params.activity_men_percentage;
+    console.log(`New GET to /employment-stats/${meyor}`);
 
+    db.find({activity_men_percentage : hombre}).skip(0).limit(employment_stats.length).exec((err, data) =>{
+        if(err){
+            console.log(`Error geting /employment-stats/${hombre}: ${err}`);
+            response.sendStatus(500);
+        }else{
+            if(data.length!= 0){
+                console.log(`data returned ${data.length}`);
+                response.json(data.map((d)=>{
+                    delete d._id;
+                    return d;
+                }));
+            }
+             else{
+                console.log(`Data not found /employment-stats/${hombre}: ${err}`);
+                response.status(404).send("Data not found");
+             }        
+        }
+    });
+});
+
+//population_over_16_years
+app.get(BASE_API_URL+"/employment-stats/:population_over_16_years", (request,response) => {
+    var mayor = request.params.population_over_16_years;
+    console.log(`New GET to /employment-stats/${meyor}`);
+
+    db.find({population_over_16_years : mayor}).skip(0).limit(employment_stats.length).exec((err, data) =>{
+        if(err){
+            console.log(`Error geting /employment-stats/${periodo}: ${err}`);
+            response.sendStatus(500);
+        }else{
+            if(data.length!= 0){
+                console.log(`data returned ${data.length}`);
+                response.json(data.map((d)=>{
+                    delete d._id;
+                    return d;
+                }));
+            }
+             else{
+                console.log(`Data not found /employment-stats/${mayor}: ${err}`);
+                response.status(404).send("Data not found");
+             }        
+        }
+    });
+});
+//anyo
+app.get(BASE_API_URL+"/employment-stats/:period", (request,response) => {
+    var periodo = request.params.period;
+
+    console.log(`New GET to /employment-stats/${periodo}`);
+
+    db.find({period : periodo}).skip(0).limit(employment_stats.length).exec((err, data) =>{
+        if(err){
+            console.log(`Error geting /employment-stats/${periodo}: ${err}`);
+            response.sendStatus(500);
+        }else{
+            if(data.length!= 0){
+                console.log(`data returned ${data.length}`);
+                response.json(data.map((d)=>{
+                    delete d._id;
+                    return d;
+                }));
+            }
+             else{
+                console.log(`Data not found /employment-stats/${periodo}: ${err}`);
+                response.status(404).send("Data not found");
+             }        
+        }
+    });
+});
+//provincia
 app.get(BASE_API_URL+"/employment-stats/:province", (request,response) => {
     var provincia = request.params.province;
 
@@ -206,4 +303,49 @@ app.get(BASE_API_URL +"/employment-stats/docs", (req, res) => {
 
 });
 
+
+
+
+//GET con rango de busqueda     MODIFICAR
+app.get('/api/v1/employment-stats', (req, res) => {
+    const { period,province ,population_over_16_years, activity_men_percentage, activity_women_percentage,limit = 10, offset = 0 } = req.query;
+    const query = {};
+  
+    if (province) {
+      query.province = { $regex: new RegExp(province, 'i') };
+    }
+    if (name) {
+      query.name = { $regex: new RegExp(name, 'i') };
+    }
+    if (state) {
+      query.state = { $regex: new RegExp(state, 'i') };
+    }
+    if (start_date) {
+      const startYear = parseInt(start_date);
+      const startYearBegin = new Date(startYear, 0, 1);
+      const startYearEnd = new Date(startYear + 1, 0, 1);
+      query.start_date = { $gte: startYearBegin, $lt: startYearEnd };
+    }
+    if (group_id) {
+      query.group_id = parseInt(group_id);
+    }
+    if (category) {
+      query.category = parseInt(category);
+    }
+    const limitValue = parseInt(limit);
+    const offsetValue = parseInt(offset);
+    campings
+      .find(query)
+      .limit(limitValue)
+      .skip(offsetValue)
+      .exec((err, campings) => {
+        if (err) {
+          console.log(`No campings found: ${err}`);
+          res.sendStatus(404);
+        } else {
+          console.log(`Campings returned = ${campings.length}`);
+          res.json(campings);
+        }
+      });
+  });
 }

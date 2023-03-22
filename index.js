@@ -16,10 +16,10 @@ backend(app);
 backend2(app);
 backend3(app);
 
-app.get("/faces", (request, response) => {
-    response.send(cool());
-    console.log(new Request);
-})
+//app.get("/faces", (request, response) => {
+  //  response.send(cool());
+    //console.log(new Request);
+//})
 
 app.listen(port, () => {
     console.log(`Server ready in port ${port}`);
