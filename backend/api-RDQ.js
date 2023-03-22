@@ -61,6 +61,7 @@ app.get(BASE_API_URL+"/employment-stats/loadInitialData", (request,response) => 
     });
 });
 //activity_women_percentage
+/*
 app.get(BASE_API_URL+"/employment-stats/:activity_women_percentage", (request,response) => {
     var mujer = request.params.activity_men_percentage;
     console.log(`New GET to /employment-stats/${mujer}`);
@@ -183,7 +184,7 @@ app.get(BASE_API_URL+"/employment-stats/:province", (request,response) => {
         }
     });
 });
-
+*/
 app.post(BASE_API_URL+"/employment-stats/:province",(request,response)=>{
     response.sendStatus(405, "Method not allowed");
 });
@@ -305,47 +306,57 @@ app.get(BASE_API_URL +"/employment-stats/docs", (req, res) => {
 
 
 
-
+/*
 //GET con rango de busqueda     MODIFICAR
-app.get('/api/v1/employment-stats', (req, res) => {
-    const { period,province ,population_over_16_years, activity_men_percentage, activity_women_percentage,limit = 10, offset = 0 } = req.query;
-    const query = {};
-  
-    if (province) {
-      query.province = { $regex: new RegExp(province, 'i') };
-    }
-    if (name) {
-      query.name = { $regex: new RegExp(name, 'i') };
-    }
-    if (state) {
-      query.state = { $regex: new RegExp(state, 'i') };
-    }
-    if (start_date) {
-      const startYear = parseInt(start_date);
-      const startYearBegin = new Date(startYear, 0, 1);
-      const startYearEnd = new Date(startYear + 1, 0, 1);
-      query.start_date = { $gte: startYearBegin, $lt: startYearEnd };
-    }
-    if (group_id) {
-      query.group_id = parseInt(group_id);
-    }
-    if (category) {
-      query.category = parseInt(category);
-    }
-    const limitValue = parseInt(limit);
-    const offsetValue = parseInt(offset);
-    campings
-      .find(query)
-      .limit(limitValue)
-      .skip(offsetValue)
-      .exec((err, campings) => {
-        if (err) {
-          console.log(`No campings found: ${err}`);
-          res.sendStatus(404);
-        } else {
-          console.log(`Campings returned = ${campings.length}`);
-          res.json(campings);
+app.get(BASE_API_URL + "/employment-stats/", (req, res) => {
+    console.log("New GET request to /employment-stats");
+
+    const query = req.query;
+    const searchQuery = {};
+
+    for (const key in query) {
+        if (query.hasOwnProperty(key)) {
+            if (key === "province") {
+                searchQuery[key] = query[key];
+            }
+            if (key === "period" || key === "id"||key === "population_over_16_years" ) {
+                searchQuery[key] = parseInt(query[key]);
+            } 
+            else if (key === "activity_men_percentage" || key === "activity_women_percentage") {
+                searchQuery[key] = parseFloat(query[key]);
+            } 
+            else {
+                searchQuery[key] = new RegExp(query[key], "i");
+            }
         }
-      });
-  });
+    }
+    */
+    ////
+    app.get(BASE_API_URL+"/employment-stats",(req,res)=>{
+        console.log("New GET request /employment-stats");
+    
+        //PRUEBA: http://localhost:12345/api/v1/ict-promotion-strategy-stats?offset=0&limit=5
+    
+        // Obtener offset y limit de los parámetros de la consulta, si están presentes
+        const offset = parseInt(req.query.offset) || 0;
+        const limit = parseInt(req.query.limit) || 1000;
+    
+        db.find({})
+        .sort({period: 9}) // ordenar por id en orden ascendente
+        .skip(offset)
+        .limit(limit)
+        .exec((err, res) => {
+            if (err) {
+                console.log(`Error getting /res: ${err}`);
+                res.sendStatus(500);
+            } else {
+                res.json(res.map((j) => {
+                    delete j._id;
+                    return j;
+                }));
+            }
+        });
+    });
 }
+
+
