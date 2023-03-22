@@ -85,6 +85,30 @@ module.exports = (app) => {
             }
         });
     });
+    
+    app.get(BASE_API_URL+"/economy-stats/:period", (request,response) => {
+        var año = parseInt(request.params.period);
+        console.log(`New GET to /economy-stats/${año}`);
+        db.find({$and: [{period:año}]}).exec(function(err,data){
+            if(err){
+                console.log(`Error geting /economy-stats/${año}: ${err}`);
+                response.sendStatus(500);
+            }else{
+                if(data.length!= 0){
+                    console.log(`data returned ${data.length}`);
+                    response.json(data.map((d)=>{
+                        delete d._id;
+                        return d;
+                    }));
+                }
+                 else{
+                    console.log(`Data not found /economy-stats/${año}: ${err}`);
+                    response.status(404).send("Data not found");
+                 }    
+            }
+        })
+        
+    });
 
     app.post(BASE_API_URL+"/economy-stats/:territory",(request,response)=>{
         response.sendStatus(405, "Method not allowed");
@@ -126,6 +150,7 @@ module.exports = (app) => {
             
         }        
     });
+     
 
     app.put(BASE_API_URL + "/economy-stats",(request,response)=>{
         response.sendStatus(405, "Method not allowed");
@@ -143,6 +168,9 @@ module.exports = (app) => {
         if(!newStat.period || !newStat.territory || !newStat.finished_house || !newStat.half_price_m_two || !newStat.tourist){
             console.log(`No se han recibido los campos esperados:`);
             response.status(400).send("Bad Request");
+        }else if(territorio !== request.body.territory || año !== request.body.period) {
+            console.log("El id no es igual al de la URL");
+            response.sendStatus(400).send("Bad Request")
         }else{
             db.update({$and: [{territory:territorio}, {period:año}]}, {$set: newStat},function(err, data){
                 if(err){
@@ -199,11 +227,7 @@ module.exports = (app) => {
         });
     });
 
-    app.get(BASE_API_URL +"/economy-stats/docs", (req, res) => {
-        console.log("Se ejecuta");
-        res.status(301).redirect("https://documenter.getpostman.com/view/25969218/2s93JzMgXV");
     
-    });
 
 }
 
