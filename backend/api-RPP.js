@@ -1,6 +1,9 @@
+
 var Datastore = require('nedb');
 var db = new Datastore();
 const BASE_API_URL = "/api/v1";
+const express = require('express');
+
 module.exports = (app) => {
 
     var environment_stats = [
@@ -53,11 +56,7 @@ module.exports = (app) => {
                 console.error(err);
                 response.status(500).send(err);
             } else {
-                response.json(environment_stats.map((c) => {
-                    delete c._id;
-                    console.log("New GET to /environment-stats");
-                    return c;
-                }));
+                response.json(environment_stats);
             }
         });
     });
@@ -123,22 +122,27 @@ module.exports = (app) => {
         return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     }
 
-    app.get(BASE_API_URL + "/environment-stats/:city", (request, response) => {
-
-        const city = stripAccents(request.params.city.toLowerCase());
+    app.get(BASE_API_URL+"/environment-stats/:province", (request,response) => {
+        var provincia = request.params.province;
     
-        db.find({ city: city }, (err, docs) => {
-            if (err) {
-                console.log(`Error finding environment stats for city ${city}`);
+        console.log(`New GET to /environment-stats/${provincia}`);
+    
+        db.find({province : provincia}).skip(0).limit(environment_stats.length).exec((err, data) =>{
+            if(err){
+                console.log(`Error geting /environment-stats/${provincia}: ${err}`);
                 response.sendStatus(500);
-            } else {
-                if (docs.length === 0) {
-                    console.log(`Environment stats for city ${city} not found`);
-                    response.sendStatus(404);
-                } else {
-                    response.json(docs);
-                    console.log(`New GETT to /environment-stats/${city}`);
+            }else{
+                if(data.length!= 0){
+                    console.log(`data returned ${data.length}`);
+                    response.json(data.map((d)=>{
+                        delete d._id;
+                        return d;
+                    }));
                 }
+                 else{
+                    console.log(`Data not found /environment-stats/${provincia}: ${err}`);
+                    response.status(404).send("Data not found");
+                 }        
             }
         });
     });
@@ -187,8 +191,7 @@ module.exports = (app) => {
                 fire: updatedStat.fire || environment_stats[statIndex].fire
             };
             // Actualizar la base de datos con las nuevas estadísticas de ambiente
-        db.set('environment_stats', environment_stats).write();
-
+            db.write();
             console.log(`Environment stat with city ${city} updated`);
             res.sendStatus(200);
         }
@@ -222,7 +225,7 @@ module.exports = (app) => {
 
     });
 
-    app.get(BASE_API_URL +"/economy-stats/docs", (req, res) => {
+    app.get(BASE_API_URL +"/environment-stats/docs", (req, res) => {
         console.log("Se ejecuta");
         res.status(301).redirect("https://documenter.getpostman.com/view/26063123/2s93JzN1dM");
     
