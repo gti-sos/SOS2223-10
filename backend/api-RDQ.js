@@ -18,6 +18,65 @@ var employment_stats = [
 ];
 db.insert(employment_stats);
 console.log("Datos insertados");
+
+app.get(BASE_API_URL + "/employment-stats", (req,res)=>{ 
+    var query = req.query;
+    dbquery = {};
+    console.log("Peticion GET");
+    console.log(query.period);
+    var limit = Number.MAX_SAFE_INTEGER;
+    var offset = 0;
+    if(query.offset){
+        offset = parseInt(query.offset);
+        console.log(offset);
+        delete query.offset;
+    }
+    if(query.limit){
+        limit = parseInt(query.limit);
+        delete query.limit;
+    }
+    if(query.period){
+        dbquery['period'] = parseInt(query.period);
+        console.log(offset);
+    }
+    if(query.province){
+        dbquery['province'] = convertirAMinusculas(query.province);
+        console.log(offset);
+    }
+    if(query.finished_house){
+        dbquery['population_over_16_years'] = parseInt(query.population_over_16_years);
+    }
+    if(query.half_price_m_two){
+        dbquery['activity_men_percentage'] = parseFloat(query.activity_men_percentage);
+    }
+    if(query.tourist){
+        dbquery['activity_women_percentage'] = parseFloat(query.activity_women_percentage);
+    }
+    
+    console.log(dbquery);
+    db.find(dbquery).skip(offset).limit(limit).exec((err,docs) =>{
+        console.log(docs);
+        if(err){
+            res.sendStatus(500);
+        }
+        else{
+            if(docs == 0){
+                docs.forEach((data) => {
+                    delete data._id;
+                });
+                res.status(200).send(JSON.stringify(docs,null,2));
+                //res.sendStatus(404);
+            }
+            else{
+                docs.forEach((data) => {
+                    delete data._id;
+                });
+                res.status(200).send(JSON.stringify(docs,null,2));
+            }
+        }
+    })
+    
+});
     
 app.get(BASE_API_URL+"/employment-stats", (request,response) => {
     console.log("New GET to /employment-stats");
@@ -304,6 +363,15 @@ app.get(BASE_API_URL +"/employment-stats/docs", (req, res) => {
 
 });
 
+//Funciones
+function convertirAMinusculas(texto) {
+    return texto.toLowerCase();
+  }
+
+
+
+/*
+
 app.get(BASE_API_URL+"/employment-stats", (request,response) => {
         console.log("New GET to /employment-stats");
         var provincia = request.query.province;
@@ -433,7 +501,7 @@ app.get(BASE_API_URL+"/employment-stats", (request,response) => {
         });
         
     });
-
+*/
 
 
    
