@@ -4,37 +4,20 @@ var db = new Datastore();
 const BASE_API_URL = "/api/v1";
 module.exports = (app) => {
     var economy_stats = [
-        { period: 1999, territory: "jaen", finished_house: 3704, half_price_m_two: 440, tourist: 857295 },
-        { period: 1998, territory: "sevilla", finished_house: 7176, half_price_m_two: 534, tourist: 1247438 },
-        { period: 2000, territory: "cadiz", finished_house: 13501, half_price_m_two: 644, tourist: 2682429 },
-        { period: 2000, territory: "granada", finished_house: 3672, half_price_m_two: 644, tourist: 2228642 },
-        { period: 2008, territory: "almeria", finished_house: 16746, half_price_m_two: 1674, tourist: 2225479 },
-        { period: 2011, territory: "sevilla", finished_house: 6667, half_price_m_two: 1576, tourist: 2732934 },
-        { period: 2012, territory: "malaga", finished_house: 3797, half_price_m_two: 1618, tourist: 7073502 },
-        { period: 2012, territory: "sevilla", finished_house: 6313, half_price_m_two: 1414, tourist: 2673617 },
-        { period: 2013, territory: "sevilla", finished_house: 2790, half_price_m_two: 1296, tourist: 2616499 },
-        { period: 2013, territory: "cordoba", finished_house: 1384, half_price_m_two: 1202, tourist: 1333216 },
+        { period: 1999, territory: "Jaén", finished_house: 3704, half_price_m_two: 440, tourist: 857295 },
+        { period: 1998, territory: "Sevilla", finished_house: 7176, half_price_m_two: 534, tourist: 1247438 },
+        { period: 2000, territory: "Cádiz", finished_house: 13501, half_price_m_two: 644, tourist: 2682429 },
+        { period: 2000, territory: "Granada", finished_house: 3672, half_price_m_two: 644, tourist: 2228642 },
+        { period: 2008, territory: "Almería", finished_house: 16746, half_price_m_two: 1674, tourist: 2225479 },
+        { period: 2011, territory: "Sevilla", finished_house: 6667, half_price_m_two: 1576, tourist: 2732934 },
+        { period: 2012, territory: "Málaga", finished_house: 3797, half_price_m_two: 1618, tourist: 7073502 },
+        { period: 2012, territory: "Sevilla", finished_house: 6313, half_price_m_two: 1414, tourist: 2673617 },
+        { period: 2013, territory: "Sevilla", finished_house: 2790, half_price_m_two: 1296, tourist: 2616499 },
+        { period: 2013, territory: "Córdoba", finished_house: 1384, half_price_m_two: 1202, tourist: 1333216 },
     ];
 
     db.insert(economy_stats);
-    /*
-    app.get(BASE_API_URL+"/economy-stats", (request,response) => {
-        console.log("New GET to /economy-stats");
-        db.find({},(err,economy_stats) => {
-            if(err){
-                console.log(`Error geting /economy-stats: ${err}`);
-                response.sendStatus(500);
-            }else{
-                console.log(`data inserted: ${economy_stats.length}`);
-                response.json(economy_stats.map((d)=>{
-                    delete d._id;
-                    return d;
-                }));                           
-            }
-        });
         
-    });
-    */    
 
     app.get(BASE_API_URL+"/economy-stats/loadInitialData", (request,response) => {
         console.log("New GET to /economy-stats/loadInitialData");
@@ -99,7 +82,7 @@ module.exports = (app) => {
                     if (territorio != null){
                         var filtrado = filtrado.filter((reg)=>
                         {
-                            //console.log("El filtrado es"+filtrado);
+                        
                             return (reg.territory == territorio);
                         }); 
                         if (filtrado==0){
@@ -172,11 +155,11 @@ module.exports = (app) => {
                     });
         
                     if(request.query.fields!=null){
-                        //Comprobamos si los campos son correctos
+                        
                         var listaFields = request.query.fields.split(",");
                         for(var i = 0; i<listaFields.length;i++){
                             var element = listaFields[i];
-                            if(element != "terrritory" && element != "period" && element != "finished_house" && element != "half_price_m_two" && element != "tourist"){
+                            if(element != "territory" && element != "period" && element != "finished_house" && element != "half_price_m_two" && element != "tourist"){
                                 console.log(`No se han recibido los campos esperados:`);
                                 response.status(400).send("Bad Request");
                             }
@@ -189,7 +172,7 @@ module.exports = (app) => {
         });
         
     });
-    /*
+    
     app.get(BASE_API_URL+"/economy-stats/:territory", (request,response) => {
         var territorio = request.params.territory;
 
@@ -214,7 +197,7 @@ module.exports = (app) => {
             }
         });
     });
-
+    /*
     app.get(BASE_API_URL+"/economy-stats/:period", (request,response) => {
         var año = parseInt(request.params.period);
         console.log(`New GET to /economy-stats/${año}`);
@@ -300,7 +283,7 @@ module.exports = (app) => {
             response.status(400).send("Bad Request");
         }else if(territorio !== request.body.territory || año !== request.body.period) {
             console.log("El id no es igual al de la URL");
-            response.sendStatus(400).send("Bad Request")
+            response.status(400).send("Bad Request");
         }else{
             db.update({$and: [{territory:territorio}, {period:año}]}, {$set: newStat},function(err, data){
                 if(err){
