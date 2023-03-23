@@ -237,15 +237,15 @@ app.put(BASE_API_URL + "/employment-stats/:province",(request,response)=>{
 app.put(BASE_API_URL+"/employment-stats/:province/:period", (request,response) => {
     var newStat = request.body;
     var provincia = request.params.province;
-    var año = parseInt(request.params.period);
+    var periodo = parseInt(request.params.period);
     
     if(!newStat.period || !newStat.province || !newStat.population_over_16_years || !newStat.activity_men_percentage || !newStat.activity_women_percentage){
         console.log(`No se han recibido los campos esperados:`);
         response.status(400).send("Bad Request");
     }else{
-        db.update({$and: [{provinve:provincia}, {period:año}]}, {$set: newStat},function(err, data){
+        db.update({$and: [{provinve:provincia}, {period:periodo}]}, {$set: newStat},function(err, data){
             if(err){
-                console.log(`Error put /employment-stats/${territorio}/${año}: ${err}`);
+                console.log(`Error put /employment-stats/${provincia}/${periodo}: ${err}`);
                 response.sendStatus(500);
             }
             else{
@@ -304,59 +304,139 @@ app.get(BASE_API_URL +"/employment-stats/docs", (req, res) => {
 
 });
 
-
-
-/*
-//GET con rango de busqueda     MODIFICAR
-app.get(BASE_API_URL + "/employment-stats/", (req, res) => {
-    console.log("New GET request to /employment-stats");
-
-    const query = req.query;
-    const searchQuery = {};
-
-    for (const key in query) {
-        if (query.hasOwnProperty(key)) {
-            if (key === "province") {
-                searchQuery[key] = query[key];
+app.get(BASE_API_URL+"/employment-stats", (request,response) => {
+        console.log("New GET to /employment-stats");
+        var provincia = request.query.province;
+        var periodo = request.query.period;
+        var poblacionMayor16 = request.query.population_over_16_years;
+        var actividadHombres = request.query.activity_men_percentage;
+        var actividadMujeres = request.query.activity_women_percentage;
+        var from = request.query.from;
+        var to = request.query.to;
+        for(var i = 0; i<Object.keys(request.query).length;i++){
+            var element = Object.keys(request.query)[i];
+            if(element != "province" && element != "period" && element != "population_over_16_years" && element != "activity_men_percentage" && element != "activity_women_percentage" && element != "from" && element != "to" && element != "limit" && element != "offset"){
+                console.log(`No se han recibido los campos esperados:`);
+                response.status(400).send("Bad Request");
             }
-            if (key === "period" || key === "id"||key === "population_over_16_years" ) {
-                searchQuery[key] = parseInt(query[key]);
-            } 
-            else if (key === "activity_men_percentage" || key === "activity_women_percentage") {
-                searchQuery[key] = parseFloat(query[key]);
-            } 
-            else {
-                searchQuery[key] = new RegExp(query[key], "i");
-            }
+        } 
+        if(from>to){
+            console.log(`No se han recibido los campos esperados:`);
+            response.status(400).send("Bad Request");
         }
-    }
-    */
-    ////
-    app.get(BASE_API_URL+"/employment-stats",(req,res)=>{
-        console.log("New GET request /employment-stats");
-    
-        //PRUEBA: http://localhost:12345/api/v1/ict-promotion-strategy-stats?offset=0&limit=5
-    
-        // Obtener offset y limit de los parámetros de la consulta, si están presentes
-        const offset = parseInt(req.query.offset) || 0;
-        const limit = parseInt(req.query.limit) || 1000;
-    
-        db.find({})
-        .sort({period: 9}) // ordenar por id en orden ascendente
-        .skip(offset)
-        .limit(limit)
-        .exec((err, res) => {
-            if (err) {
-                console.log(`Error getting /res: ${err}`);
-                res.sendStatus(500);
-            } else {
-                res.json(res.map((j) => {
-                    delete j._id;
-                    return j;
-                }));
+        db.find({},function(err, filtrado){
+            
+            if(err){
+                console.log(`Error geting /employment-stats: ${err}`);
+                response.sendStatus(500);
             }
+            else{
+                if(filtrado.length==0){
+                    console.log(`data inserted: ${economy_stats.length}`);  
+                    db.insert(economy_stats); 
+                    response.json(economy_stats.map((d)=>{
+                        delete d._id;
+                        return d;
+                    })); 
+                }
+                else{
+                    if (provincia != null){
+                        var filtrado = filtrado.filter((reg)=>
+                        {
+                            //console.log("El filtrado es"+filtrado);
+                            return (reg.province == provincia);
+                        }); 
+                        if (filtrado==0){
+                            console.log("LLega hasta aqui");
+
+                            console.log(`Data not found /employment-stats: ${err}`);
+                            response.status(404).send("Data not found");
+                        }
+                    }
+                    if (periodo != null){
+                        var filtrado = filtrado.filter((reg)=>
+                        {
+                            return (reg.period == periodo);
+                        });
+                        if (filtrado==0){
+                            console.log(`Data not found /employment-stats: ${err}`);
+                            response.status(404).send("Data not found");
+                        }
+                    }
+                    if (poblacionMayor16 != null){
+                        var filtrado = filtrado.filter((reg)=>
+                        {
+                            return (reg.population_over_16_years == poblacionMayor16);
+                        });
+        
+                        if (filtrado==0){
+                            console.log(`Data not found /employment-stats: ${err}`);
+                            response.status(404).send("Data not found");
+                        }
+                    }
+                    if (actividadHombres != null){
+                        var filtrado = filtrado.filter((reg)=>
+                        {
+                            return (reg.activity_men_percentage == actividadHombres);
+                        });
+        
+                        if (filtrado==0){
+                            console.log(`Data not found /employment-stats: ${err}`);
+                            response.status(404).send("Data not found");
+                        }
+                    }
+                    if (actividadMujeres != null){
+                        var filtrado = filtrado.filter((reg)=>
+                        {
+                            return (reg.activity_women_percentage == actividadMujeres);
+                        });
+        
+                        if (filtrado==0){
+                            console.log(`Data not found /employment-stats: ${err}`);
+                            response.status(404).send("Data not found");
+                        }
+                    }
+                    if(from != null && to != null){
+                        filtrado = filtrado.filter((reg)=>
+                        {
+                            return (reg.period >= from && reg.period <=to);
+                        });
+        
+                        if (filteredList==0){
+                            console.log(`Data not found /employment-stats: ${err}`);
+                            response.status(404).send("Data not found");
+                        }    
+                    }
+                    if(request.query.limit != undefined || request.query.offset != undefined){
+                        filtrado = paginacion(request,filtrado);
+                    }
+                    
+                    filtrado.forEach((element)=>{
+                        delete element._id;
+                    });
+        
+                    if(request.query.fields!=null){
+                        //Comprobamos si los campos son correctos
+                        var listaFields = request.query.fields.split(",");
+                        for(var i = 0; i<listaFields.length;i++){
+                            var element = listaFields[i];
+                            if(element != "province" && element != "period" && element != "population_over_16_years" && element != "activity_men_percentage" && element != "activity_women_percentage"){
+                                console.log(`No se han recibido los campos esperados:`);
+                                response.status(400).send("Bad Request");
+                            }
+                        }
+                    }
+                    response.send(JSON.stringify(filtrado,null,2));
+        
+                }
+            }            
         });
+        
     });
+
+
+
+   
 }
 
 
