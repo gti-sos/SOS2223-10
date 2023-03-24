@@ -3,7 +3,7 @@ var Datastore = require('nedb');
 var db = new Datastore();
 const BASE_API_URL = "/api/v1";
 const express = require('express');
-const Joi = require('joi');
+//const Joi = require('joi');
 
 module.exports = (app) => {
 
