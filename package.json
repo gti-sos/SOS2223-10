@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index",
     "test-economy-stats" :  "npx newman run ./test/backend-api-JRM.json -e ./test/env/localhost.json",
-    "test": "npm run test-econmy-stats"
+    "test": "npm run test-econmy-stats",
+    "test-environment" : "npx newman run ./tests2/backend-RPP.json -e ./tests2/env/localhost.json"
   },
   "repository": {
     "type": "git",
