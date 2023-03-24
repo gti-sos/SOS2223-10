@@ -18,6 +18,19 @@ var employment_stats = [
 ];
 db.insert(employment_stats);
 console.log("Datos insertados");
+/////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////
+//_______________________________________METODOS GET______________________________________________
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+//REDIRECCION
+app.get(BASE_API_URL +"/employment-stats/docs", (req, res) => {
+    console.log("Se ejecuta");
+    res.status(301).redirect("https://documenter.getpostman.com/view/25969335/2s93JzM1Bb");
+
+});
+
 
 app.get(BASE_API_URL + "/employment-stats", (req,res)=>{ 
     var query = req.query;
@@ -77,6 +90,42 @@ app.get(BASE_API_URL + "/employment-stats", (req,res)=>{
     })
     
 });
+ //GET ELEMENTO POR province Y period bien
+ app.get(BASE_API_URL +"/employment-stats/:province/:period", (req,res)=>{
+    var data = req.params; //parametro solicitado
+        
+    db.find({province: data.province, period: parseInt(data.period)}, (err, docs) => {
+        if (err) {
+            res.sendStatus(500);
+        } else {
+            if (docs == 0) {
+                res.sendStatus(404);
+            } else {
+                delete docs[0]._id;
+                res.status(200).send(JSON.stringify(docs[0], null, 2));
+            }
+        }
+    });
+});
+//GET PROVINCIA
+
+app.get(BASE_API_URL +"/employment-stats/:province", (req,res)=>{
+    var data = req.params; //parametro solicitado
+        
+    db.find({province: data.province}, (err, docs) => {
+        if (err) {
+            res.sendStatus(500);
+        } else {
+            if (docs == 0) {
+                res.sendStatus(404);
+            } else {
+                delete docs[0]._id;
+                res.status(200).send(JSON.stringify(docs[0], null, 2));
+            }
+        }
+    });
+});
+
     
 app.get(BASE_API_URL+"/employment-stats", (request,response) => {
     console.log("New GET to /employment-stats");
@@ -244,6 +293,12 @@ app.get(BASE_API_URL+"/employment-stats/:province", (request,response) => {
     });
 });
 */
+
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//_______________________________________METODOS POST_____________________________________________
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
 app.post(BASE_API_URL+"/employment-stats/:province",(request,response)=>{
     response.sendStatus(405, "Method not allowed");
 });
@@ -284,6 +339,10 @@ app.post(BASE_API_URL+"/employment-stats", (request,response) => {
         
     }        
 });
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//_______________________________________METODOS PUT_____________________________________________
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 app.put(BASE_API_URL + "/employment-stats",(request,response)=>{
     response.sendStatus(405, "Method not allowed");
@@ -315,6 +374,9 @@ app.put(BASE_API_URL+"/employment-stats/:province/:period", (request,response) =
     }
 });
 
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//_______________________________________METODOS DELETE_____________________________________________
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 
@@ -357,13 +419,12 @@ app.delete(BASE_API_URL +"/employment-stats/:province",(request, response)=>{
     });
 });
 
-app.get(BASE_API_URL +"/employment-stats/docs", (req, res) => {
-    console.log("Se ejecuta");
-    res.status(301).redirect("https://documenter.getpostman.com/view/25969335/2s93JzM1Bb");
 
-});
 
-//Funciones
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//_______________________________________FUNCIONES_____________________________________________
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
 function convertirAMinusculas(texto) {
     return texto.toLowerCase();
   }
