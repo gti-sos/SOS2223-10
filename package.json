@@ -7,6 +7,7 @@
     "start": "node index",
     "test-economy-stats" :  "npx newman run ./test/test-JRM/backend-JRM.json -e ./test/test-JRM/env/localhost.json",
     "test-environment" : "npx newman run ./test/test-RPP/backend-RPP.json -e ./test/test-RPP/env/localhost.json",
+    "test-employment-stats" :  "npx newman run ./test/test-RDQ/backend-RDQ.json -e ./test/test-RDQ/env/localhost.json",
     "test": "npm run test-environment"
   },
   "repository": {

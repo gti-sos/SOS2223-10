@@ -1,0 +1,609 @@
+{
+	"info": {
+		"_postman_id": "e132af9e-a626-4535-9fe9-1327d8f85002",
+		"name": "Gcloud",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25969335"
+	},
+	"item": [
+		{
+			"name": "Get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/Madrid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats/Madrid",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats",
+						"Madrid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "offset y limit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats?offset=0&limit=2",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats/loadInitialData",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "from to",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla?from=2000&to=2015",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats",
+						"sevilla"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2000"
+						},
+						{
+							"key": "to",
+							"value": "2015"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/sevilla",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats",
+						"sevilla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post /201",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"period\":1000,\"province\":\"jaen\",\"population_over_16_years\":527475,\"activity_men_percentage\":64.3,\"activity_women_percentage\":37.9}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Faltan parametros /400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": " {\r\n        \"period\": 3000,\r\n        \"province\": \"sevilla\",\r\n        \"activity_men_percentage\": 65.5,\r\n        \"activity_women_percentage\": 36.3\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ya existe /409",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"period\":2004,\"province\":\"jaen\",\"population_over_16_years\":527475,\"activity_men_percentage\":64.3,\"activity_women_percentage\":37.9}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "error /sevilla /405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats",
+						"sevilla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Vacio",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Con ciudad y año",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"period\":2004,\"province\":\"jaen\",\"population_over_16_years\":527475,\"activity_men_percentage\":64.3,\"activity_women_percentage\":37.9}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla/2014",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats",
+						"sevilla",
+						"2014"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Faltan parametros",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"period\":2004,\"province\":\"jaen\",\"population_over_16_years\":527475,\"activity_men_percentage\":64.3}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla/2014",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats",
+						"sevilla",
+						"2014"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put correcto",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"period\": 2014,\r\n        \"province\": \"sevilla\",\r\n        \"population_over_16_years\": 1111111111,\r\n        \"activity_men_percentage\": 65.6,\r\n        \"activity_women_percentage\": 53.8\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla/2014",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats",
+						"sevilla",
+						"2014"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "borrado de todo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats/",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete ciudad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats",
+						"sevilla"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
