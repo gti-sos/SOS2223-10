@@ -30,6 +30,31 @@ app.get(BASE_API_URL +"/employment-stats/docs", (req, res) => {
     res.status(301).redirect("https://documenter.getpostman.com/view/25969335/2s93JzM1Bb");
 
 });
+//                      LOAD INITIAL DATA, NO MOVER DE SITIO.
+app.get(BASE_API_URL+"/employment-stats/loadInitialData", (req,res) => {
+    console.log("New GET to /employment-stats/loadInitialData");
+    db.find({}, function(err,data){
+        if(err){
+            console.log(`Error geting /employment-stats/loadInitialData: ${err}`);
+            res.sendStatus(500);
+        }
+        else{
+            if(data.length==0){
+                console.log(`data inserted: ${employment_stats.length}`);  
+                db.insert(employment_stats); 
+                res.json(employment_stats.map((d)=>{
+                    delete d._id;
+                    return d;
+                }));    
+            }
+            else{
+                 console.log(`Data is already inserted: ${data.length}`);
+                 res.status(200).send("Data is already inserted");          
+            }
+        }
+    });
+});
+
 
 
 app.get(BASE_API_URL + "/employment-stats", (req,res)=>{ 
@@ -253,29 +278,6 @@ app.get(BASE_API_URL+"/employment-stats", (request,response) => {
 });
 
 
-app.get(BASE_API_URL+"/employment-stats/loadInitialData", (request,response) => {
-    console.log("New GET to /employment-stats/loadInitialData");
-    db.find({}, function(err,data){
-        if(err){
-            console.log(`Error geting /employment-stats/loadInitialData: ${err}`);
-            response.sendStatus(500);
-        }
-        else{
-            if(data.length==0){
-                console.log(`data inserted: ${employment_stats.length}`);  
-                db.insert(employment_stats); 
-                response.json(employment_stats.map((d)=>{
-                    delete d._id;
-                    return d;
-                }));    
-            }
-            else{
-                 console.log(`Data is already inserted: ${data.length}`);
-                 response.status(200).send("Data is already inserted");          
-            }
-        }
-    });
-});
 //activity_women_percentage
 /*
 app.get(BASE_API_URL+"/employment-stats/:activity_women_percentage", (request,response) => {
