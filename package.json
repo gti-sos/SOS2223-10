@@ -5,14 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-<<<<<<< HEAD
-    "test-economy-stats" :  "npx newman run ./test/backend-api-JRM.json -e ./test/env/localhost.json",
-    "test": "npm run test-econmy-stats"
-=======
     "test-economy-stats" :  "npx newman run ./test/test-JRM/backend-JRM.json -e ./test/test-JRM/env/localhost.json",
     "test-environment" : "npx newman run ./test/test-RPP/backend-RPP.json -e ./test/test-RPP/env/localhost.json",
     "test": "npm run test-environment"
->>>>>>> fdc616072e8728cc74aa25684093d85e18941962
   },
   "repository": {
     "type": "git",
