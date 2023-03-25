@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "test-economy-stats" :  "npx newman run ./test/backend-api-JRM.json -e ./test/env/localhost.json",
-    "test": "npm run test-econmy-stats",
-    "test-environment" : "npx newman run ./tests2/backend-RPP.json -e ./tests2/env/localhost.json"
+    "test-economy-stats" :  "npx newman run ./test/test-JRM/backend-JRM.json -e ./test/test-JRM/env/localhost.json",
+    "test-environment" : "npx newman run ./test/test-RPP/backend-RPP.json -e ./test/test-RPP/env/localhost.json",
+    "test": "npm run test-environment"
   },
   "repository": {
     "type": "git",
