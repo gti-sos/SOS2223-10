@@ -302,6 +302,19 @@
 		},
 		{
 			"name": "GET /environment-stats?from=2015&to=2017",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"2015 a 2017\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -331,6 +344,19 @@
 		},
 		{
 			"name": "GET /environment-stats/Almería?from=2010&to=2023",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Documentación Postman\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -361,6 +387,19 @@
 		},
 		{
 			"name": "GET /environment-stats/Madrid Error 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Documentación Postman\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -381,12 +420,25 @@
 		},
 		{
 			"name": "POST /environment-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Documentación Postman\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 23,\n        \"area\": 123.456,\n        \"fire\": 24\n        \n    }",
+					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 2323,\n        \"area\": 123456,\n        \"fire\": 24\n        \n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -409,12 +461,25 @@
 		},
 		{
 			"name": "POST /environment-stats Error 409 Conflict",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Conflicto POST\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": " {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 23,\n        \"area\": 123.456,\n        \"fire\": 24\n        \n    }",
+					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 2323,\n        \"area\": 123456,\n        \"fire\": 24\n        \n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -437,6 +502,19 @@
 		},
 		{
 			"name": "POST /environment-stats Error 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Conflicto POST\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -464,7 +542,20 @@
 			"response": []
 		},
 		{
-			"name": "POST /environment-stats/Sevilla",
+			"name": "POST /environment-stats/Sevilla Error 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Método no permitido\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -494,6 +585,19 @@
 		},
 		{
 			"name": "PUT /environment-stats/Sevilla",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT Sevilla\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -523,6 +627,19 @@
 		},
 		{
 			"name": "PUT /environment-stats Error 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT no permitido\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -551,6 +668,19 @@
 		},
 		{
 			"name": "PUT /environment-stats/Sevilla Error 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Conflicto POST\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -580,6 +710,19 @@
 		},
 		{
 			"name": "DELETE /environment-stats/Almeria",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -604,6 +747,19 @@
 		},
 		{
 			"name": "DELETE /environment-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete\", function () {",
+							"    pm.response.to.have.status(204);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],
