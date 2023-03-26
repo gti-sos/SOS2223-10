@@ -72,6 +72,49 @@
 			"response": []
 		},
 		{
+			"name": "Peticion con ?province=Sevilla",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verify array length\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf(2);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats?province=Sevilla",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats"
+					],
+					"query": [
+						{
+							"key": "province",
+							"value": "Sevilla"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "offset y limit",
 			"event": [
 				{
@@ -80,6 +123,10 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verify array length\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf(2);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -108,39 +155,6 @@
 							"key": "limit",
 							"value": "2"
 						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/loadInitialData",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/loadInitialData",
-					"host": [
-						"{{URLBASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"employment-stats",
-						"loadInitialData"
 					]
 				}
 			},
@@ -270,8 +284,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 201\", function () {\r",
-							"    pm.response.to.have.status(201);\r",
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -540,6 +554,39 @@
 			"response": []
 		},
 		{
+			"name": "Delete ciudad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats",
+						"sevilla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "borrado de todo",
 			"event": [
 				{
@@ -573,7 +620,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete ciudad",
+			"name": "/loadInitialData",
 			"event": [
 				{
 					"listen": "test",
@@ -588,10 +635,10 @@
 				}
 			],
 			"request": {
-				"method": "DELETE",
+				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla",
+					"raw": "{{URLBASE}}/api/v1/employment-stats/loadInitialData",
 					"host": [
 						"{{URLBASE}}"
 					],
@@ -599,7 +646,7 @@
 						"api",
 						"v1",
 						"employment-stats",
-						"sevilla"
+						"loadInitialData"
 					]
 				}
 			},
