@@ -30,6 +30,31 @@ app.get(BASE_API_URL +"/employment-stats/docs", (req, res) => {
     res.status(301).redirect("https://documenter.getpostman.com/view/25969335/2s93JzM1Bb");
 
 });
+//                      LOAD INITIAL DATA, NO MOVER DE SITIO.
+app.get(BASE_API_URL+"/employment-stats/loadInitialData", (req,res) => {
+    console.log("New GET to /employment-stats/loadInitialData");
+    db.find({}, function(err,data){
+        if(err){
+            console.log(`Error geting /employment-stats/loadInitialData: ${err}`);
+            res.sendStatus(500);
+        }
+        else{
+            if(data.length==0){
+                console.log(`data inserted: ${employment_stats.length}`);  
+                db.insert(employment_stats); 
+                res.json(employment_stats.map((d)=>{
+                    delete d._id;
+                    return d;
+                }));    
+            }
+            else{
+                 console.log(`Data is already inserted: ${data.length}`);
+                 res.status(200).send("Data is already inserted");          
+            }
+        }
+    });
+});
+
 
 
 app.get(BASE_API_URL + "/employment-stats", (req,res)=>{ 
@@ -67,6 +92,7 @@ app.get(BASE_API_URL + "/employment-stats", (req,res)=>{
     }
     
     console.log(dbquery);
+
     db.find(dbquery).skip(offset).limit(limit).exec((err,docs) =>{
         console.log(docs);
         if(err){
@@ -90,6 +116,113 @@ app.get(BASE_API_URL + "/employment-stats", (req,res)=>{
     })
     
 });
+app.get(BASE_API_URL+"/employment-stats/:province", (request,response) => {
+    var provincia = request.params.province;
+    var from = request.query.from;
+    var to = request.query.to;
+    
+     console.log(`New GET to /economy-stats/${provincia}`);
+
+    if(from>to){
+        console.log(`No se han recibido los campos esperados:`);
+        response.status(400).send("Bad Request");
+    }
+
+    db.find({province : provincia}).skip(0).limit(employment_stats.length).exec((err, data) =>{
+        if(from != null && to != null){
+            data = data.filter((reg)=>
+            {
+                return (reg.period >= from && reg.period <=to);
+            });
+
+            if (data==0){
+                console.log(`Data not found /employment-stats: ${err}`);
+                res.status(404).send("Data not found");
+            }    
+        }
+        if(err){
+            console.log(`Error geting /employment-stats/${provincia}: ${err}`);
+            response.sendStatus(500);
+        }else{
+            if(data.length!= 0){
+                console.log(`data returned ${data.length}`);
+                response.json(data.map((d)=>{
+                    delete d._id;
+                    return d;
+                }));
+            }
+             else{
+                console.log(`Data not found /employment-stats/${provincia}: ${err}`);
+                response.status(404).send("Data not found");
+             }        
+        }
+        
+
+
+    });
+});
+
+
+/////PROBAR
+/*
+app.get(BASE_API_URL + "/employment-stats/:province", (req, res) => {
+
+    var provincia = req.query.province;
+    var from = req.query.from;
+    var to = req.query.to;
+
+
+    for (var i = 0; i < Object.keys(req.query).length; i++) {
+        var element = Object.keys(req.query)[i];
+        if (element != "period" && element != "from" && element != "to" && element != "limit" && element != "offset") {
+            res.sendStatus(400, "BAD REQUEST");
+            return;
+        }
+    }
+
+
+    if (from > to) {
+        res.sendStatus(400, "BAD REQUEST");
+        return;
+    }
+    var data = req.params; //parametro solicitado
+        
+    db.find({province: data.province}, function (err, filteredList) {
+        if (err) {
+            res.sendStatus(500, "INTERNAL SERVER ERROR");
+            return;
+        }
+
+        if (provincia != null) {
+            var filteredList = filteredList.filter((reg) => {
+                return (reg.period == periodo);
+            });
+            if (filteredList == 0) {
+                res.sendStatus(404, "NO EXIST");
+                return;
+            }
+        }
+
+        if (from != null && to != null) {
+            filteredList = filteredList.filter((reg) => {
+                return (reg.period >= from && reg.period <= to);
+            });
+
+            if (filteredList == 0) {
+                res.sendStatus(404, "NO EXIST");
+                return;
+            }
+        }
+        if (req.query.limit != undefined || req.query.offset != undefined) {
+            filteredList = paginacion(req, filteredList);
+        }
+        filteredList.forEach((element) => {
+            delete element._id;
+        });
+        res.send(JSON.stringify(filteredList, null, 2));
+    })
+})
+*/
  //GET ELEMENTO POR province Y period bien
  app.get(BASE_API_URL +"/employment-stats/:province/:period", (req,res)=>{
     var data = req.params; //parametro solicitado
@@ -107,8 +240,8 @@ app.get(BASE_API_URL + "/employment-stats", (req,res)=>{
         }
     });
 });
+/*
 //GET PROVINCIA
-
 app.get(BASE_API_URL +"/employment-stats/:province", (req,res)=>{
     var data = req.params; //parametro solicitado
         
@@ -125,7 +258,7 @@ app.get(BASE_API_URL +"/employment-stats/:province", (req,res)=>{
         }
     });
 });
-
+*/
     
 app.get(BASE_API_URL+"/employment-stats", (request,response) => {
     console.log("New GET to /employment-stats");
@@ -145,29 +278,6 @@ app.get(BASE_API_URL+"/employment-stats", (request,response) => {
 });
 
 
-app.get(BASE_API_URL+"/employment-stats/loadInitialData", (request,response) => {
-    console.log("New GET to /employment-stats/loadInitialData");
-    db.find({}, function(err,data){
-        if(err){
-            console.log(`Error geting /employment-stats/loadInitialData: ${err}`);
-            response.sendStatus(500);
-        }
-        else{
-            if(data.length==0){
-                console.log(`data inserted: ${employment_stats.length}`);  
-                db.insert(employment_stats); 
-                response.json(employment_stats.map((d)=>{
-                    delete d._id;
-                    return d;
-                }));    
-            }
-            else{
-                 console.log(`Data is already inserted: ${data.length}`);
-                 response.status(200).send("Data is already inserted");          
-            }
-        }
-    });
-});
 //activity_women_percentage
 /*
 app.get(BASE_API_URL+"/employment-stats/:activity_women_percentage", (request,response) => {
@@ -428,6 +538,32 @@ app.delete(BASE_API_URL +"/employment-stats/:province",(request, response)=>{
 function convertirAMinusculas(texto) {
     return texto.toLowerCase();
   }
+
+function paginacion(req, lista){
+
+    var res = [];
+    const limit = req.query.limit;
+    const offset = req.query.offset;
+    
+    if(limit < 1 || offset < 0 || offset > lista.length){
+        res.push("INCORRECT PARAMETERS");
+        return res;
+    }
+    res = lista.slice(offset,parseInt(limit)+parseInt(offset));
+    return res;
+
+}
+function verificarExistencia(valor) {
+    const provincia = valor.query.province
+    return new Promise((resolve, reject) => {
+      db.findOne({ province: valor }, (err, doc) => {
+        if (err) return reject(err);
+        if (doc) return resolve(true);
+        return resolve(false);
+      });
+    });
+  }
+
 
 
 
