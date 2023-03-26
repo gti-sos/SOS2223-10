@@ -16,7 +16,7 @@ var employment_stats = [
     { period: 2014, province: "sevilla", population_over_16_years: 1571050, activity_men_percentage: 65.6, activity_women_percentage: 53.8 },
     { period: 2014, province: "almeria", population_over_16_years: 587775, activity_men_percentage: 69.2, activity_women_percentage: 53.6 }
 ];
-db.insert(employment_stats);
+db.insert(employment_stats);    //Comentar si piden que la base al principio este vacia.
 console.log("Datos insertados");
 /////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////
