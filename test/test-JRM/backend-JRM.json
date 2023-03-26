@@ -40,44 +40,6 @@
 			"response": []
 		},
 		{
-			"name": "LoadInitialData",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function (){\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Array Check\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(Array.isArray(jsonData)===true)\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats/loadInitialData",
-					"host": [
-						"{{gcloud-10}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"economy-stats",
-						"loadInitialData"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "CiudadErronea",
 			"event": [
 				{
@@ -146,6 +108,177 @@
 						"economy-stats",
 						"Sevilla",
 						"2011"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "From y to Ciudad",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function (){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{gcloud-10}}/api/v1/economy-stats/Sevilla?from=2010&to=2012",
+					"host": [
+						"{{gcloud-10}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"economy-stats",
+						"Sevilla"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2010"
+						},
+						{
+							"key": "to",
+							"value": "2012"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "From y to",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function (){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{gcloud-10}}/api/v1/economy-stats?from=2010&to=2013",
+					"host": [
+						"{{gcloud-10}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"economy-stats"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2010"
+						},
+						{
+							"key": "to",
+							"value": "2013"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Offset y limit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function (){\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{gcloud-10}}/api/v1/economy-stats?offset=1&limit=5",
+					"host": [
+						"{{gcloud-10}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"economy-stats"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "1"
+						},
+						{
+							"key": "limit",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Busqueda turista",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verificar propiead en JSON\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData[0]).to.have.nested.property(\"tourist\",857295);\r",
+							"});\r",
+							"\r",
+							"pm .test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{gcloud-10}}/api/v1/economy-stats?tourist=857295",
+					"host": [
+						"{{gcloud-10}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"economy-stats"
+					],
+					"query": [
+						{
+							"key": "tourist",
+							"value": "857295"
+						}
 					]
 				}
 			},
@@ -352,6 +485,49 @@
 			"response": []
 		},
 		{
+			"name": "Put Faltan Datos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"period\":2013,\"territory\":\"Sevilla\",\"finished_house\":2790,\"half_price_m_two\":1296}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{gcloud-10}}/api/v1/economy-stats/Sevilla/2013",
+					"host": [
+						"{{gcloud-10}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"economy-stats",
+						"Sevilla",
+						"2013"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Diferente Id",
 			"event": [
 				{
@@ -456,7 +632,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats/Madrid",
+					"raw": "{{gcloud-10}}/api/v1/economy-stats/Alicante",
 					"host": [
 						"{{gcloud-10}}"
 					],
@@ -464,7 +640,7 @@
 						"api",
 						"v1",
 						"economy-stats",
-						"Madrid"
+						"Alicante"
 					]
 				}
 			},
@@ -536,220 +712,7 @@
 			"response": []
 		},
 		{
-			"name": "Busqueda turista",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Verificar propiead en JSON\", function () {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData[0]).to.have.nested.property(\"tourist\",857295);\r",
-							"\r",
-							"pm .test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats?tourist=857295",
-					"host": [
-						"{{gcloud-10}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"economy-stats"
-					],
-					"query": [
-						{
-							"key": "tourist",
-							"value": "857295"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Offset y limit",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function (){\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats?offset=1&limit=5",
-					"host": [
-						"{{gcloud-10}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"economy-stats"
-					],
-					"query": [
-						{
-							"key": "offset",
-							"value": "1"
-						},
-						{
-							"key": "limit",
-							"value": "5"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "From y to",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function (){\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats?from=2010&to=2013",
-					"host": [
-						"{{gcloud-10}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"economy-stats"
-					],
-					"query": [
-						{
-							"key": "from",
-							"value": "2010"
-						},
-						{
-							"key": "to",
-							"value": "2013"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "From y to Ciudad",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function (){\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats/Sevilla?from=2010&to=2012",
-					"host": [
-						"{{gcloud-10}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"economy-stats",
-						"Sevilla"
-					],
-					"query": [
-						{
-							"key": "from",
-							"value": "2010"
-						},
-						{
-							"key": "to",
-							"value": "2012"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Put Faltan Datos",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 400\", function () {\r",
-							"    pm.response.to.have.status(400);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\"period\":2013,\"territory\":\"Sevilla\",\"finished_house\":2790,\"half_price_m_two\":1296}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats/Sevilla/2013",
-					"host": [
-						"{{gcloud-10}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"economy-stats",
-						"Sevilla",
-						"2013"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "LoadInitialData2",
+			"name": "LoadInitialData",
 			"event": [
 				{
 					"listen": "test",
