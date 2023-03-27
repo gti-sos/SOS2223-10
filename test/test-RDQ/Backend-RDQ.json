@@ -130,7 +130,7 @@
 			"response": []
 		},
 		{
-			"name": "error /sevilla /405",
+			"name": "error /toledo /405",
 			"event": [
 				{
 					"listen": "test",
@@ -196,7 +196,7 @@
 			"response": []
 		},
 		{
-			"name": "/Madrid",
+			"name": "/toledo",
 			"event": [
 				{
 					"listen": "test",
@@ -230,7 +230,7 @@
 			"response": []
 		},
 		{
-			"name": "Peticion con ?province=Sevilla",
+			"name": "Peticion con ?province=toledo",
 			"event": [
 				{
 					"listen": "test",
@@ -365,7 +365,7 @@
 			"response": []
 		},
 		{
-			"name": "/sevilla",
+			"name": "/toledo",
 			"event": [
 				{
 					"listen": "test",
@@ -383,7 +383,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla",
+					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo",
 					"host": [
 						"{{URLBASE}}"
 					],
@@ -391,14 +391,14 @@
 						"api",
 						"v1",
 						"employment-stats",
-						"sevilla"
+						"toledo"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "/sevilla Copy",
+			"name": "/toledo/1000",
 			"event": [
 				{
 					"listen": "test",
@@ -416,7 +416,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla/2014",
+					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo/1000",
 					"host": [
 						"{{URLBASE}}"
 					],
@@ -424,8 +424,8 @@
 						"api",
 						"v1",
 						"employment-stats",
-						"sevilla",
-						"2014"
+						"toledo",
+						"1000"
 					]
 				}
 			},
@@ -584,7 +584,7 @@
 			"response": []
 		},
 		{
-			"name": "Delete ciudad Copy",
+			"name": "/Delete Ciudad/anyo error",
 			"event": [
 				{
 					"listen": "test",
@@ -602,7 +602,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo/1000",
+					"raw": "{{URLBASE}}/api/v1/employment-stats/Vigo/3000",
 					"host": [
 						"{{URLBASE}}"
 					],
@@ -610,8 +610,8 @@
 						"api",
 						"v1",
 						"employment-stats",
-						"toledo",
-						"1000"
+						"Vigo",
+						"3000"
 					]
 				}
 			},
