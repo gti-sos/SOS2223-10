@@ -428,7 +428,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"period\":2049,\"territory\":\"Madrid\",\"finished_house\":6667,\"half_price_m_two\":1576,\"tourist\":2732934}",
+					"raw": "{\"period\":2049,\"territory\":\"Alicante\",\"finished_house\":6667,\"half_price_m_two\":1576,\"tourist\":2732934}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -597,7 +597,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"period\":2011,\"territory\":\"Sevilla\",\"finished_house\":6667765456456,\"half_price_m_two\":1576,\"tourist\":2732934}",
+					"raw": "{\"period\":2049,\"territory\":\"Alicante\",\"finished_house\":6667765456456,\"half_price_m_two\":1576,\"tourist\":2732934}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -605,7 +605,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats/Sevilla/2011",
+					"raw": "{{gcloud-10}}/api/v1/economy-stats/Alicante/2049",
 					"host": [
 						"{{gcloud-10}}"
 					],
@@ -613,8 +613,8 @@
 						"api",
 						"v1",
 						"economy-stats",
-						"Sevilla",
-						"2011"
+						"Alicante",
+						"2049"
 					]
 				}
 			},
@@ -639,7 +639,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats/Alicante",
+					"raw": "{{gcloud-10}}/api/v1/economy-stats/Madrid",
 					"host": [
 						"{{gcloud-10}}"
 					],
@@ -647,7 +647,7 @@
 						"api",
 						"v1",
 						"economy-stats",
-						"Alicante"
+						"Madrid"
 					]
 				}
 			},
@@ -672,7 +672,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats/Sevilla",
+					"raw": "{{gcloud-10}}/api/v1/economy-stats/Alicante/2049",
 					"host": [
 						"{{gcloud-10}}"
 					],
@@ -680,14 +680,15 @@
 						"api",
 						"v1",
 						"economy-stats",
-						"Sevilla"
+						"Alicante",
+						"2049"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Delete Todo",
+			"name": "Get normal Copy",
 			"event": [
 				{
 					"listen": "test",
@@ -695,14 +696,20 @@
 						"exec": [
 							"pm.test(\"Status code is 200\", function () {\r",
 							"    pm.response.to.have.status(200);\r",
-							"});"
+							"});\r",
+							"\r",
+							"pm.test(\"Verify array length\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf(10);\r",
+							"});\r",
+							""
 						],
 						"type": "text/javascript"
 					}
 				}
 			],
 			"request": {
-				"method": "DELETE",
+				"method": "GET",
 				"header": [],
 				"url": {
 					"raw": "{{gcloud-10}}/api/v1/economy-stats",
@@ -713,44 +720,6 @@
 						"api",
 						"v1",
 						"economy-stats"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "LoadInitialData",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function (){\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"\r",
-							"pm.test(\"Verify array length\", function() {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.lengthOf(10);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats/loadInitialData",
-					"host": [
-						"{{gcloud-10}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"economy-stats",
-						"loadInitialData"
 					]
 				}
 			},

@@ -289,14 +289,14 @@ module.exports = (app) => {
     });
 
     
-    app.delete(BASE_API_URL +"/economy-stats/:territory",(request, response)=>{
+    app.delete(BASE_API_URL +"/economy-stats/:territory/:period",(request, response)=>{
         var territorio = request.params.territory;
-
-        console.log(`New DELETE to /economy-stats/${territorio}`);
-
-        db.remove({territory:territorio},{multi:true},function (err, dbRemoved){
+        var año = parseInt(request.params.period);
+        console.log(`New DELETE to /employment-stats/${territorio}/${año}`);
+    
+        db.remove({territory:territorio,period:parseInt(año)},{},function (err, dbRemoved){
             if(err){
-                console.log(`Error deleting /apartment-occupancy-surveys/${territorio}: ${err}`);
+                console.log(`Error deleting /apartment-occupancy-surveys/${territorio}/${año}: ${err}`);
                 response.sendStatus(500);
             }else{
                 if(dbRemoved==0){
@@ -305,7 +305,7 @@ module.exports = (app) => {
                 else{
                     console.log(`Files removed ${dbRemoved}`);
                     response.sendStatus(200);
-                }              
+                }
             }
         });
     });
