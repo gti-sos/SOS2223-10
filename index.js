@@ -2,7 +2,6 @@ const BASE_API_URL = "/api/v1";
 
 
 var express = require("express");
-var cool = require("cool-ascii-faces")
 var bodyParser = require("body-parser");
 var backend = require("./backend/api-JRM");
 var backend2 = require("./backend/api-RDQ")

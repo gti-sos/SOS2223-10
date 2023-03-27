@@ -510,10 +510,10 @@ app.delete(BASE_API_URL +"/employment-stats",(request, response)=>{
 
 app.delete(BASE_API_URL +"/employment-stats/:province/:period",(request, response)=>{
     var provincia = request.params.province;
-    var periodo= request.params.period;
+    var periodo = parseInt(request.params.period);
     console.log(`New DELETE to /employment-stats/${provincia}`);
 
-    db.remove({province:provincia,period:periodo},{},function (err, dbRemoved){
+    db.remove({province:provincia,period:parseInt(periodo)},{},function (err, dbRemoved){
         if(err){
             console.log(`Error deleting /apartment-occupancy-surveys/${provincia}: ${err}`);
             response.sendStatus(500);

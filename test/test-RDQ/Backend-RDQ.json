@@ -341,15 +341,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo?from=999&to=1001",
+					"raw": "{{URLBASE}}/api/v1/employment-stats?from=999&to=1001",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
 						"v1",
-						"employment-stats",
-						"toledo"
+						"employment-stats"
 					],
 					"query": [
 						{
@@ -384,7 +383,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo",
+					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla",
 					"host": [
 						"{{URLBASE}}"
 					],
@@ -392,7 +391,7 @@
 						"api",
 						"v1",
 						"employment-stats",
-						"toledo"
+						"sevilla"
 					]
 				}
 			},
@@ -417,7 +416,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo/1000",
+					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla/2014",
 					"host": [
 						"{{URLBASE}}"
 					],
@@ -425,8 +424,8 @@
 						"api",
 						"v1",
 						"employment-stats",
-						"toledo",
-						"1000"
+						"sevilla",
+						"2014"
 					]
 				}
 			},
@@ -591,8 +590,8 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
 							"});"
 						],
 						"type": "text/javascript"
