@@ -640,7 +640,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats/Madrid",
+					"raw": "{{gcloud-10}}/api/v1/economy-stats/Madrid/2004",
 					"host": [
 						"{{gcloud-10}}"
 					],
@@ -648,7 +648,8 @@
 						"api",
 						"v1",
 						"economy-stats",
-						"Madrid"
+						"Madrid",
+						"2004"
 					]
 				}
 			},
