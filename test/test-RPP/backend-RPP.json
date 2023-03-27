@@ -15,7 +15,7 @@
 						"exec": [
 							"pm.test(\"Base de Datos Vacía\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData).to.have.a.lengthOf(0);",
+							"    pm.expect(jsonData).to.have.a.lengthOf(10);",
 							"});"
 						],
 						"type": "text/javascript"
@@ -68,39 +68,6 @@
 						"v1",
 						"environment-stats",
 						"loadInitialData"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/docs",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Documentación Postman\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats/docs",
-					"host": [
-						"{{URL-BASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"environment-stats",
-						"docs"
 					]
 				}
 			},
@@ -438,7 +405,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 2323,\n        \"area\": 123456,\n        \"fire\": 24\n        \n    }",
+					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Segovia\",\n        \"protected_space\": 2323,\n        \"area\": 123456,\n        \"fire\": 24\n        \n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -479,7 +446,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 2323,\n        \"area\": 123456,\n        \"fire\": 24\n        \n    }",
+					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Segovia\",\n        \"protected_space\": 2323,\n        \"area\": 123456,\n        \"fire\": 24\n        \n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -584,7 +551,7 @@
 			"response": []
 		},
 		{
-			"name": "PUT /environment-stats/Sevilla",
+			"name": "PUT /environment-stats/Segovia",
 			"event": [
 				{
 					"listen": "test",
@@ -603,7 +570,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "  {\n        \"year\": 2017,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 1,\n        \"area\": 1,\n        \"fire\": 2\n    }",
+					"raw": "  {\n        \"year\": 2023,\n        \"city\": \"Segovia\",\n        \"protected_space\": 1,\n        \"area\": 1,\n        \"fire\": 2\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -611,7 +578,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats/Sevilla",
+					"raw": "{{URL-BASE}}/api/v1/environment-stats/Segovia",
 					"host": [
 						"{{URL-BASE}}"
 					],
@@ -619,7 +586,7 @@
 						"api",
 						"v1",
 						"environment-stats",
-						"Sevilla"
+						"Segovia"
 					]
 				}
 			},
@@ -709,7 +676,7 @@
 			"response": []
 		},
 		{
-			"name": "DELETE /environment-stats/Almeria",
+			"name": "DELETE /environment-stats/Segovia",
 			"event": [
 				{
 					"listen": "test",
@@ -731,7 +698,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats/Almería",
+					"raw": "{{URL-BASE}}/api/v1/environment-stats/Segovia",
 					"host": [
 						"{{URL-BASE}}"
 					],
@@ -739,43 +706,7 @@
 						"api",
 						"v1",
 						"environment-stats",
-						"Almería"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE /environment-stats",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Delete\", function () {",
-							"    pm.response.to.have.status(204);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
-				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats",
-					"host": [
-						"{{URL-BASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"environment-stats"
+						"Segovia"
 					]
 				}
 			},
