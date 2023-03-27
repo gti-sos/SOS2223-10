@@ -397,6 +397,7 @@ module.exports = (app) => {
             } else {
                 console.log(`Environment stat with city ${city} deleted`);
                 res.sendStatus(200);
+                
             }
         });
     });
