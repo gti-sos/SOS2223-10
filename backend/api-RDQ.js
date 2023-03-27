@@ -56,7 +56,7 @@ app.get(BASE_API_URL+"/employment-stats/loadInitialData", (req,res) => {
 });
 
 
-
+//
 app.get(BASE_API_URL + "/employment-stats", (req,res)=>{ 
     var query = req.query;
     dbquery = {};
