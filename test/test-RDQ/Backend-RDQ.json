@@ -7,236 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "Get",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats",
-					"host": [
-						"{{URLBASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"employment-stats"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/Madrid",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 404\", function () {\r",
-							"    pm.response.to.have.status(404);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/Madrid",
-					"host": [
-						"{{URLBASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"employment-stats",
-						"Madrid"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Peticion con ?province=Sevilla",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"Verify array length\", function() {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.lengthOf(2);\r",
-							"});\r",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats?province=Sevilla",
-					"host": [
-						"{{URLBASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"employment-stats"
-					],
-					"query": [
-						{
-							"key": "province",
-							"value": "Sevilla"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "offset y limit",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});\r",
-							"pm.test(\"Verify array length\", function() {\r",
-							"    var jsonData = pm.response.json();\r",
-							"    pm.expect(jsonData).to.have.lengthOf(2);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats?offset=0&limit=2",
-					"host": [
-						"{{URLBASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"employment-stats"
-					],
-					"query": [
-						{
-							"key": "offset",
-							"value": "0"
-						},
-						{
-							"key": "limit",
-							"value": "2"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "from to",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla?from=2000&to=2015",
-					"host": [
-						"{{URLBASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"employment-stats",
-						"sevilla"
-					],
-					"query": [
-						{
-							"key": "from",
-							"value": "2000"
-						},
-						{
-							"key": "to",
-							"value": "2015"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/sevilla",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla",
-					"host": [
-						"{{URLBASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"employment-stats",
-						"sevilla"
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "Post /201",
 			"event": [
 				{
@@ -256,7 +26,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"period\":1000,\"province\":\"jaen\",\"population_over_16_years\":527475,\"activity_men_percentage\":64.3,\"activity_women_percentage\":37.9}",
+					"raw": "{\"period\":1000,\"province\":\"toledo\",\"population_over_16_years\":527475,\"activity_men_percentage\":64.3,\"activity_women_percentage\":37.9}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -338,7 +108,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"period\":2004,\"province\":\"jaen\",\"population_over_16_years\":527475,\"activity_men_percentage\":64.3,\"activity_women_percentage\":37.9}",
+					"raw": "{\"period\":1000,\"province\":\"toledo\",\"population_over_16_years\":527475,\"activity_men_percentage\":64.3,\"activity_women_percentage\":37.9}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -378,7 +148,7 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla",
+					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo/1000",
 					"host": [
 						"{{URLBASE}}"
 					],
@@ -386,7 +156,277 @@
 						"api",
 						"v1",
 						"employment-stats",
-						"sevilla"
+						"toledo",
+						"1000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/Madrid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo/2000",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats",
+						"toledo",
+						"2000"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Peticion con ?province=Sevilla",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verify array length\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf(1);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats?province=toledo&limit=1",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats"
+					],
+					"query": [
+						{
+							"key": "province",
+							"value": "toledo"
+						},
+						{
+							"key": "limit",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "offset y limit",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Verify array length\", function() {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData).to.have.lengthOf(1);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats?offset=0&limit=1",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "limit",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "from to",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo?from=999&to=1001",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats",
+						"toledo"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "999"
+						},
+						{
+							"key": "to",
+							"value": "1001"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/sevilla",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats",
+						"toledo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/sevilla Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo/1000",
+					"host": [
+						"{{URLBASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"employment-stats",
+						"toledo",
+						"1000"
 					]
 				}
 			},
@@ -444,7 +484,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"period\":2004,\"province\":\"jaen\",\"population_over_16_years\":527475,\"activity_men_percentage\":64.3,\"activity_women_percentage\":37.9}",
+					"raw": "{\"period\":1000,\"province\":\"toledo\",\"population_over_16_years\":9,\"activity_men_percentage\":64.3,\"activity_women_percentage\":37.9}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -452,7 +492,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla/2014",
+					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo/1000",
 					"host": [
 						"{{URLBASE}}"
 					],
@@ -460,8 +500,8 @@
 						"api",
 						"v1",
 						"employment-stats",
-						"sevilla",
-						"2014"
+						"toledo",
+						"1000"
 					]
 				}
 			},
@@ -487,7 +527,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"period\":2004,\"province\":\"jaen\",\"population_over_16_years\":527475,\"activity_men_percentage\":64.3}",
+					"raw": "{\"period\":1000,\"province\":\"toledo\",\"population_over_16_years\":527475,\"activity_men_percentage\":64.3}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -495,7 +535,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla/2014",
+					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo/1000",
 					"host": [
 						"{{URLBASE}}"
 					],
@@ -503,51 +543,8 @@
 						"api",
 						"v1",
 						"employment-stats",
-						"sevilla",
-						"2014"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "put correcto",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n        \"period\": 2014,\r\n        \"province\": \"sevilla\",\r\n        \"population_over_16_years\": 1111111111,\r\n        \"activity_men_percentage\": 65.6,\r\n        \"activity_women_percentage\": 53.8\r\n    }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla/2014",
-					"host": [
-						"{{URLBASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"employment-stats",
-						"sevilla",
-						"2014"
+						"toledo",
+						"1000"
 					]
 				}
 			},
@@ -572,7 +569,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/sevilla",
+					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo/1000",
 					"host": [
 						"{{URLBASE}}"
 					],
@@ -580,14 +577,15 @@
 						"api",
 						"v1",
 						"employment-stats",
-						"sevilla"
+						"toledo",
+						"1000"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "borrado de todo",
+			"name": "Delete ciudad Copy",
 			"event": [
 				{
 					"listen": "test",
@@ -605,7 +603,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/",
+					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo/1000",
 					"host": [
 						"{{URLBASE}}"
 					],
@@ -613,40 +611,8 @@
 						"api",
 						"v1",
 						"employment-stats",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "/loadInitialData",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {\r",
-							"    pm.response.to.have.status(200);\r",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/loadInitialData",
-					"host": [
-						"{{URLBASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"employment-stats",
-						"loadInitialData"
+						"toledo",
+						"1000"
 					]
 				}
 			},
