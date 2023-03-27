@@ -7,40 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "Init",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Base de Datos Vacía\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData).to.have.a.lengthOf(10);",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats/",
-					"host": [
-						"{{URL-BASE}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"environment-stats",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "LoadInitialData",
 			"event": [
 				{
