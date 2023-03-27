@@ -63,7 +63,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-10.appspot.com/api/v1/economy-stats/Madrid",
+					"raw": "https://sos2223-10.appspot.com/api/v1/economy-stats/Madrid/2011",
 					"protocol": "https",
 					"host": [
 						"sos2223-10",
@@ -74,7 +74,8 @@
 						"api",
 						"v1",
 						"economy-stats",
-						"Madrid"
+						"Madrid",
+						"2011"
 					]
 				}
 			},
