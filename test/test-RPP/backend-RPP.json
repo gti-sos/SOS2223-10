@@ -371,7 +371,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Segovia\",\n        \"protected_space\": 2323,\n        \"area\": 123456,\n        \"fire\": 24\n        \n    }",
+					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 2323,\n        \"area\": 123456,\n        \"fire\": 24\n        \n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -412,7 +412,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Segovia\",\n        \"protected_space\": 2323,\n        \"area\": 123456,\n        \"fire\": 24\n        \n    }",
+					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 2323,\n        \"area\": 123456,\n        \"fire\": 24\n        \n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -517,7 +517,7 @@
 			"response": []
 		},
 		{
-			"name": "PUT /environment-stats/Segovia",
+			"name": "PUT /environment-stats/Sevilla",
 			"event": [
 				{
 					"listen": "test",
@@ -536,7 +536,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "  {\n        \"year\": 2023,\n        \"city\": \"Segovia\",\n        \"protected_space\": 1,\n        \"area\": 1,\n        \"fire\": 2\n    }",
+					"raw": "  {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 1,\n        \"area\": 1,\n        \"fire\": 2\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -544,7 +544,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats/Segovia",
+					"raw": "{{URL-BASE}}/api/v1/environment-stats/Sevilla",
 					"host": [
 						"{{URL-BASE}}"
 					],
@@ -552,7 +552,90 @@
 						"api",
 						"v1",
 						"environment-stats",
-						"Segovia"
+						"Sevilla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /environment-stats/Sevilla Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT Sevilla\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 2222,\n        \"area\": 22222,\n        \"fire\": 22222\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL-BASE}}/api/v1/environment-stats/Sevilla/2023",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"environment-stats",
+						"Sevilla",
+						"2023"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /environment-stats/Sevilla/2023",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Verificar propiedad en JSON\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.year).to.equal(2023);",
+							"pm.test(\"Datos de Sevilla\", function () {",
+							"    pm.response.to.have.status(200);",
+							"",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL-BASE}}/api/v1/environment-stats/Sevilla/2023",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"environment-stats",
+						"Sevilla",
+						"2023"
 					]
 				}
 			},
@@ -642,7 +725,7 @@
 			"response": []
 		},
 		{
-			"name": "DELETE /environment-stats/Segovia",
+			"name": "DELETE /environment-stats/Sevilla/2023",
 			"event": [
 				{
 					"listen": "test",
@@ -664,7 +747,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats/Segovia",
+					"raw": "{{URL-BASE}}/api/v1/environment-stats/Sevilla/2023",
 					"host": [
 						"{{URL-BASE}}"
 					],
@@ -672,7 +755,8 @@
 						"api",
 						"v1",
 						"environment-stats",
-						"Segovia"
+						"Sevilla",
+						"2023"
 					]
 				}
 			},
