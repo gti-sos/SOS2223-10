@@ -362,6 +362,33 @@ module.exports = (app) => {
         console.log("New PUT to /environment-stats/:city");
       });
 
+      app.put(BASE_API_URL + "/environment-stats/:city/:year", (req, res) => {
+        const city = req.params.city;
+        const year = req.params.year;
+        const updatedStat = req.body;
+        console.log(`new_stat = <${JSON.stringify(updatedStat, null, 2)}>`);
+        
+        if (updatedStat.city && updatedStat.city !== city) {
+          return res.status(400).send('Ciudad en body no es el mismo que URL');
+        }
+        
+        db.update({ city: city, year: parseInt(year) }, updatedStat, {}, function (err, numReplaced) {
+          if (err) {
+            console.log(`Error updating environment stat with city ${city} and year ${year}: ${err}`);
+            res.sendStatus(500);
+          } else if (numReplaced === 0) {
+            console.log(`Environment stat with city ${city} and year ${year} not found`);
+            res.sendStatus(404);
+          } else {
+            console.log(`Environment stat with city ${city} and year ${year} updated`);
+            res.sendStatus(200);
+          }
+        });
+      
+        console.log("New PUT to /environment-stats/:city/:year");
+    });
+    
+
       app.put(BASE_API_URL + "/environment-stats", (req, res) => {
         res.status(405).send('Method not Allowed');
         console.log(`Error 405 Method not Allowed`);
@@ -398,6 +425,28 @@ module.exports = (app) => {
                 console.log(`Environment stat with city ${city} deleted`);
                 res.sendStatus(200);
                 
+            }
+        });
+    });
+
+
+    app.delete(BASE_API_URL +"/environment-stats/:city/:year",(request, response)=>{
+        var city = request.params.city;
+        var year = parseInt(request.params.year);
+        console.log(`New DELETE to /environment-stats/${city}/${year}`);
+    
+        db.remove({city:city,year:parseInt(year)},{},function (err, dbRemoved){
+            if(err){
+                console.log(`Error deleting`);
+                response.sendStatus(500);
+            }else{
+                if(dbRemoved==0){
+                    response.status(404).send("Not Found");
+                }
+                else{
+                    console.log(`Files removed ${dbRemoved}`);
+                    response.sendStatus(200);
+                }
             }
         });
     });
