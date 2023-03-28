@@ -143,7 +143,7 @@ module.exports = (app) => {
                 filteredData = filteredData.filter(({ protected_space: fh }) => fh === parseInt(protected_space));
             }
             if (area) {
-                //************************************************ */
+                //*************************************************** */
 
                 filteredData = filteredData.filter(({ area: hpt }) => hpt === parseInt(area));
             }
@@ -386,6 +386,7 @@ module.exports = (app) => {
         });
       
         console.log("New PUT to /environment-stats/:city/:year");
+        
     });
     
 
