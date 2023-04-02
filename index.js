@@ -1,19 +1,21 @@
 const BASE_API_URL = "/api/v1";
 
-
-var express = require("express");
-var bodyParser = require("body-parser");
-var backend = require("./backend/api-JRM");
-var backend2 = require("./backend/api-RDQ")
-var backend3 = require("./backend/api-RPP")
+import { handler } from "./frontend/build/handler.js";
+import express from "express";
+import {loadBackend_RDQ_v2} from "./backend/api-RDQ-v2.js";
+import {loadBackend_JRM_v2} from "./backend/api-JRM-v2.js";
+import {loadBackend_RPP_v2} from "./backend/api-RPP-v2.js";
+//var backend = require("./backend/api-JRM");
+//var backend2 = require("./backend/api-RDQ");
+//var backend3 = require("./backend/api-RPP");
 
 
 
 var app = express();
 var port = process.env.PORT || 12345;
 
-app.use("/",express.static("./public"));
-app.use(bodyParser.json());
+// app.use("/",express.static("./public"));
+app.use(express.json());
 
 app.get(BASE_API_URL + "/economy-stats/docs", (req, res) => {
     console.log("Se ejecuta" + BASE_API_URL + "/economy-stats/docs");
@@ -27,9 +29,10 @@ app.get(BASE_API_URL + "/employment-stats/docs", (req, res) => {
 
 });
 
-backend(app);
-backend2(app);
-backend3(app);
+loadBackend_RDQ_v2(app);
+loadBackend_JRM_v2(app);
+loadBackend_RPP_v2(app);
+app.use(handler);
 
 app.listen(port, () => {
     console.log(`Server ready in port ${port}`);

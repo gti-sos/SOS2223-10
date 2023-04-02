@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "this is a new update Readme",
   "main": "index.js",
+  "type":"module", 
   "scripts": {
     "start": "node index",
     "test-economy-stats" :  "npx newman run ./test/test-JRM/backend-JRM.json -e ./test/test-JRM/env/gcloud.json",
