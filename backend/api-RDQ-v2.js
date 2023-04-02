@@ -1,7 +1,7 @@
 //const { response } = require('express');
 import Datastore from "nedb";
 var db = new Datastore();
-const BASE_API_URL2 = "/api/v2";
+const BASE_API_URL = "/api/v2";
 function loadBackend_RDQ_v2(app) {
     var vacio =[ ]
 var employment_stats = [
@@ -25,13 +25,13 @@ console.log("Datos insertados");
 
 
 //REDIRECCION
-app.get(BASE_API_URL2 +"/employment-stats/docs", (req, res) => {
+app.get(BASE_API_URL +"/employment-stats/docs", (req, res) => {
     console.log("Se ejecuta");
     res.status(301).redirect("https://documenter.getpostman.com/view/25969335/2s93JzM1Bb");
 
 });
 //                      LOAD INITIAL DATA, NO MOVER DE SITIO.
-app.get(BASE_API_URL2+"/employment-stats/loadInitialData", (req,res) => {
+app.get(BASE_API_URL+"/employment-stats/loadInitialData", (req,res) => {
     console.log("New GET to /employment-stats/loadInitialData");
     db.find({}, function(err,data){
         if(err){
@@ -57,7 +57,7 @@ app.get(BASE_API_URL2+"/employment-stats/loadInitialData", (req,res) => {
 
 
 //b
-app.get(BASE_API_URL2 + "/employment-stats", (req,res)=>{ 
+app.get(BASE_API_URL + "/employment-stats", (req,res)=>{ 
     var query = req.query;
     const dbquery = {};
     console.log("Peticion GET");
@@ -116,7 +116,7 @@ app.get(BASE_API_URL2 + "/employment-stats", (req,res)=>{
     })
     
 });
-app.get(BASE_API_URL2+"/employment-stats/:province", (request,response) => {
+app.get(BASE_API_URL+"/employment-stats/:province", (request,response) => {
     var provincia = request.params.province;
     var from = request.query.from;
     var to = request.query.to;
@@ -164,7 +164,7 @@ app.get(BASE_API_URL2+"/employment-stats/:province", (request,response) => {
 
 
  //GET ELEMENTO POR province Y period bien
- app.get(BASE_API_URL2 +"/employment-stats/:province/:period", (req,res)=>{
+ app.get(BASE_API_URL +"/employment-stats/:province/:period", (req,res)=>{
     var data = req.params; //parametro solicitado
         
     db.find({province: data.province, period: parseInt(data.period)}, (err, docs) => {
@@ -182,7 +182,7 @@ app.get(BASE_API_URL2+"/employment-stats/:province", (request,response) => {
 });
 /*
 //GET PROVINCIA
-app.get(BASE_API_URL2 +"/employment-stats/:province", (req,res)=>{
+app.get(BASE_API_URL +"/employment-stats/:province", (req,res)=>{
     var data = req.params; //parametro solicitado
         
     db.find({province: data.province}, (err, docs) => {
@@ -200,7 +200,7 @@ app.get(BASE_API_URL2 +"/employment-stats/:province", (req,res)=>{
 });
 */
     
-app.get(BASE_API_URL2+"/employment-stats", (request,response) => {
+app.get(BASE_API_URL+"/employment-stats", (request,response) => {
     console.log("New GET to /employment-stats");
     db.find({},(err,employment_stats) => {
         if(err){
@@ -224,12 +224,12 @@ app.get(BASE_API_URL2+"/employment-stats", (request,response) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-app.post(BASE_API_URL2+"/employment-stats/:province/:period",(request,response)=>{
+app.post(BASE_API_URL+"/employment-stats/:province/:period",(request,response)=>{
     response.sendStatus(405, "Method not allowed");
 });
 
 
-app.post(BASE_API_URL2+"/employment-stats", (request,response) => {
+app.post(BASE_API_URL+"/employment-stats", (request,response) => {
     var newStat = request.body;
 
     if(!newStat.period || !newStat.province || !newStat.population_over_16_years || !newStat.activity_men_percentage || !newStat.activity_women_percentage){
@@ -269,7 +269,7 @@ app.post(BASE_API_URL2+"/employment-stats", (request,response) => {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-app.put(BASE_API_URL2 + "/employment-stats",(request,response)=>{
+app.put(BASE_API_URL + "/employment-stats",(request,response)=>{
     response.sendStatus(405, "Method not allowed");
 });
 
@@ -277,7 +277,7 @@ app.put(BASE_API_URL + "/employment-stats/:province",(request,response)=>{
     response.sendStatus(405, "Method not allowed");
 });
 
-app.put(BASE_API_URL2+"/employment-stats/:province/:period", (request,response) => {
+app.put(BASE_API_URL+"/employment-stats/:province/:period", (request,response) => {
     var newStat = request.body;
     var provincia = request.params.province;
     var periodo = parseInt(request.params.period);
@@ -305,7 +305,7 @@ app.put(BASE_API_URL2+"/employment-stats/:province/:period", (request,response) 
 
 
 
-app.delete(BASE_API_URL2 +"/employment-stats",(request, response)=>{
+app.delete(BASE_API_URL +"/employment-stats",(request, response)=>{
     db.remove({}, {multi:true},function (err, dbRemoved){
         if(err){
             console.log(`Error deleting /employment-stats: ${err}`);
@@ -323,7 +323,7 @@ app.delete(BASE_API_URL2 +"/employment-stats",(request, response)=>{
 });
 
 
-app.delete(BASE_API_URL2 +"/employment-stats/:province/:period",(request, response)=>{
+app.delete(BASE_API_URL +"/employment-stats/:province/:period",(request, response)=>{
     var provincia = request.params.province;
     var periodo = parseInt(request.params.period);
     console.log(`New DELETE to /employment-stats/${provincia}`);

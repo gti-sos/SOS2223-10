@@ -2,7 +2,7 @@
 //var Datastore = require('nedb');
 import Datastore from "nedb";
 var db = new Datastore();
-const BASE_API_URL22 = "/api/v2";
+const BASE_API_URL2 = "/api/v2";
 //const express = require('express');
 //const Joi = require('joi');
 //module.exports = (app) => {
@@ -45,13 +45,13 @@ function loadBackend_RPP_v2(app) {
 
 
 
-    app.get(BASE_API_URL22 + "/environment-stats/docs", (req, res) => {
+    app.get(BASE_API_URL2 + "/environment-stats/docs", (req, res) => {
         console.log("Se ejecuta");
         res.redirect("https://documenter.getpostman.com/view/26063123/2s93RNxZdi");
 
     });
 
-    app.get(BASE_API_URL22 + "/environment-stats/loadInitialData", (req, res) => {
+    app.get(BASE_API_URL2 + "/environment-stats/loadInitialData", (req, res) => {
 
         db.find({}, function (err, docs) {
 
@@ -103,7 +103,7 @@ function loadBackend_RPP_v2(app) {
 
 
 
-    app.get(BASE_API_URL2 + "/environment-stats", (request, response) => {
+    app.get(BASE_API_URL + "/environment-stats", (request, response) => {
         console.log("New GET to /environment-stats");
         const { city, year, protected_space, area, fire, from, to } = request.query;
         const expectedFields = ["city", "year", "protected_space", "area", "fire", "from", "to", "limit", "offset"];
@@ -197,7 +197,7 @@ function loadBackend_RPP_v2(app) {
 
 
 
-    app.get(BASE_API_URL2 + "/environment-stats/:city", (req, res) => {
+    app.get(BASE_API_URL + "/environment-stats/:city", (req, res) => {
         var city = req.params.city;
         const from = req.query.from;
         const to = req.query.to;
@@ -231,7 +231,7 @@ function loadBackend_RPP_v2(app) {
 
 
 
-    app.get(BASE_API_URL2 + "/environment-stats/:city/:year", (req, res) => {
+    app.get(BASE_API_URL + "/environment-stats/:city/:year", (req, res) => {
         var iuvcity = req.params.city;
         var iuvYear = req.params.year;
         db.find({ city: iuvcity, year: parseInt(iuvYear) }, function (err, docs) {
@@ -279,14 +279,14 @@ function loadBackend_RPP_v2(app) {
             }
         }
     }
-    app.post(BASE_API_URL2 + "/environment-stats/:city", (req, res) => {
+    app.post(BASE_API_URL + "/environment-stats/:city", (req, res) => {
         res.status(405).send('Method not Allowed');
         console.log(`Error 405 Method not Allowed`);
 
     });
 
 
-    app.post(BASE_API_URL2 + "/environment-stats", (req, res) => {
+    app.post(BASE_API_URL + "/environment-stats", (req, res) => {
         const newStat = req.body;
         if (!newStat.year || !newStat.city || !newStat.protected_space || !newStat.area || !newStat.fire) {
             console.log("Bad Request: missing required fields");
@@ -338,7 +338,7 @@ function loadBackend_RPP_v2(app) {
 
 
 
-    app.put(BASE_API_URL2 + "/environment-stats/:city", (req, res) => {
+    app.put(BASE_API_URL + "/environment-stats/:city", (req, res) => {
         const city = req.params.city;
         const updatedStat = req.body;
         console.log(`new_stat = <${JSON.stringify(updatedStat, null, 2)}>`);
@@ -363,7 +363,7 @@ function loadBackend_RPP_v2(app) {
         console.log("New PUT to /environment-stats/:city");
       });
 
-      app.put(BASE_API_URL2 + "/environment-stats/:city/:year", (req, res) => {
+      app.put(BASE_API_URL + "/environment-stats/:city/:year", (req, res) => {
         const city = req.params.city;
         const year = req.params.year;
         const updatedStat = req.body;
@@ -391,7 +391,7 @@ function loadBackend_RPP_v2(app) {
     });
     
 
-      app.put(BASE_API_URL2 + "/environment-stats", (req, res) => {
+      app.put(BASE_API_URL + "/environment-stats", (req, res) => {
         res.status(405).send('Method not Allowed');
         console.log(`Error 405 Method not Allowed`);
 
@@ -413,7 +413,7 @@ function loadBackend_RPP_v2(app) {
 
 
 
-    app.delete(BASE_API_URL2 + "/environment-stats/:city", (req, res) => {
+    app.delete(BASE_API_URL + "/environment-stats/:city", (req, res) => {
         const city = req.params.city;
     
         db.remove({ city }, { multi: true }, function (err, numRemoved) {
@@ -432,7 +432,7 @@ function loadBackend_RPP_v2(app) {
     });
 
 
-    app.delete(BASE_API_URL2 +"/environment-stats/:city/:year",(request, response)=>{
+    app.delete(BASE_API_URL +"/environment-stats/:city/:year",(request, response)=>{
         var city = request.params.city;
         var year = parseInt(request.params.year);
         console.log(`New DELETE to /environment-stats/${city}/${year}`);
@@ -459,7 +459,7 @@ function loadBackend_RPP_v2(app) {
    
 
 
-    app.delete(BASE_API_URL2 + "/environment-stats", (req, res) => {
+    app.delete(BASE_API_URL + "/environment-stats", (req, res) => {
         db.remove({}, { multi: true }, (err, numRemoved) => {
             if (err) {
                 console.error(err);
