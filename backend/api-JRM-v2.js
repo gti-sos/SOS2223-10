@@ -2,7 +2,7 @@
 //var Datastore = require('nedb');
 import Datastore from "nedb";
 var db = new Datastore();
-const BASE_API_URL = "/api/v2";
+const BASE_API_URL2 = "/api/v2";
 function loadBackend_JRM_v2(app) {
     var economy_stats = [
         { period: 1999, territory: "Jaén", finished_house: 3704, half_price_m_two: 440, tourist: 857295 },
@@ -20,7 +20,7 @@ function loadBackend_JRM_v2(app) {
     db.insert(economy_stats);
         
 
-    app.get(BASE_API_URL+"/economy-stats/loadInitialData", (req,res) => {
+    app.get(BASE_API_URL2+"/economy-stats/loadInitialData", (req,res) => {
         console.log("New GET to /economy-stats/loadInitialData");
         db.find({}, function(err,data){
             if(err){
@@ -44,7 +44,7 @@ function loadBackend_JRM_v2(app) {
         });
     });
 
-    app.get(BASE_API_URL + "/economy-stats", (req, res) => {
+    app.get(BASE_API_URL2 + "/economy-stats", (req, res) => {
         const query = req.query;
         const dbquery = {};
         console.log("New GET to /economy-stats/");
@@ -131,7 +131,7 @@ function loadBackend_JRM_v2(app) {
         });
     });
     
-    app.get(BASE_API_URL+"/economy-stats/:territory", (request,response) => {
+    app.get(BASE_API_URL2+"/economy-stats/:territory", (request,response) => {
         var territorio = request.params.territory;
         var from = request.query.from;
         var to = request.query.to;
@@ -177,7 +177,7 @@ function loadBackend_JRM_v2(app) {
         });
     });
 
-    app.get(BASE_API_URL +"/economy-stats/:territory/:period", (req,res)=>{
+    app.get(BASE_API_URL2 +"/economy-stats/:territory/:period", (req,res)=>{
         var data = req.params; //parametro solicitado
             
         db.find({territory: data.territory, period: parseInt(data.period)}, (err, docs) => {
@@ -194,12 +194,12 @@ function loadBackend_JRM_v2(app) {
         });
     });
 
-    app.post(BASE_API_URL+"/economy-stats/:territory",(request,response)=>{
+    app.post(BASE_API_URL2+"/economy-stats/:territory",(request,response)=>{
         response.sendStatus(405, "Method not allowed");
     });
 
 
-    app.post(BASE_API_URL+"/economy-stats", (request,response) => {
+    app.post(BASE_API_URL2+"/economy-stats", (request,response) => {
         var newStat = request.body;
 
         if(!newStat.period || !newStat.territory || !newStat.finished_house || !newStat.half_price_m_two || !newStat.tourist){
@@ -236,15 +236,15 @@ function loadBackend_JRM_v2(app) {
     });
      
 
-    app.put(BASE_API_URL + "/economy-stats",(request,response)=>{
+    app.put(BASE_API_URL2 + "/economy-stats",(request,response)=>{
         response.sendStatus(405, "Method not allowed");
     });
 
-    app.put(BASE_API_URL + "/economy-stats/:territory",(request,response)=>{
+    app.put(BASE_API_URL2 + "/economy-stats/:territory",(request,response)=>{
         response.sendStatus(405, "Method not allowed");
     });
 
-    app.put(BASE_API_URL+"/economy-stats/:territory/:period", (request,response) => {
+    app.put(BASE_API_URL2+"/economy-stats/:territory/:period", (request,response) => {
         var newStat = request.body;
         var territorio = request.params.territory;
         var año = parseInt(request.params.period);
@@ -272,7 +272,7 @@ function loadBackend_JRM_v2(app) {
     
 
 
-    app.delete(BASE_API_URL +"/economy-stats",(request, response)=>{
+    app.delete(BASE_API_URL2 +"/economy-stats",(request, response)=>{
         db.remove({}, {multi:true},function (err, dbRemoved){
             if(err){
                 console.log(`Error deleting /economy-stats: ${err}`);
@@ -290,7 +290,7 @@ function loadBackend_JRM_v2(app) {
     });
 
     
-    app.delete(BASE_API_URL +"/economy-stats/:territory/:period",(request, response)=>{
+    app.delete(BASE_API_URL2 +"/economy-stats/:territory/:period",(request, response)=>{
         var territorio = request.params.territory;
         var año = parseInt(request.params.period);
         console.log(`New DELETE to /employment-stats/${territorio}/${año}`);
