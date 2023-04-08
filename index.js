@@ -1,4 +1,5 @@
-const BASE_API_URL = "/api/v2";
+const BASE_API_URL = "/api/v1";
+
 
 import { handler } from "./frontend/build/handler.js";
 import express from "express";
@@ -14,8 +15,7 @@ import {loadBackend_RPP_v2} from "./backend/api-RPP-v2.js";
 var app = express();
 var port = process.env.PORT || 12345;
 
-app.use("/",express.static("./public"));
-
+// app.use("/",express.static("./public"));
 app.use(express.json());
 
 app.get(BASE_API_URL + "/economy-stats/docs", (req, res) => {

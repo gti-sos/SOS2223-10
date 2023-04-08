@@ -290,7 +290,7 @@ function loadBackend_JRM_v2(app) {
     });
 
     
-    app.delete(BASE_API_URL +"/economy-stats/:territory/:period",(request, response)=>{
+    app.delete(BASE_API_URL+"/economy-stats/:territory/:period",(request, response)=>{
         var territorio = request.params.territory;
         var año = parseInt(request.params.period);
         console.log(`New DELETE to /employment-stats/${territorio}/${año}`);

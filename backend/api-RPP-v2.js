@@ -2,7 +2,7 @@
 //var Datastore = require('nedb');
 import Datastore from "nedb";
 var db = new Datastore();
-const BASE_API_URL = "/api/v2";
+const BASE_API_URL2 = "/api/v2";
 //const express = require('express');
 //const Joi = require('joi');
 //module.exports = (app) => {
@@ -45,13 +45,13 @@ function loadBackend_RPP_v2(app) {
 
 
 
-    app.get(BASE_API_URL + "/environment-stats/docs", (req, res) => {
+    app.get(BASE_API_URL2 + "/environment-stats/docs", (req, res) => {
         console.log("Se ejecuta");
         res.redirect("https://documenter.getpostman.com/view/26063123/2s93RNxZdi");
 
     });
 
-    app.get(BASE_API_URL + "/environment-stats/loadInitialData", (req, res) => {
+    app.get(BASE_API_URL2 + "/environment-stats/loadInitialData", (req, res) => {
 
         db.find({}, function (err, docs) {
 
