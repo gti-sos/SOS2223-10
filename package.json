@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node index",
-    "test-economy-stats": "npx newman run ./test/test-JRM/backend-JRM.json -e ./test/test-JRM/env/gcloud.json",
+    "test-economy-stats": "npx newman run ./test/test-JRM/backend-JRM-v2.json -e ./test/test-JRM/env/gcloud.json",
     "test-environment": "npx newman run ./test/test-RPP/backend-RPP.json -e ./test/test-RPP/env/gcloud.json",
     "test-employment-stats": "npx newman run ./test/test-RDQ/backend-RDQ2.json -e ./test/test-RDQ/env/gcloud.json",
     "test": "npm run test-environment && npm run test-employment-stats && npm run test-economy-stats"
