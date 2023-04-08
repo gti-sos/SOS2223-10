@@ -20,6 +20,10 @@
 	},
 	"type": "module",
 	"dependencies": {
+<<<<<<< HEAD
 		"handler": "^0.1.3"
+=======
+		"sveltestrap": "^5.10.0"
+>>>>>>> c6e70fb32bae42bff520107b8182e6184ea70798
 	}
 }
