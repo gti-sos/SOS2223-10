@@ -15,7 +15,7 @@ import {loadBackend_RPP_v2} from "./backend/api-RPP-v2.js";
 var app = express();
 var port = process.env.PORT || 12345;
 
-//app.use("/",express.static("./public"));
+// app.use("/",express.static("./public"));
 app.use(express.json());
 
 app.get(BASE_API_URL + "/economy-stats/docs", (req, res) => {
