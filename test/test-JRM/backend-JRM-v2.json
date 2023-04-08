@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "b98a059f-7ecb-4a4c-899a-182c36c8efe9",
-		"name": "Coleccion de pruebas",
+		"name": "Coleccion de pruebas v2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25969218"
 	},
@@ -31,13 +31,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats",
+					"raw": "{{gcloud-10}}/api/v2/economy-stats",
 					"host": [
 						"{{gcloud-10}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"economy-stats"
 					]
 				}
@@ -63,7 +63,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://sos2223-10.appspot.com/api/v1/economy-stats/Madrid/2011",
+					"raw": "https://sos2223-10.appspot.com/api/v2/economy-stats/Madrid/2011",
 					"protocol": "https",
 					"host": [
 						"sos2223-10",
@@ -72,7 +72,7 @@
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"economy-stats",
 						"Madrid",
 						"2011"
@@ -103,13 +103,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats/Sevilla/2011",
+					"raw": "{{gcloud-10}}/api/v2/economy-stats/Sevilla/2011",
 					"host": [
 						"{{gcloud-10}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"economy-stats",
 						"Sevilla",
 						"2011"
@@ -137,13 +137,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats/Sevilla?from=2010&to=2012",
+					"raw": "{{gcloud-10}}/api/v2/economy-stats/Sevilla?from=2010&to=2012",
 					"host": [
 						"{{gcloud-10}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"economy-stats",
 						"Sevilla"
 					],
@@ -182,13 +182,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats?from=2010&to=2013",
+					"raw": "{{gcloud-10}}/api/v2/economy-stats?from=2010&to=2013",
 					"host": [
 						"{{gcloud-10}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"economy-stats"
 					],
 					"query": [
@@ -225,13 +225,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats?offset=1&limit=5",
+					"raw": "{{gcloud-10}}/api/v2/economy-stats?offset=1&limit=5",
 					"host": [
 						"{{gcloud-10}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"economy-stats"
 					],
 					"query": [
@@ -273,13 +273,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats?tourist=857295",
+					"raw": "{{gcloud-10}}/api/v2/economy-stats?tourist=857295",
 					"host": [
 						"{{gcloud-10}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"economy-stats"
 					],
 					"query": [
@@ -312,13 +312,13 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats/Sevilla",
+					"raw": "{{gcloud-10}}/api/v2/economy-stats/Sevilla",
 					"host": [
 						"{{gcloud-10}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"economy-stats",
 						"Sevilla"
 					]
@@ -354,13 +354,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats",
+					"raw": "{{gcloud-10}}/api/v2/economy-stats",
 					"host": [
 						"{{gcloud-10}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"economy-stats"
 					]
 				}
@@ -395,13 +395,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats",
+					"raw": "{{gcloud-10}}/api/v2/economy-stats",
 					"host": [
 						"{{gcloud-10}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"economy-stats"
 					]
 				}
@@ -437,13 +437,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats",
+					"raw": "{{gcloud-10}}/api/v2/economy-stats",
 					"host": [
 						"{{gcloud-10}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"economy-stats"
 					]
 				}
@@ -479,13 +479,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats",
+					"raw": "{{gcloud-10}}/api/v2/economy-stats",
 					"host": [
 						"{{gcloud-10}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"economy-stats"
 					]
 				}
@@ -520,13 +520,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats/Sevilla/2013",
+					"raw": "{{gcloud-10}}/api/v2/economy-stats/Sevilla/2013",
 					"host": [
 						"{{gcloud-10}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"economy-stats",
 						"Sevilla",
 						"2013"
@@ -563,13 +563,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats/Madrid/1999",
+					"raw": "{{gcloud-10}}/api/v2/economy-stats/Madrid/1999",
 					"host": [
 						"{{gcloud-10}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"economy-stats",
 						"Madrid",
 						"1999"
@@ -606,13 +606,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats/Alicante/2049",
+					"raw": "{{gcloud-10}}/api/v2/economy-stats/Alicante/2049",
 					"host": [
 						"{{gcloud-10}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"economy-stats",
 						"Alicante",
 						"2049"
@@ -640,13 +640,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats/Madrid/2004",
+					"raw": "{{gcloud-10}}/api/v2/economy-stats/Madrid/2004",
 					"host": [
 						"{{gcloud-10}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"economy-stats",
 						"Madrid",
 						"2004"
@@ -674,13 +674,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats/Alicante/2049",
+					"raw": "{{gcloud-10}}/api/v2/economy-stats/Alicante/2049",
 					"host": [
 						"{{gcloud-10}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"economy-stats",
 						"Alicante",
 						"2049"
@@ -714,13 +714,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{gcloud-10}}/api/v1/economy-stats",
+					"raw": "{{gcloud-10}}/api/v2/economy-stats",
 					"host": [
 						"{{gcloud-10}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"economy-stats"
 					]
 				}

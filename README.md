@@ -11,5 +11,9 @@
   - https://sos2223-10.ew.r.appspot.com/api/v1/economy-stats/docs (developed by Joaquín Rodríguez Mariscal)
   - https://sos2223-10.ew.r.appspot.com/api/v1/environment-stats/docs (developed by Rushabh Patel Patel)
   - https://sos2223-10.ew.r.appspot.com/api/v1/employment-stats/docs (developed by Rafael Díaz Quíntero)
-         
+
+  - https://sos2223-10.ew.r.appspot.com/api/v2/economy-stats/docs (developed by Joaquín Rodríguez Mariscal)
+  - https://sos2223-10.ew.r.appspot.com/api/v2/environment-stats/docs (developed by Rushabh Patel Patel)
+  - https://sos2223-10.ew.r.appspot.com/api/v2/employment-stats/docs (developed by Rafael Díaz Quíntero)
+   
          
