@@ -1,4 +1,4 @@
-const BASE_API_URL = "/api/v1";
+const BASE_API_URL = "/api/v2";
 
 
 import { handler } from "./frontend/build/handler.js";
