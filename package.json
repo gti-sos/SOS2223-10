@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "this is a new update Readme",
   "main": "index.js",
-  "type":"module", 
+  "type": "module",
   "scripts": {
     "start": "node index",
-    "test-economy-stats" :  "npx newman run ./test/test-JRM/backend-JRM.json -e ./test/test-JRM/env/gcloud.json",
-    "test-environment" : "npx newman run ./test/test-RPP/backend-RPP.json -e ./test/test-RPP/env/gcloud.json",
-    "test-employment-stats" :  "npx newman run ./test/test-RDQ/backend-RDQ2.json -e ./test/test-RDQ/env/gcloud.json",
+    "test-economy-stats": "npx newman run ./test/test-JRM/backend-JRM.json -e ./test/test-JRM/env/gcloud.json",
+    "test-environment": "npx newman run ./test/test-RPP/backend-RPP.json -e ./test/test-RPP/env/gcloud.json",
+    "test-employment-stats": "npx newman run ./test/test-RDQ/backend-RDQ2.json -e ./test/test-RDQ/env/gcloud.json",
     "test": "npm run test-environment && npm run test-employment-stats && npm run test-economy-stats"
   },
   "repository": {
@@ -25,6 +25,7 @@
     "body-parser": "^1.20.2",
     "cool-ascii-faces": "^1.3.4",
     "express": "^4.18.2",
+    "handler": "^0.1.3",
     "joi": "^17.9.1",
     "nedb": "^1.8.0"
   }
