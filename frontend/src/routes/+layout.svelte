@@ -4,10 +4,11 @@ Cabecera
     import Footer from "./Footer.svelte";
 </script>
 <main>
-    <Header></Header>
+    <Header/>
     <hr/>
         <slot></slot>
     <hr/>
+    <Footer/>
 </main>
 
 Pie
