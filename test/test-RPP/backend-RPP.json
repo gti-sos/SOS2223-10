@@ -25,13 +25,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats/loadInitialData",
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/loadInitialData",
 					"host": [
 						"{{URL-BASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"environment-stats",
 						"loadInitialData"
 					]
@@ -61,13 +61,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats",
+					"raw": "{{URL-BASE}}/api/v2/environment-stats",
 					"host": [
 						"{{URL-BASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"environment-stats"
 					]
 				}
@@ -95,13 +95,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats?limit=15",
+					"raw": "{{URL-BASE}}/api/v2/environment-stats?limit=15",
 					"host": [
 						"{{URL-BASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"environment-stats"
 					],
 					"query": [
@@ -138,13 +138,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats/Almería",
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Almería",
 					"host": [
 						"{{URL-BASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"environment-stats",
 						"Almería"
 					]
@@ -175,13 +175,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats/Sevilla",
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Sevilla",
 					"host": [
 						"{{URL-BASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"environment-stats",
 						"Sevilla"
 					]
@@ -214,13 +214,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats?protected_space=17",
+					"raw": "{{URL-BASE}}/api/v2/environment-stats?protected_space=17",
 					"host": [
 						"{{URL-BASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"environment-stats"
 					],
 					"query": [
@@ -252,13 +252,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats?from=2020&to=2023",
+					"raw": "{{URL-BASE}}/api/v2/environment-stats?from=2020&to=2023",
 					"host": [
 						"{{URL-BASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"environment-stats"
 					],
 					"query": [
@@ -294,13 +294,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats/Almería?from=2010&to=2023",
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Almería?from=2010&to=2023",
 					"host": [
 						"{{URL-BASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"environment-stats",
 						"Almería"
 					],
@@ -337,13 +337,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats/Madrid",
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Madrid",
 					"host": [
 						"{{URL-BASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"environment-stats",
 						"Madrid"
 					]
@@ -379,13 +379,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats",
+					"raw": "{{URL-BASE}}/api/v2/environment-stats",
 					"host": [
 						"{{URL-BASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"environment-stats"
 					]
 				}
@@ -420,13 +420,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats",
+					"raw": "{{URL-BASE}}/api/v2/environment-stats",
 					"host": [
 						"{{URL-BASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"environment-stats"
 					]
 				}
@@ -461,13 +461,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats",
+					"raw": "{{URL-BASE}}/api/v2/environment-stats",
 					"host": [
 						"{{URL-BASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"environment-stats"
 					]
 				}
@@ -502,13 +502,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats/Sevilla",
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Sevilla",
 					"host": [
 						"{{URL-BASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"environment-stats",
 						"Sevilla"
 					]
@@ -544,13 +544,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats/Sevilla",
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Sevilla",
 					"host": [
 						"{{URL-BASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"environment-stats",
 						"Sevilla"
 					]
@@ -586,13 +586,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats/Sevilla/2023",
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Sevilla/2023",
 					"host": [
 						"{{URL-BASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"environment-stats",
 						"Sevilla",
 						"2023"
@@ -626,13 +626,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats/Sevilla/2023",
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Sevilla/2023",
 					"host": [
 						"{{URL-BASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"environment-stats",
 						"Sevilla",
 						"2023"
@@ -669,13 +669,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats",
+					"raw": "{{URL-BASE}}/api/v2/environment-stats",
 					"host": [
 						"{{URL-BASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"environment-stats"
 					]
 				}
@@ -710,13 +710,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats/Madrid",
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Madrid",
 					"host": [
 						"{{URL-BASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"environment-stats",
 						"Madrid"
 					]
@@ -747,13 +747,13 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{URL-BASE}}/api/v1/environment-stats/Sevilla/2023",
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Sevilla/2023",
 					"host": [
 						"{{URL-BASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"environment-stats",
 						"Sevilla",
 						"2023"
