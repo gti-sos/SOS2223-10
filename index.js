@@ -3,6 +3,7 @@ const BASE_API_URL = "/api/v2";
 
 import { handler } from "./frontend/build/handler.js";
 import express from "express";
+import cors from "cors";
 import {loadBackend_RDQ_v2} from "./backend/api-RDQ-v2.js";
 import {loadBackend_JRM_v2} from "./backend/api-JRM-v2.js";
 import {loadBackend_RPP_v2} from "./backend/api-RPP-v2.js";
@@ -11,6 +12,7 @@ import {loadBackend_RPP_v2} from "./backend/api-RPP-v2.js";
 //var backend3 = require("./backend/api-RPP");
 
 var app = express();
+app.use(cors());
 var port = process.env.PORT || 12345;
 
 app.use("/",express.static("./public"));
@@ -32,7 +34,6 @@ loadBackend_RDQ_v2(app);
 loadBackend_JRM_v2(app);
 loadBackend_RPP_v2(app);
 app.use(handler);
-app.use(cors());
 
 app.listen(port, () => {
     console.log(`Server ready in port ${port}`);

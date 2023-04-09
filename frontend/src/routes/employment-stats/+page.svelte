@@ -72,9 +72,9 @@
 <div>
     Province: <input bind:value={newProvince} />
     Period: <input bind:value={newPeriod} />
-    Population_over_16_years: <input bind:value={newpopulation_over_16_years} />
-    Activity_men_percentage: <input bind:value={newactivity_men_percentage} />
-    Activity_women_percentage: <input bind:value={newactivity_women_percentage} />
+    Population_over_16_years: <input bind:value={newpopulation_over_16_years}/>
+    Activity_men_percentage: <input bind:value={newactivity_men_percentage}/>
+    Activity_women_percentage: <input bind:value={newactivity_women_percentage}/>
     <Button on:click={createFile}>Create</Button>
 </div>
 
