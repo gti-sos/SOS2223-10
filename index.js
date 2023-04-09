@@ -10,8 +10,6 @@ import {loadBackend_RPP_v2} from "./backend/api-RPP-v2.js";
 //var backend2 = require("./backend/api-RDQ");
 //var backend3 = require("./backend/api-RPP");
 
-
-
 var app = express();
 var port = process.env.PORT || 12345;
 
@@ -34,6 +32,7 @@ loadBackend_RDQ_v2(app);
 loadBackend_JRM_v2(app);
 loadBackend_RPP_v2(app);
 app.use(handler);
+app.use(cors());
 
 app.listen(port, () => {
     console.log(`Server ready in port ${port}`);

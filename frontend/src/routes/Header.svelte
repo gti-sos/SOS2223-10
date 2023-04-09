@@ -2,7 +2,7 @@
     <nav>
         <div class="container">
             <a href="/">Home</a>
-            <a href="/economy-stats">Economy stats</a>
+            <a href="/economy">Economy stats</a>
             <a href="/environment-stats">Environment stats</a>
             <a href="/employment-stats">Employment stats</a>          
         </div>
