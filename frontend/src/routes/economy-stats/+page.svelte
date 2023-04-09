@@ -80,20 +80,7 @@
                 getFile();
             }     
         }
-        async function deleteFile(territory){
-            resultStatus = result = "";
-            const res = await fetch(API+"/"+territory, {
-                method: "DELETE"
-            });
-            const status = await res.status;
-            resultStatus = status;
-            if(status==200){
-                getFile();
-                mensaje = "Se ha borrado correctamente el dato seleccionado";
-            }else{
-                mensaje = "No se ha podido borrar el dato";
-            }
-        }
+          
         async function deleteAll(){
             resultStatus = result = "";
             const res = await fetch(API, {
@@ -144,7 +131,6 @@
             <td>{economy.finished_house}</td>
             <td>{economy.half_price_m_two}</td>
             <td>{economy.tourist}</td>
-            <td><Button color="danger"on:click={deleteFile (economy.territory)}>Borrar</Button></td>
           </tr>
         {/each}
         </tbody>
