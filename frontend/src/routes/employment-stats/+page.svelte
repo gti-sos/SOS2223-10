@@ -2,7 +2,7 @@
     //@ts-nocheck
     import { onMount } from "svelte";
     import { Table, Button } from "sveltestrap";
-    import { dev } from "$app/employment";
+    import { dev } from "$app/environment";
     onMount(async () => {
         getFiles();
     });
