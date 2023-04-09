@@ -9,7 +9,7 @@
         let API = "/api/v2/economy-stats";
         let mensaje = "";
         if(dev)
-            API = "http:/localhost:12345"+API
+            API = "http://localhost:12345"+API
             
         let economy_stats = [];
         let newTerritory = "territory";
@@ -95,7 +95,11 @@
                 mensaje = "No se han podido borrar los datos";
             }
         }
+        async function info(territory,period) {
+        window.location.href = "http://localhost:12345/economy-stats/"+territory + "/" + period;
+    }
     </script>
+    
 
     <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px;">Datos Economy_stats</h1>
     <p></p>
@@ -126,11 +130,14 @@
         
         {#each economy_stats as economy }
           <tr>
-            <td><a href="/economy/{economy.territory}/{economy.period}">{economy.territory}</a></td>
+            <td>{economy.territory}</td>
             <td>{economy.period}</td>
             <td>{economy.finished_house}</td>
             <td>{economy.half_price_m_two}</td>
             <td>{economy.tourist}</td>
+            <td>
+                <Button color="info" on:click={info(economy.territory, economy.period)}>actualizar registro</Button>
+            </td>
           </tr>
         {/each}
         </tbody>

@@ -8,9 +8,9 @@
             getEconomy_stat_dato();
         });
         let mensaje = "";
-        let territroy = $page.params.territory;
+        let territory = $page.params.territory;
         let period = $page.params.period;
-        let API = "/economy/"+ territory + "/" +period;
+        let API = "/api/v2/economy-stats/"+ territory + "/" +period;
         if(dev)
             API = "http://localhost:12345"+API
     
