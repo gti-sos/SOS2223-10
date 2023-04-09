@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-<h1>Welcome Home</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
-=======
 <script>
 let URL = "http://localhost:12345"   
 </script>
@@ -88,4 +84,3 @@ let URL = "http://localhost:12345"
         text-align: center;
     }
 </style>
->>>>>>> 03d88d4ff45ae9b4c04699845a57332de99e2ca2
