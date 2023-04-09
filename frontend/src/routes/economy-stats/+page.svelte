@@ -9,7 +9,7 @@
         let API = "/api/v2/economy-stats";
         let mensaje = "";
         if(dev)
-            API = "http://localhost:12345"+API
+            API = "http:/localhost:12345"+API
             
         let economy_stats = [];
         let newTerritory = "territory";
