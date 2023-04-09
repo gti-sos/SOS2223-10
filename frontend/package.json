@@ -22,7 +22,9 @@
 
 	
 	"dependencies": {
+		"@popperjs/core": "^2.11.7",
 		"cors": "^2.8.5",
+		"popper": "^1.0.1",
 		"sveltestrap": "^5.10.0"
 	}
 }
