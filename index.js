@@ -14,10 +14,15 @@ import { handler } from "./frontend/build/handler.js";
 
 
 var app = express();
+
+
+app.use(cors());
+
 var port = process.env.PORT || 12345;
 
 // app.use("/",express.static("./public"));
 app.use(express.json());
+
 
 app.get(BASE_API_URL + "/economy-stats/docs", (req, res) => {
     console.log("Se ejecuta" + BASE_API_URL + "/economy-stats/docs");
@@ -30,6 +35,15 @@ app.get(BASE_API_URL + "/employment-stats/docs", (req, res) => {
     res.redirect("https://documenter.getpostman.com/view/25969335/2s93JzM1Bb");
 
 });
+
+// R
+app.get(BASE_API_URL + "/environment-stats/docs", (req, res) => {
+    console.log("Se ejecuta");
+    res.redirect("https://documenter.getpostman.com/view/26063123/2s93RNxZdi");
+
+});
+
+
 
 loadBackend_RDQ_v2(app);
 loadBackend_JRM_v2(app);
