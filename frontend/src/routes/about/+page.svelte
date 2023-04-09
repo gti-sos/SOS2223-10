@@ -1,1 +1,1 @@
-This app is a contact manager system.
+This app shows data about Economy, Environment and employment.
