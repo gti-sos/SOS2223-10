@@ -8,6 +8,7 @@
         </div>
     </nav>
 </main>
+
 <style>
     a {
         color : rgb(2, 56, 107);

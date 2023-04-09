@@ -7,7 +7,7 @@
             getFile();
         });
         let API = "/api/v2/economy-stats";
-        let mensajeUsuario = "";
+        let mensaje = "";
         if(dev)
             API = "http://localhost:12345"+API
             
@@ -45,13 +45,13 @@
                 tourist: parseInt(newTourist)
             };
     
-            // Comprobar si el nuevo dato ya ha sido insertado previamente
+            
             const existingData = insertedData.find(data => 
                 data.territory === newTerritory && data.period === newPeriod && data.finished_house === newFinished_house
                     && data.half_price_m_two === newHalf_price_m_two && data.tourist === newTourist
             );
             if (existingData) {
-                mensajeUsuario = "Ya existe ese dato";
+                mensaje = "Ya existe ese dato";
                 return;
             }
     
@@ -67,16 +67,16 @@
             resultStatus = status;
             if (status == 201) {
                 getFile();
-                mensajeUsuario = "Se ha creado el nuevo dato introducido";
+                mensaje = "Se ha creado el nuevo dato introducido";
                 insertedData.push(newFile);
             } else if (status == 409) {
-                mensajeUsuario = "El dato introducido ya existe";
+                mensaje = "El dato introducido ya existe";
                 getFile();
             } else if (status == 400) {
-                mensajeUsuario = "Las propiedades introducidas no tienen un formato correcto";
+                mensaje = "Las propiedades introducidas no tienen un formato correcto";
                 getFile();
             } else {
-                mensajeUsuario = "No se ha podido crear el dato introducido";
+                mensaje = "No se ha podido crear el dato introducido";
                 getFile();
             }     
         }
@@ -89,9 +89,9 @@
             resultStatus = status;
             if(status==200){
                 getFile();
-                mensajeUsuario = "Se ha borrado correctamente el dato seleccionado";
+                mensaje = "Se ha borrado correctamente el dato seleccionado";
             }else{
-                mensajeUsuario = "No se ha podido borrar el dato";
+                mensaje = "No se ha podido borrar el dato";
             }
         }
         async function deleteAll(){
@@ -103,17 +103,17 @@
             resultStatus = status;
             if(status==200 || status == 204){
                 await getFile();
-                mensajeUsuario = "Se han borrado correctamente los datos";
+                mensaje = "Se han borrado correctamente los datos";
             }else{
-                mensajeUsuario = "No se han podido borrar los datos";
+                mensaje = "No se han podido borrar los datos";
             }
         }
     </script>
 
     <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px;">Datos Economy_stats</h1>
     <p></p>
-    {#if mensajeUsuario !=""}
-    <h2 style="color: red; text-align: center; font-family:Arial, Helvetica, sans-serif">{mensajeUsuario}</h2>
+    {#if mensaje !=""}
+    <h2 style="color: red; text-align: center; font-family:Arial, Helvetica, sans-serif">{mensaje}</h2>
     {/if}
 
     <Table striped>
@@ -139,7 +139,7 @@
         
         {#each economy_stats as economy }
           <tr>
-            <td><a href="/agroclimatic/{economy.territory}/{economy.period}">{economy.territory}</a></td>
+            <td><a href="/economy/{economy.territory}/{economy.period}">{economy.territory}</a></td>
             <td>{economy.period}</td>
             <td>{economy.finished_house}</td>
             <td>{economy.half_price_m_two}</td>

@@ -34,7 +34,7 @@ loadBackend_RDQ_v2(app);
 loadBackend_JRM_v2(app);
 loadBackend_RPP_v2(app);
 app.use(handler);
-app.use(cors());
+//app.use(cors());
 
 app.listen(port, () => {
     console.log(`Server ready in port ${port}`);
