@@ -139,6 +139,25 @@
                 mensajeUsuario = "No se han podido borrar los datos";
             }		
         }
+
+        async function searchEnvironment() {
+    resultStatus = result = "";
+    const res = await fetch(`${API}/${newCity}/${newYear}`, {
+      method: 'GET'
+    });
+    const status = await res.status;
+    resultStatus = status;
+    if (status == 200) {
+      const data = await res.json();
+      environment_stats = [data]; // Actualizar la lista con el resultado de búsqueda
+      mensajeUsuario = `Resultado de búsqueda para ${newCity} en ${newYear}`;
+    } else if (status == 404) {
+      environment_stats = []; // Limpiar la lista si no se encuentra ningún resultado
+      mensajeUsuario = `No se encontraron resultados para ${newCity} en ${newYear}`;
+    } else {
+      mensajeUsuario = "No se ha podido realizar la búsqueda";
+    }
+  }
     
     
     
@@ -289,6 +308,19 @@ body {
         {/if}
     </div>
 </div>
+<form on:submit|preventDefault={searchEnvironment} class="p-3 border rounded">
+    <div class="form-group">
+      <label for="city" class="font-weight-bold">Ciudad:</label>
+      <input type="text" class="form-control form-control-sm" id="city" bind:value={newCity} required>
+    </div>
+    <div class="form-group">
+      <label for="year" class="font-weight-bold">Año:</label>
+      <input type="number" class="form-control form-control-sm" id="year" bind:value={newYear} required>
+    </div>
+    <Button color="primary" type="submit" class="mt-3">Buscar</Button>
+  </form>
+  
+  
     <table>
         <thead>
             <tr>
