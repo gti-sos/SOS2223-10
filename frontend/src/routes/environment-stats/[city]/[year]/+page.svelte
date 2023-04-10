@@ -23,11 +23,11 @@
    
           API = 'http://localhost:12345'+API
           
-      let uptCity = 'City';
-      let uptYear = 'Year';
-      let protected_space = 'Protected Space';
-      let area = 'Area';
-      let fire = 'Fire';
+      let uptCity = 'Ciudad';
+      let uptYear = 'Año';
+      let protected_space = 'Espacios Protegido';
+      let area = 'Área';
+      let fire = 'Incendio';
      
       
       let message = "";
@@ -158,11 +158,11 @@ margin: 0 20px; /* Cambia el valor de 20px según tus necesidades */
   <table class="table table-bordered table-striped table-hover">
     <thead>
       <tr>
-        <th width="115px">City</th>
-        <th>Year</th>
-        <th width="89px">Protected Space</th>
-        <th width="89px">Area</th>
-        <th>Fire</th>
+        <th width="115px">Ciudad</th>
+        <th>Año</th>
+        <th width="89px">Espacios Protegido</th>
+        <th width="89px">Área</th>
+        <th>Incendio</th>
         
       </tr>
     </thead>

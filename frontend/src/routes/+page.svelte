@@ -1,5 +1,3 @@
-
-
 <script>
     let URL = "http://localhost:12345";
   </script>
@@ -9,7 +7,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>SOS2223-10 API Documentation v2</title>
+    <title>SOS2223-10 API v2</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -97,27 +95,51 @@
 </head>
 <body>
     <header>
-        <h1>SOS2223-10 API Documentation v2</h1>
+        <h1>SOS2223-10 API</h1>
     </header>
     <div class="container">
         <section class="section">
-            <h2 class="section-title">API Documentation</h2>
+            <h2 class="section-title">API's Grupo</h2>
             <div class="section-content">
                 <div class="api-card">
-                    <a href="https://sos2223-10.ew.r.appspot.com/api/v2/economy-stats/docs">Economy Stats API Postman</a>
-                    <p>Developed by Joaquín Rodríguez Mariscal</p>
+                    <a href="https://sos2223-10.ew.r.appspot.com/economy-stats">Estadísticas Economía API </a>
+                    <p>Desarollado por Joaquín Rodríguez Mariscal</p>
                 </div>
                 <div class="api-card">
-                    <a href="https://sos2223-10.ew.r.appspot.com/api/v2/environment-stats/docs">Environment Stats API Postman</a>
-                    <p>Developed by Rushabh Patel Patel</p>
+                    <a href="https://sos2223-10.ew.r.appspot.com/environment-stats">Estadísticas Medio Ambiente API</a>
+                    <p>Desarrollado por Rushabh Patel Patel</p>
                 </div>
                 <div class="api-card">
-                    <a href="https://sos2223-10.ew.r.appspot.com/api/v2/employment-stats/docs">Employment Stats API Postman</a>
-                    <p>Developed by Rafael Díaz Quintero</p>
+                    <a href="https://sos2223-10.ew.r.appspot.com/employment-stats">Estadísticas Empleo API</a>
+                    <p>Desarollado por Rafael Díaz Quintero</p>
                 </div>
             </div>
         </section>
         <div>
+
+
+            <div class="container">
+                <section class="section">
+                    <h2 class="section-title">Documentación Grupo POSTMAN </h2>
+                    <div class="section-content">
+                        <div class="api-card">
+                            <a href="https://sos2223-10.ew.r.appspot.com/api/v2/economy-stats/docs">Documentación Economía API </a>
+                            <p>Desarollado por Joaquín Rodríguez Mariscal</p>
+                        </div>
+                        <div class="api-card">
+                            <a href="https://sos2223-10.ew.r.appspot.com/api/v2/environment-stats/docs">Documentación Medio Ambiente API</a>
+                            <p>Desarrollado por Rushabh Patel Patel</p>
+                        </div>
+                        <div class="api-card">
+                            <a href="https://sos2223-10.ew.r.appspot.com/api/v2/employment-stats/docs">Documentación Empleo API</a>
+                            <p>Desarollado por Rafael Díaz Quintero</p>
+                        </div>
+                    </div>
+                </section>
+                <div>
+
+
+
             <div class="container">
                 <h1 class="section-title">Repositorio de github de SOS2223-10</h1>
                 <ul>
