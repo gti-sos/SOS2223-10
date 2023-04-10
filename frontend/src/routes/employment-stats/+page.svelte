@@ -47,7 +47,7 @@
     
             
             const existingData = insertedData.find(data => 
-                data.province === newprovince && data.period === newPeriod && data.population_over_16_years === newpopulation_over_16_years
+                data.province === newprovince && data.period === newPeriod && data.newpopulation_over_16_years === newpopulation_over_16_years
                     && data.activity_men_percentage === newactivity_men_percentage && data.activity_women_percentage === newactivity_women_percentage
             );
             if (existingData) {
@@ -106,7 +106,7 @@
     <Table striped>
         <thead>
           <tr>
-            <th style="text-decoration: underline;">Territorio:</th>
+            <th style="text-decoration: underline;">Provincia:</th>
             <th style="text-decoration: underline;">Periodo:</th>
             <th style="text-decoration: underline;">Poblacion mayor de 16 años:</th>
             <th style="text-decoration: underline;">Porcentaje actividad en hombres:</th>
@@ -128,7 +128,7 @@
           <tr>
             <td><a href="/employment/{employment.province}/{employment.period}">{employment.province}</a></td>
             <td>{employment.period}</td>
-            <td>{employment.population_over_16_years}</td>
+            <td>{employment.newpopulation_over_16_years}</td>
             <td>{employment.activity_men_percentage}</td>
             <td>{employment.activity_women_percentage}</td>
           </tr>
