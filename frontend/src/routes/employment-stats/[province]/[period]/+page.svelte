@@ -56,7 +56,7 @@
             resultStatus = status;	
         }
       
-        async function updateEnvironment () {
+        async function updateEmployment () {
     resultStatus = result = "";
     try {
         const res = await fetch(API, {
@@ -175,7 +175,7 @@ margin: 0 20px; /* Cambia el valor de 20px según tus necesidades */
           <td><input type="text" bind:value={activity_men_percentage} class="form-control"></td>
           <td><input type="text" bind:value={activity_women_percentage} class="form-control"></td>
           
-          <td><Button on:click={updateEnvironment} class="bg-warning font-weight-bold">Editar</Button></td>
+          <td><Button on:click={updateEmployment} class="bg-warning font-weight-bold">Editar</Button></td>
         </tr>
       </tbody>
     </table>
