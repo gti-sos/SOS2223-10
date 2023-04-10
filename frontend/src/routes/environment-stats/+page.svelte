@@ -62,6 +62,8 @@
             const status = await res.status;
             resultStatus = status;
         }
+
+   
         let insertedData = [];
         async function createEnvironment (){
             resultStatus = result = "";
@@ -158,6 +160,9 @@
       mensajeUsuario = "No se ha podido realizar la búsqueda";
     }
   }
+
+  
+
     
     
     
@@ -319,6 +324,10 @@ body {
     </div>
     <Button color="primary" type="submit" class="mt-3">Buscar</Button>
   </form>
+<div>
+  <button class="button" on:click={getEnvironment}>Get Environment</button>
+</div>
+
   
   
     <table>
