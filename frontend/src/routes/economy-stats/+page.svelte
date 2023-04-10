@@ -170,7 +170,7 @@
     <div style="text-align: center;">
         <Button color="danger" on:click={deleteAll}>Borrar Datos</Button>
     </div>
-    
+    <!--
     {#if resultStatus != ""}
         <p>
             <strong>Número de datos: {economy_stats.length}</strong>
@@ -181,3 +181,4 @@
 {result}
         </pre>
     {/if}
+    -->
