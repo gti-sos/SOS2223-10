@@ -3,8 +3,7 @@
 import Datastore from "nedb";
 var db = new Datastore();
 const BASE_API_URL = "/api/v2";
-//const express = require('express');
-//const Joi = require('joi');
+
 //module.exports = (app) => {
 function loadBackend_RPP_v2(app) {
 
@@ -43,13 +42,6 @@ function loadBackend_RPP_v2(app) {
 
     //  *********************************************************    /GET    *********************************************************
 
-
-
-    app.get(BASE_API_URL + "/environment-stats/docs", (req, res) => {
-        console.log("Se ejecuta");
-        res.redirect("https://documenter.getpostman.com/view/26063123/2s93RNxZdi");
-
-    });
 
     app.get(BASE_API_URL + "/environment-stats/loadInitialData", (req, res) => {
 
@@ -119,6 +111,7 @@ function loadBackend_RPP_v2(app) {
 
         const sortField = request.query.sortField || "year";
         const sortOrder = request.query.sortOrder === "desc" ? -1 : 1;
+        let docsCopy = []
 
         if (unexpectedFields.length > 0 || (from && to && from > to)) {
             console.log("No se han recibido los campos esperados:");
@@ -208,6 +201,8 @@ function loadBackend_RPP_v2(app) {
             query.year = { $gte: parseInt(from), $lte: parseInt(to) };
         }
 
+
+        let docsCopy = []
         db.find(query, (err, docs) => {
             if (err) {
                 res.sendStatus(500, "ERROR IN CLIENT");
@@ -234,6 +229,7 @@ function loadBackend_RPP_v2(app) {
     app.get(BASE_API_URL + "/environment-stats/:city/:year", (req, res) => {
         var iuvcity = req.params.city;
         var iuvYear = req.params.year;
+        let docsCopy = []
         db.find({ city: iuvcity, year: parseInt(iuvYear) }, function (err, docs) {
             if (err) {
                 res.sendStatus(500, "ERROR IN CLIENT");

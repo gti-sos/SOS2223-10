@@ -81,18 +81,18 @@
         if(status==200){
             msgVisible = true;
             color = "success";
-            checkMSG = "Datos de bicicleta actualizados con éxito";
+            checkMSG = "Datos Medio Ambiente actualizados";
             getEnvironment();
         } else {
             msgVisible = true;
             color = "danger";
-            checkMSG = "Error al actualizar los datos de bicicleta, comprueba que hayas completado todos los campos y que los campos numericos son mayores que 0 y vuelve a intentarlo";
+            checkMSG = "Error al actualizar los datos de medio ambiente, comprueba que hayas completado todos los campos y que los campos numericos son mayores que 0 y vuelve a intentarlo";
         }
     } catch (error) {
         console.error(error);
         msgVisible = true;
         color = "danger";
-        checkMSG = "Hubo un error al intentar actualizar los datos de bicicleta, intenta nuevamente más tarde";
+        checkMSG = "Hubo un error al intentar actualizar los datos de medio ambiente, intenta nuevamente más tarde";
     }
 }
         
@@ -143,7 +143,7 @@ margin: 0 20px; /* Cambia el valor de 20px según tus necesidades */
 
     <body>
       <div class="page-container">
-    <h1> Bicicleta concreta</h1>
+    <h1>Dato ciudad y Año en concreto</h1>
     
     
        
