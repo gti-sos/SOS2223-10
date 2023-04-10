@@ -1,5 +1,3 @@
-
-
 <script>
     let URL = "http://localhost:12345";
   </script>
@@ -104,20 +102,23 @@
             <h2 class="section-title">API Documentation</h2>
             <div class="section-content">
                 <div class="api-card">
-                    <a href="https://sos2223-10.ew.r.appspot.com/api/v2/economy-stats/docs">Economy Stats API Postman</a>
+                    <a href="https://sos2223-10.ew.r.appspot.com/economy-stats">Economy Stats API </a>
                     <p>Developed by Joaquín Rodríguez Mariscal</p>
                 </div>
                 <div class="api-card">
-                    <a href="https://sos2223-10.ew.r.appspot.com/api/v2/environment-stats/docs">Environment Stats API Postman</a>
+                    <a href="https://sos2223-10.ew.r.appspot.com/environment-stats">Environment Stats API</a>
                     <p>Developed by Rushabh Patel Patel</p>
                 </div>
                 <div class="api-card">
-                    <a href="https://sos2223-10.ew.r.appspot.com/api/v2/employment-stats/docs">Employment Stats API Postman</a>
+                    <a href="https://sos2223-10.ew.r.appspot.com/employment-stats">Employment Stats API</a>
                     <p>Developed by Rafael Díaz Quintero</p>
                 </div>
             </div>
         </section>
         <div>
+
+
+
             <div class="container">
                 <h1 class="section-title">Repositorio de github de SOS2223-10</h1>
                 <ul>
