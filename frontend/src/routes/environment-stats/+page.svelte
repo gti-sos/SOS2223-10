@@ -62,6 +62,7 @@
             const status = await res.status;
             resultStatus = status;
         }
+   
         let insertedData = [];
         async function createEnvironment (){
             resultStatus = result = "";
@@ -139,7 +140,6 @@
                 mensajeUsuario = "No se han podido borrar los datos";
             }		
         }
-
         async function searchEnvironment() {
     resultStatus = result = "";
     const res = await fetch(`${API}/${newCity}/${newYear}`, {
@@ -158,6 +158,7 @@
       mensajeUsuario = "No se ha podido realizar la búsqueda";
     }
   }
+  
     
     
     
@@ -193,7 +194,6 @@
             
             <td><Button color="success" on:click={createEnvironment}>Crear</Button></td>
            
-
         {#each environment_stats as Environment}
           <tr>
             <td>{Environment.city}</td>
@@ -207,7 +207,6 @@
            
           </tr>
         {/each}
-
         <Button color="danger" on:click={deleteEnvironmentAll}>Borrado de Datos</Button>
           
         </tbody>
@@ -226,8 +225,6 @@ body {
     font-family: 'Roboto';
     font-size: 18px;
 }
-
-
         h1 {
             text-align: center;
             font-size: 40px;
@@ -319,6 +316,10 @@ body {
     </div>
     <Button color="primary" type="submit" class="mt-3">Buscar</Button>
   </form>
+<div>
+  <button class="button" on:click={getEnvironment}>Get Environment</button>
+</div>
+
   
   
     <table>
