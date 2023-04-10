@@ -26,11 +26,11 @@
             API = 'http://localhost:12345'+API
             
         let environment_stats = [];
-        let newYear = 'Year';
-        let newCity = 'City';
-        let newProtected_space = 'protected_space';
-        let newArea = 'area';
-        let newFire = 'fire';
+        let newYear = 'Año';
+        let newCity = 'Ciudad';
+        let newProtected_space = 'Espacios Protegidos';
+        let newArea = 'Área';
+        let newFire = 'Incendios';
         
     
         let result = "";
@@ -320,7 +320,7 @@ body {
     <Button color="primary" type="submit" class="mt-3">Buscar</Button>
   </form>
 <div>
-  <button class="button" on:click={getEnvironment}>Get Environment</button>
+  <button class="button" on:click={getEnvironment}>Obtener Datos Medio Ambiente</button>
 </div>
 
   
@@ -380,7 +380,7 @@ body {
     
     
 
-
+<!-- 
   {#if resultStatus != ""}
         <p>
             <strong>Número de datos: {environment_stats.length}</strong>
@@ -390,5 +390,5 @@ body {
     {"Código de estado: "+resultStatus}
 {result}
         </pre>
-    {/if}
+    {/if} -->
 
