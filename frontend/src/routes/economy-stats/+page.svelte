@@ -4,7 +4,7 @@
         import { dev } from "$app/environment";
         import { Button, Table } from 'sveltestrap';
         onMount(async () =>{
-            getFile();
+            getEconomy();
         });
         let API = "/api/v2/economy-stats";
         let mensaje = "";
@@ -19,7 +19,7 @@
         let newTourist = "tourist";
         let result = "";
         let resultStatus = "";
-        async function getFile(){
+        async function getEconomy(){
             resultStatus = result = "";
             const res = await fetch(API, {
                 method: "GET"
@@ -35,7 +35,7 @@
             resultStatus = status;
         }
         let insertedData = [];
-        async function createFile(){
+        async function createEconomy(){
             resultStatus = result = "";
             const newFile = {
                 territory: newTerritory,
@@ -80,6 +80,24 @@
                 getFile();
             }     
         }
+
+        async function deleteEconomy(territory,period){
+            resultStatus = result = "";
+            const res = await fetch(API+"/"+territory+"/"+period, {
+                method: "DELETE"
+            });
+            const status = await res.status;
+            resultStatus = status;
+            if(status==200){
+                getEnvironment ();
+                mensajeUsuario = "Recurso borrado";
+            }else if(status==500){
+                mensajeUsuario = "Error cliente";
+            }else if(status==404){
+                getEnvironment ();
+                mensajeUsuario = "No se ha encontrado ese recurso";
+            }
+        }
           
         async function deleteAll(){
             resultStatus = result = "";
@@ -95,10 +113,9 @@
                 mensaje = "No se han podido borrar los datos";
             }
         }
-        async function info(territory,period) {
-        window.location.href = "http://localhost:12345/economy-stats/"+territory + "/" + period;
-    }
     </script>
+
+    
     
 
     <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px;">Datos Economy_stats</h1>
@@ -125,7 +142,7 @@
                 <td><input bind:value={newFinished_house}></td>
                 <td><input bind:value={newHalf_price_m_two}></td>
                 <td><input bind:value={newTourist}></td>
-                <td><Button color="success" on:click={createFile}>Crear</Button></td>
+                <td><Button color="success" on:click={createEconomy}>Crear</Button></td>
             </tr>
         
         {#each economy_stats as economy }
@@ -136,8 +153,15 @@
             <td>{economy.half_price_m_two}</td>
             <td>{economy.tourist}</td>
             <td>
-                <Button color="info" on:click={info(economy.territory, economy.period)}>actualizar registro</Button>
+                <Button color="info" class="btn-sm">
+                    <a href='economy-stats/{economy.territory}/{economy.period}' class="text-white text-decoration-none">Editar</a>
+                  </Button>
             </td>
+            <td>
+                <Button color="danger" class="btn-sm" on:click={deleteEconomy(economy.territory,economy.period)}>
+                  Borrar
+                </Button>
+              </td>
           </tr>
         {/each}
         </tbody>
