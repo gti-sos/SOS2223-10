@@ -1,14 +1,14 @@
 {
 	"info": {
-		"_postman_id": "e132af9e-a626-4535-9fe9-1327d8f85002",
-		"name": "Gcloud",
+		"_postman_id": "ef8bb31d-8acc-4f8f-8d52-b168bfb56c8f",
+		"name": "Gcloud V2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25969335"
 	},
 	"item": [
 		{
 			"name": "Post /201",
-			"event": [ 
+			"event": [
 				{
 					"listen": "test",
 					"script": {
@@ -34,13 +34,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats",
+					"raw": "{{URLBASE}}/api/v2/employment-stats",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"employment-stats"
 					]
 				}
@@ -74,15 +74,14 @@
 						}
 					}
 				},
-				
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats",
+					"raw": "{{URLBASE}}/api/v2/employment-stats",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"employment-stats"
 					]
 				}
@@ -117,13 +116,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats",
+					"raw": "{{URLBASE}}/api/v2/employment-stats",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"employment-stats"
 					]
 				}
@@ -149,13 +148,13 @@
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo/1000",
+					"raw": "{{URLBASE}}/api/v2/employment-stats/toledo/1000",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"employment-stats",
 						"toledo",
 						"1000"
@@ -183,13 +182,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats",
+					"raw": "{{URLBASE}}/api/v2/employment-stats",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"employment-stats"
 					]
 				}
@@ -215,13 +214,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo/2000",
+					"raw": "{{URLBASE}}/api/v2/employment-stats/toledo/2000",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"employment-stats",
 						"toledo",
 						"2000"
@@ -254,13 +253,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats?province=toledo&limit=1",
+					"raw": "{{URLBASE}}/api/v2/employment-stats?province=toledo&limit=1",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"employment-stats"
 					],
 					"query": [
@@ -300,13 +299,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats?offset=0&limit=1",
+					"raw": "{{URLBASE}}/api/v2/employment-stats?offset=0&limit=1",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"employment-stats"
 					],
 					"query": [
@@ -342,13 +341,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats?from=999&to=1001",
+					"raw": "{{URLBASE}}/api/v2/employment-stats?from=999&to=1001",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"employment-stats"
 					],
 					"query": [
@@ -384,15 +383,20 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo",
+					"raw": "{{URLBASE}}/api/v2/employment-stats?province=toledo",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
-						"employment-stats",
-						"toledo"
+						"v2",
+						"employment-stats"
+					],
+					"query": [
+						{
+							"key": "province",
+							"value": "toledo"
+						}
 					]
 				}
 			},
@@ -417,13 +421,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo/1000",
+					"raw": "{{URLBASE}}/api/v2/employment-stats/toledo/1000",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"employment-stats",
 						"toledo",
 						"1000"
@@ -451,13 +455,13 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats",
+					"raw": "{{URLBASE}}/api/v2/employment-stats",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"employment-stats"
 					]
 				}
@@ -492,13 +496,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo/1000",
+					"raw": "{{URLBASE}}/api/v2/employment-stats/toledo/1000",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"employment-stats",
 						"toledo",
 						"1000"
@@ -535,13 +539,13 @@
 					}
 				},
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo/1000",
+					"raw": "{{URLBASE}}/api/v2/employment-stats/toledo/1000",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"employment-stats",
 						"toledo",
 						"1000"
@@ -569,13 +573,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/toledo/1000",
+					"raw": "{{URLBASE}}/api/v2/employment-stats/toledo/1000",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"employment-stats",
 						"toledo",
 						"1000"
@@ -585,7 +589,7 @@
 			"response": []
 		},
 		{
-			"name": "/Delete Ciudad/anyo error",
+			"name": "Delete Ciudad/anyo error",
 			"event": [
 				{
 					"listen": "test",
@@ -603,13 +607,13 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v1/employment-stats/Vigo/3000",
+					"raw": "{{URLBASE}}/api/v2/employment-stats/Vigo/3000",
 					"host": [
 						"{{URLBASE}}"
 					],
 					"path": [
 						"api",
-						"v1",
+						"v2",
 						"employment-stats",
 						"Vigo",
 						"3000"
