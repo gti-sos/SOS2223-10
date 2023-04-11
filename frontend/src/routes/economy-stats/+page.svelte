@@ -118,13 +118,13 @@
     
     
 
-    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px;">Datos Economy_stats</h1>
+    <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px;">Datos de Economia</h1>
     <p></p>
     {#if mensaje !=""}
     <h2 style="color: red; text-align: center; font-family:Arial, Helvetica, sans-serif">{mensaje}</h2>
     {/if}
 
-    <Table striped>
+    <Table striped>n
         <thead>
           <tr>
             <th style="text-decoration: underline;">Territorio:</th>
