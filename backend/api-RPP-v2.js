@@ -4,7 +4,7 @@ import Datastore from "nedb";
 var db = new Datastore();
 const BASE_API_URL = "/api/v2";
 
-//module.exports = (app)) => {
+//module.exports = (app) => {
 function loadBackend_RPP_v2(app) {
 
 
