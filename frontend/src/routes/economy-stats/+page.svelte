@@ -100,6 +100,7 @@
             getFile();
             mensaje = "Se ha creado el nuevo dato introducido";
             insertedData.push(newFile);
+            location.reload();
         } else if (status == 409) {
             mensaje = "El dato introducido ya existe";
             getFile();
@@ -123,6 +124,7 @@
         if (status == 200) {
             getEnvironment();
             mensajeUsuario = "Recurso borrado";
+            location.reload();
         } else if (status == 500) {
             mensajeUsuario = "Error cliente";
         } else if (status == 404) {
@@ -132,19 +134,20 @@
     }
 
     async function deleteAll() {
-        resultStatus = result = "";
-        const res = await fetch(API, {
-            method: "DELETE",
-        });
-        const status = await res.status;
-        resultStatus = status;
-        if (status == 200 || status == 204) {
-            await getFile();
-            mensaje = "Se han borrado correctamente los datos";
-        } else {
-            mensaje = "No se han podido borrar los datos";
-        }
+    resultStatus = result = "";
+    const res = await fetch(API, {
+        method: "DELETE",
+    });
+    const status = await res.status;
+    resultStatus = status;
+    if (status == 200 || status == 204) {
+        await getFile();
+        mensaje = "Se han borrado correctamente los datos";
+        location.reload();
+    } else {
+        mensaje = "No se han podido borrar los datos";
     }
+}
 
  
   let offset = 0;
@@ -164,6 +167,8 @@
 			getEconomy();
 		}
   }
+
+  
 
 </script>
 
@@ -197,7 +202,7 @@
 
 
 <Table striped
-    >n
+    >
     <thead>
         <tr>
             <th style="text-decoration: underline;">Territorio:</th>
@@ -260,7 +265,7 @@
 </Button>
 
 <div style="text-align: center;">
-    <Button color="danger" on:click={deleteAll}>Borrar Datos</Button>
+    <button type="button" class="btn btn-danger" on:click={deleteAll}>Borrar Datos</button>
 </div>
 <!--
     {#if resultStatus != ""}
