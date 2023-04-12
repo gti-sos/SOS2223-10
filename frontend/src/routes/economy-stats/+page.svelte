@@ -20,7 +20,8 @@
     let resultStatus = "";
     async function getEconomy() {
         resultStatus = result = "";
-        const res = await fetch(API, {
+        const res = await fetch(`${API}?limit=${limit}&offset=${offset}`);
+        if (res.ok)({
             method: "GET",
         });
         try {
@@ -33,7 +34,10 @@
         const status = await res.status;
         resultStatus = status;
     }
-    let insertedData = [];
+    let insertedData =  [];
+     
+    
+    
     
 
     let fromPeriod= "";
@@ -58,28 +62,7 @@
         resultStatus = status;
     }
 
-    let offset= "";
-    let limit = "";
-    async function getOffsetLimit() {
-        resultStatus = result = "";
-        const url = `${API}?offset=${offset}&limit=${limit}`;
-
-        const res = await fetch(url, {
-            method: "GET",
-        });
-
-        try {
-            const data = await res.json();
-            result = JSON.stringify(data, null, 2);
-            economy_stats = data;
-        } catch (error) {
-            console.log(`Error parseando el resultado: ${error}`);
-        }
-
-        const status = await res.status;
-        resultStatus = status;
-    }
-
+    
     async function createEconomy() {
         resultStatus = result = "";
         const newFile = {
@@ -162,6 +145,26 @@
             mensaje = "No se han podido borrar los datos";
         }
     }
+
+ 
+  let offset = 0;
+  let limit = 10;
+  
+  async function antPag(){
+		if(offset>=10){
+			offset = offset-limit;
+		}
+		getEconomy();
+	}
+  async function sigPag(){
+		if(offset+limit > economy_stats.length){
+		}
+		else{
+			offset = offset+limit;
+			getEconomy();
+		}
+  }
+
 </script>
 
 <h1
@@ -188,19 +191,10 @@
       <input type="number" class="form-control form-control-sm" id="to" bind:value={toPeriod}>
     </div>
     <Button color="primary" type="submit" class="mt-3">Busqueda</Button>
+    
 </form>
 
-<form on:submit|preventDefault={getOffsetLimit} class="p-3 border rounded">
-    <div class="form-group">
-      <label for="from" class="font-weight-bold">Origen:</label>
-      <input type="number" class="form-control form-control-sm" id="from" bind:value={offset}>
-    </div>
-    <div class="form-group">
-      <label for="to" class="font-weight-bold">Límite:</label>
-      <input type="number" class="form-control form-control-sm" id="to" bind:value={limit}>
-    </div>
-    <Button color="primary" type="submit" class="mt-3">Busqueda</Button>
-</form>
+
 
 <Table striped
     >n
@@ -209,9 +203,7 @@
             <th style="text-decoration: underline;">Territorio:</th>
             <th style="text-decoration: underline;">Periodo:</th>
             <th style="text-decoration: underline;">Casas Finalizadas:</th>
-            <th style="text-decoration: underline;"
-                >Precio medio metro cuadrado:</th
-            >
+            <th style="text-decoration: underline;">Precio medio metro cuadrado:</th>
             <th style="text-decoration: underline;">Turistas:</th>
             <th style="text-decoration: underline;">Acción:</th>
         </tr>
@@ -260,6 +252,12 @@
         {/each}
     </tbody>
 </Table>
+<Button on:click={antPag}>
+    Anterior
+</Button>
+<Button on:click={sigPag}>
+    Siguiente
+</Button>
 
 <div style="text-align: center;">
     <Button color="danger" on:click={deleteAll}>Borrar Datos</Button>
