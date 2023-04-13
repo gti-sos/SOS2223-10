@@ -21,9 +21,10 @@
     async function getEconomy() {
         resultStatus = result = "";
         const res = await fetch(`${API}?limit=${limit}&offset=${offset}`);
-        if (res.ok)({
-            method: "GET",
-        });
+        if (res.ok)
+            ({
+                method: "GET",
+            });
         try {
             const data = await res.json();
             result = JSON.stringify(data, null, 2);
@@ -34,13 +35,9 @@
         const status = await res.status;
         resultStatus = status;
     }
-    let insertedData =  [];
-     
-    
-    
-    
+    let insertedData = [];
 
-    let fromPeriod= "";
+    let fromPeriod = "";
     let toPeriod = "";
     async function getEconomyRecurso() {
         resultStatus = result = "";
@@ -62,10 +59,9 @@
         resultStatus = status;
     }
 
-    
     async function createEconomy() {
         resultStatus = result = "";
-        const newFile = {
+        const newEconomy = {
             territory: newTerritory,
             period: parseInt(newPeriod),
             finished_house: parseInt(newFinished_house),
@@ -91,27 +87,34 @@
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(newFile),
+            body: JSON.stringify(newEconomy),
         });
 
         const status = await res.status;
         resultStatus = status;
         if (status == 201) {
-            getFile();
+            getEconomy();
             mensaje = "Se ha creado el nuevo dato introducido";
-            insertedData.push(newFile);
-            location.reload();
+            insertedData.push(newEconomy);
         } else if (status == 409) {
             mensaje = "El dato introducido ya existe";
-            getFile();
+            getEconomy();
         } else if (status == 400) {
             mensaje =
                 "Las propiedades introducidas no tienen un formato correcto";
-            getFile();
+            getEconomy();
         } else {
             mensaje = "No se ha podido crear el dato introducido";
-            getFile();
+            getEconomy();
         }
+    }
+
+    const displayTime = 1500;
+
+    async function createAndReload() {
+        createEconomy().then(() => {
+            setTimeout(() => {}, displayTime);
+        });
     }
 
     async function deleteEconomy(territory, period) {
@@ -122,54 +125,59 @@
         const status = await res.status;
         resultStatus = status;
         if (status == 200) {
-            getEnvironment();
-            mensajeUsuario = "Recurso borrado";
-            location.reload();
+            getEconomy();
+            mensaje = "Recurso borrado";
         } else if (status == 500) {
-            mensajeUsuario = "Error cliente";
+            mensaje = "Error cliente";
         } else if (status == 404) {
-            getEnvironment();
-            mensajeUsuario = "No se ha encontrado ese recurso";
+            getEconomy();
+            mensaje = "No se ha encontrado ese recurso";
         }
     }
 
-    async function deleteAll() {
-    resultStatus = result = "";
-    const res = await fetch(API, {
-        method: "DELETE",
-    });
-    const status = await res.status;
-    resultStatus = status;
-    if (status == 200 || status == 204) {
-        await getFile();
-        mensaje = "Se han borrado correctamente los datos";
-        location.reload();
-    } else {
-        mensaje = "No se han podido borrar los datos";
+    async function deleteAndReload1(territory, period) {
+        deleteEconomy(territory, period).then(() => {
+            setTimeout(() => {}, displayTime);
+        });
     }
-}
 
- 
-  let offset = 0;
-  let limit = 10;
-  
-  async function antPag(){
-		if(offset>=10){
-			offset = offset-limit;
-		}
-		getEconomy();
-	}
-  async function sigPag(){
-		if(offset+limit > economy_stats.length){
-		}
-		else{
-			offset = offset+limit;
-			getEconomy();
-		}
-  }
+    async function deleteAll() {
+        resultStatus = result = "";
+        const res = await fetch(API, {
+            method: "DELETE",
+        });
+        const status = await res.status;
+        resultStatus = status;
+        if (status == 200 || status == 204) {
+            await getEconomy();
+            mensaje = "Se han borrado correctamente los datos";
+        } else {
+            mensaje = "No se han podido borrar los datos";
+        }
+    }
 
-  
+    async function deleteAndReload2() {
+        deleteAll().then(() => {
+            setTimeout(() => {}, displayTime);
+        });
+    }
 
+    let offset = 0;
+    let limit = 10;
+
+    async function antPag() {
+        if (offset >= 10) {
+            offset = offset - limit;
+        }
+        getEconomy();
+    }
+    async function sigPag() {
+        if (offset + limit > economy_stats.length) {
+        } else {
+            offset = offset + limit;
+            getEconomy();
+        }
+    }
 </script>
 
 <h1
@@ -188,27 +196,35 @@
 
 <form on:submit|preventDefault={getEconomyRecurso} class="p-3 border rounded">
     <div class="form-group">
-      <label for="from" class="font-weight-bold">Desde:</label>
-      <input type="number" class="form-control form-control-sm" id="from" bind:value={fromPeriod}>
+        <label for="from" class="font-weight-bold">Desde:</label>
+        <input
+            type="number"
+            class="form-control form-control-sm"
+            id="from"
+            bind:value={fromPeriod}
+        />
     </div>
     <div class="form-group">
-      <label for="to" class="font-weight-bold">Hasta:</label>
-      <input type="number" class="form-control form-control-sm" id="to" bind:value={toPeriod}>
+        <label for="to" class="font-weight-bold">Hasta:</label>
+        <input
+            type="number"
+            class="form-control form-control-sm"
+            id="to"
+            bind:value={toPeriod}
+        />
     </div>
     <Button color="primary" type="submit" class="mt-3">Busqueda</Button>
-    
 </form>
 
-
-
-<Table striped
-    >
+<Table striped>
     <thead>
         <tr>
             <th style="text-decoration: underline;">Territorio:</th>
             <th style="text-decoration: underline;">Periodo:</th>
             <th style="text-decoration: underline;">Casas Finalizadas:</th>
-            <th style="text-decoration: underline;">Precio medio metro cuadrado:</th>
+            <th style="text-decoration: underline;"
+                >Precio medio metro cuadrado:</th
+            >
             <th style="text-decoration: underline;">Turistas:</th>
             <th style="text-decoration: underline;">Acción:</th>
         </tr>
@@ -220,10 +236,9 @@
             <td><input bind:value={newFinished_house} /></td>
             <td><input bind:value={newHalf_price_m_two} /></td>
             <td><input bind:value={newTourist} /></td>
-            <td
-                ><Button color="success" on:click={createEconomy}>Crear</Button
-                ></td
-            >
+            <td>
+                <Button color="success" on:click={createAndReload}>Crear</Button>
+            </td>
         </tr>
 
         {#each economy_stats as economy}
@@ -242,30 +257,28 @@
                     </Button>
                 </td>
                 <td>
-                    <Button
-                        color="danger"
-                        class="btn-sm"
-                        on:click={deleteEconomy(
+                    <button
+                        type="button"
+                        class="btn btn-danger btn-sm"
+                        on:click={deleteAndReload1(
                             economy.territory,
                             economy.period
                         )}
                     >
                         Borrar
-                    </Button>
+                    </button>
                 </td>
             </tr>
         {/each}
     </tbody>
 </Table>
-<Button on:click={antPag}>
-    Anterior
-</Button>
-<Button on:click={sigPag}>
-    Siguiente
-</Button>
+<Button on:click={antPag}>Anterior</Button>
+<Button on:click={sigPag}>Siguiente</Button>
 
 <div style="text-align: center;">
-    <button type="button" class="btn btn-danger" on:click={deleteAll}>Borrar Datos</button>
+    <button type="button" class="btn btn-danger" on:click={deleteAndReload2}
+        >Borrar Datos</button
+    >
 </div>
 <!--
     {#if resultStatus != ""}

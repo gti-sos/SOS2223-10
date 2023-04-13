@@ -99,7 +99,7 @@
     </header>
     <div class="container">
         <section class="section">
-            <h2 class="section-title">API's Grupo</h2>
+            <h2 class="section-title">URL Base</h2>
             <div class="section-content">
                 <div class="api-card">
                     <a href="https://sos2223-10.ew.r.appspot.com/api/v2/economy-stats">Estadísticas Economía API </a>
