@@ -99,18 +99,18 @@
     </header>
     <div class="container">
         <section class="section">
-            <h2 class="section-title">API's Grupo</h2>
+            <h2 class="section-title">URL Base</h2>
             <div class="section-content">
                 <div class="api-card">
-                    <a href="https://sos2223-10.ew.r.appspot.com/economy-stats">Estadísticas Economía API </a>
+                    <a href="https://sos2223-10.ew.r.appspot.com/api/v2/economy-stats">Estadísticas Economía API </a>
                     <p>Desarollado por Joaquín Rodríguez Mariscal</p>
                 </div>
                 <div class="api-card">
-                    <a href="https://sos2223-10.ew.r.appspot.com/environment-stats">Estadísticas Medio Ambiente API</a>
+                    <a href="https://sos2223-10.ew.r.appspot.com/api/v2/environment-stats">Estadísticas Medio Ambiente API</a>
                     <p>Desarrollado por Rushabh Patel Patel</p>
                 </div>
                 <div class="api-card">
-                    <a href="https://sos2223-10.ew.r.appspot.com/employment-stats">Estadísticas Empleo API</a>
+                    <a href="https://sos2223-10.ew.r.appspot.com/api/v2/employment-stats">Estadísticas Empleo API</a>
                     <p>Desarollado por Rafael Díaz Quintero</p>
                 </div>
             </div>

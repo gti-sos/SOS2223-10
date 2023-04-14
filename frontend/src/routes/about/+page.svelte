@@ -1,1 +1,0 @@
-This app shows data about Economy, Environment and employment.
