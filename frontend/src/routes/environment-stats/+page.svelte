@@ -22,7 +22,6 @@
     let offset = 0;
     let limit = 10;
     const displayTime = 1500;
-
     let result = "";
     let resultStatus = "";
     async function loadData() {
