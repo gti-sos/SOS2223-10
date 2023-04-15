@@ -14,11 +14,14 @@
     if (dev) API = "http://localhost:12345" + API;
 
     let environment_stats = [];
-    let newYear = "Año";
-    let newCity = "Ciudad";
-    let newProtected_space = "Espacios Protegidos";
-    let newArea = "Área";
-    let newFire = "Incendios";
+    let newYear = "";
+    let newCity = "";
+    let newProtected_space = "";
+    let newArea = "";
+    let newFire = "";
+    let offset = 0;
+    let limit = 10;
+    const displayTime = 1500;
 
     let result = "";
     let resultStatus = "";
@@ -30,15 +33,26 @@
         const status = await res.status;
         resultStatus = status;
         if (status == 201) {
-            getEnvironment();
+            getEnvironmentReload();
+        } else if (status == 400) {
+            mensajeUsuario = "La base de Datos no está vacía";
         }
     }
 
+    async function getEnvironmentReload() {
+        getEnvironment().then(() => {
+            setTimeout(() => {}, displayTime);
+        });
+    }
     async function getEnvironment() {
         resultStatus = result = "";
-        const res = await fetch(API, {
-            method: "GET",
-        });
+        const res = await fetch(`${API}?limit=${limit}&offset=${offset}`);
+
+        if (res.ok) {
+            ({
+                method: "GET",
+            });
+        }
         try {
             const data = await res.json();
             result = JSON.stringify(data, null, 2);
@@ -50,9 +64,8 @@
         resultStatus = status;
     }
 
-
-let fromDate= "";
-let toDate= "";
+    let fromDate = "";
+    let toDate = "";
     async function getEnvironment2() {
         resultStatus = result = "";
         let url = `${API}?from=${fromDate}&to=${toDate}`;
@@ -71,8 +84,8 @@ let toDate= "";
     }
 
     function searchInterval() {
-    getEnvironment2();
-  }
+        getEnvironment2();
+    }
 
     let insertedData = [];
     async function createEnvironment() {
@@ -153,23 +166,120 @@ let toDate= "";
             mensajeUsuario = "No se han podido borrar los datos";
         }
     }
+
+    let url = `${API}?from=${fromDate}&to=${toDate}`;
+
     async function searchEnvironment() {
         resultStatus = result = "";
-        const res = await fetch(`${API}/${newCity}/${newYear}`, {
-            method: "GET",
-        });
-        const status = await res.status;
-        resultStatus = status;
-        if (status == 200) {
-            const data = await res.json();
-            environment_stats = [data]; // Actualizar la lista con el resultado de búsqueda
-            mensajeUsuario = `Resultado de búsqueda para ${newCity} en ${newYear}`;
-        } else if (status == 404) {
-            environment_stats = []; // Limpiar la lista si no se encuentra ningún resultado
-            mensajeUsuario = `No se encontraron resultados para ${newCity} en ${newYear}`;
-        } else {
-            mensajeUsuario = "No se ha podido realizar la búsqueda";
+        if (`${newCity}` != "" && `${newYear}` != "") {
+            const res = await fetch(`${API}/${newCity}/${newYear}`, {
+                method: "GET",
+            });
+            const status = await res.status;
+            resultStatus = status;
+            if (status == 200) {
+                const data = await res.json();
+                environment_stats = [data]; // Actualizar la lista con el resultado de búsqueda
+                mensajeUsuario = `Resultado de búsqueda para ${newCity} en ${newYear}`;
+            } else if (status == 404) {
+                environment_stats = []; // Limpiar la lista si no se encuentra ningún resultado
+                mensajeUsuario = `No se encontraron resultados para ${newCity} en ${newYear}`;
+            } else {
+                mensajeUsuario = "No se ha podido realizar la búsqueda";
+            }
+        } else if (`${newCity}` != "") {
+            resultStatus = result = "";
+            const res = await fetch(`${API}/${newCity}`);
+
+            if (res.ok) {
+                ({
+                    method: "GET",
+                });
+            }
+            try {
+                const data = await res.json();
+                const status = await res.status;
+                result = JSON.stringify(data, null, 2);
+                environment_stats = data;
+                if (status == 200) {
+                    mensajeUsuario = `Resultado de búsqueda para ${newCity}`;
+                } else if (status == 404) {
+                    mensajeUsuario = `No se encontraron resultados para ${newCity}`;
+                }
+            } catch (error) {
+                console.log(`Error parsing result: ${error}`);
+                mensajeUsuario = `No se encontraron resultados para ${newCity}`;
+            }
+            const status = await res.status;
+            resultStatus = status;
+        } else if (`${newYear}` != "") {
+            resultStatus = result = "";
+            const res = await fetch(`${API}?year=${newYear}`);
+            if (res.ok) {
+                ({
+                    method: "GET",
+                });
+            }
+            try {
+                const data = await res.json();
+                const status = await res.status;
+                result = JSON.stringify(data, null, 2);
+                environment_stats = data;
+                if (status == 200 && !(data.length === 0)) {
+                    mensajeUsuario = `Resultado de búsqueda para el año ${newYear}`;
+                } else if (status == 404) {
+                    mensajeUsuario = `No se encontraron resultados para el año ${newYear}`;
+                } else if (data.length === 0) {
+                    mensajeUsuario = `No se encontraron resultados para el año ${newYear}`;
+                }
+            } catch (error) {
+                console.log(`Error parsing result: ${error}`);
+                mensajeUsuario = `No se encontraron resultados para el año ${newYear}`;
+            }
+            const status = await res.status;
+            resultStatus = status;
+        } else if (`${newProtected_space}` != "") {
+            resultStatus = result = "";
+            const res = await fetch(
+                `${API}?protected_space=${newProtected_space}`
+            );
+            if (res.ok) {
+                ({
+                    method: "GET",
+                });
+            }
+            try {
+                const data = await res.json();
+                const status = await res.status;
+                result = JSON.stringify(data, null, 2);
+                environment_stats = data;
+                if (status == 200 && !(data.length === 0)) {
+                    mensajeUsuario = `Resultado de búsqueda para nº Espacios Protegidos: ${newProtected_space}`;
+                } else if (status == 404) {
+                    mensajeUsuario = `No se encontraron resultados para nº Espacios Protegidos: ${newProtected_space}`;
+                } else if (data.length === 0) {
+                    mensajeUsuario = `No se encontraron resultados para nº Espacios Protegidos: ${newProtected_space}`;
+                }
+            } catch (error) {
+                console.log(`Error parsing result: ${error}`);
+                mensajeUsuario = `No se encontraron resultados para nº Espacios Protegidos: ${newProtected_space}`;
+            }
+            const status = await res.status;
+            resultStatus = status;
         }
+    }
+
+    async function handlePrevPage() {
+        offset = Math.max(offset - limit, 0);
+
+        getEnvironment();
+    }
+    async function handleNextPage() {
+        offset += limit;
+        if (offset > 30) {
+            offset = 30;
+        }
+        getEnvironment();
     }
 </script>
 
@@ -179,53 +289,6 @@ let toDate= "";
         <h5>Desarrollada por Rushabh Patel</h5>
     </div>
 </main>
-<!-- <h1 style="text-align: center; font-family:'Times New Roman', Times, serif; font-size: 60px;">Datos Medio Ambiente</h1>
-    <h1 class="botones">
-        <ButtonToolbar>
-            <Button outline on:click={loadData}>Datos Iniciales</Button>
-        </ButtonToolbar>
-    </h1>
-    {#if mensajeUsuario !=""}
-    <h2 style="color: red; text-align: center; font-family:Arial, Helvetica, sans-serif">{mensajeUsuario}</h2>
-    {/if}
-    <Table striped>
-        <thead>
-          <tr>
-            <th>Ciudad</th>
-            <th>Año</th>
-            <th>Espacios Protegidos</th>
-            <th>Área</th>
-            <th>Incendios</th>
-          </tr>
-        </thead>
-        <tbody>
-            <td><input bind:value={newCity}></td>
-            <td><input bind:value={newYear}></td>
-            <td><input bind:value={newProtected_space}></td>
-            <td><input bind:value={newArea}></td>
-            <td><input bind:value={newFire}></td>
-            
-            <td><Button color="success" on:click={createEnvironment}>Crear</Button></td>
-           
-        {#each environment_stats as Environment}
-          <tr>
-            <td>{Environment.city}</td>
-            <td>{Environment.year}</td>
-            <td>{Environment.protected_space}</td>
-            <td>{Environment.area}</td>
-            <td>{Environment.fire}</td>
-          
-            <td><Button><a href='environment-stats/{Environment.city}/{Environment.year}'>Editar</a></Button></td>
-            <td><Button color="danger"on:click={deleteEnvironment(Environment.city,Environment.year)}>Borrar</Button></td>
-           
-          </tr>
-        {/each}
-        <Button color="danger" on:click={deleteEnvironmentAll}>Borrado de Datos</Button>
-          
-        </tbody>
-    </Table> 
- -->
-
 <html lang="es">
     <head>
         <meta charset="UTF-8" />
@@ -311,7 +374,6 @@ let toDate= "";
         </style>
     </head>
 
-    
     <body>
         <h2>Datos Medio Ambiente</h2>
         <div class="botones">
@@ -326,65 +388,37 @@ let toDate= "";
                 {/if}
             </div>
         </div>
-
-        
-        <form
-            on:submit|preventDefault={searchEnvironment}
-            class="p-3 border rounded"
-        >
-            <div class="form-group">
-                <label for="city" class="font-weight-bold">Ciudad:</label>
-                <input
-                    type="text"
-                    class="form-control form-control-sm"
-                    id="city"
-                    bind:value={newCity}
-                    required
-                />
-            </div>
-            <div class="form-group">
-                <label for="year" class="font-weight-bold">Año:</label>
-                <input
-                    type="number"
-                    class="form-control form-control-sm"
-                    id="year"
-                    bind:value={newYear}
-                    required
-                />
-            </div>
-            <Button color="primary" type="submit" class="mt-3">Buscar</Button>
-        </form>
         <div>
             <button class="button" on:click={getEnvironment}
                 >Obtener Datos Medio Ambiente</button
             >
         </div>
-       <!--  <form on:submit|preventDefault={searchInterval} class="p-3 border rounded">
+        <form
+            on:submit|preventDefault={searchInterval}
+            class="p-3 border rounded"
+        >
             <div class="form-group">
                 <label for="from" class="font-weight-bold">Desde:</label>
-                <input type="number" class="form-control form-control-sm" id="from" name="from">
+                <input
+                    type="number"
+                    class="form-control form-control-sm"
+                    id="from"
+                    bind:value={fromDate}
+                />
             </div>
             <div class="form-group">
                 <label for="to" class="font-weight-bold">Hasta:</label>
-                <input type="number" class="form-control form-control-sm" id="to" name="to">
+                <input
+                    type="number"
+                    class="form-control form-control-sm"
+                    id="to"
+                    bind:value={toDate}
+                />
             </div>
             <Button color="primary" type="submit" class="mt-3">Buscar</Button>
-        </form> -->
+        </form>
 
-        <form on:submit|preventDefault={searchInterval} class="p-3 border rounded">
-            <div class="form-group">
-              <label for="from" class="font-weight-bold">Desde:</label>
-              <input type="number" class="form-control form-control-sm" id="from" bind:value={fromDate}>
-            </div>
-            <div class="form-group">
-              <label for="to" class="font-weight-bold">Hasta:</label>
-              <input type="number" class="form-control form-control-sm" id="to" bind:value={toDate}>
-            </div>
-            <Button color="primary" type="submit" class="mt-3">Buscar</Button>
-          </form>
-        
-
-        <table>
+        <Table striped>
             <thead>
                 <tr>
                     <th>Ciudad</th>
@@ -405,6 +439,11 @@ let toDate= "";
                     <td
                         ><button class="button" on:click={createEnvironment}
                             >Crear</button
+                        ></td
+                    >
+                    <td
+                        ><button class="button" on:click={searchEnvironment}
+                            >Buscar</button
                         ></td
                     >
                 </tr>
@@ -429,39 +468,31 @@ let toDate= "";
                             <Button
                                 color="danger"
                                 class="btn-sm"
-                                on:click={deleteEnvironment(
-                                    Environment.city,
-                                    Environment.year
-                                )}
+                                on:click={() =>
+                                    deleteEnvironment(
+                                        Environment.city,
+                                        Environment.year
+                                    )}
                             >
                                 Borrar
                             </Button>
                         </td>
                     </tr>
                 {/each}
-
-                <div class="mt-3">
-                    <Button
-                        color="danger"
-                        on:click={deleteEnvironmentAll}
-                        class="btn-sm"
-                    >
-                        Borrado de Datos
-                    </Button>
-                </div>
             </tbody>
-        </table>
+        </Table>
+        <div class="button-container">
+            <Button
+                color="danger"
+                on:click={deleteEnvironmentAll}
+                class="btn-sm"
+            >
+                Borrado de Datos
+            </Button>
+
+            <button on:click={handlePrevPage}>Anterior</button>
+            <button on:click={handleNextPage}>Siguiente</button>
+        </div>
     </body>
 </html>
 
-<!-- 
-  {#if resultStatus != ""}
-        <p>
-            <strong>Número de datos: {environment_stats.length}</strong>
-        </p>
-        <strong>Resultado:</strong>
-        <pre>
-    {"Código de estado: "+resultStatus}
-{result}
-        </pre>
-    {/if} -->

@@ -184,7 +184,7 @@ margin: 0 20px; /* Cambia el valor de 20px según tus necesidades */
     
     
 
-    {#if message != ""}
+<!--     {#if message != ""}
       <h1 style="color :red">{message}</h1>
   {/if}
 
@@ -197,7 +197,7 @@ margin: 0 20px; /* Cambia el valor de 20px según tus necesidades */
 {resultStatus}
 {result}
       </pre>
-  {/if}
+  {/if} -->
 </div>
   </body>
   
