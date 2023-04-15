@@ -13,7 +13,7 @@
       let period = $page.params.period;
       console.log(province);
       console.log(period);
-      let API = '/api/v2/environment-stats/' + province + "/" + period;
+      let API = '/api/v2/employment-stats/' + province + "/" + period;
       let msgVisible=false;
       let checkMSG="";
       let color="success";
@@ -78,7 +78,7 @@
       if(status==200){
           msgVisible = true;
           color = "success";
-          checkMSG = "Datos Medio Ambiente actualizados";
+          checkMSG = "Datos empleados actualizados";
           getEmployment();
       } else {
           msgVisible = true;
