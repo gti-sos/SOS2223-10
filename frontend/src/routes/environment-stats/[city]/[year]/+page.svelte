@@ -13,7 +13,7 @@
       let year = $page.params.year;
       console.log(city);
       console.log(year);
-      let API = '/api/v2/environment-stats/' + city + "/" + year;
+      let API = '/api/v3/environment-stats/' + city + "/" + year;
       let msgVisible=false;
       let checkMSG="";
       let color="success";
@@ -180,24 +180,7 @@ margin: 0 20px; /* Cambia el valor de 20px según tus necesidades */
       </tr>
     </tbody>
   </table>
-  
-    
-    
 
-    {#if message != ""}
-      <h1 style="color :red">{message}</h1>
-  {/if}
-
-    
-  {#if resultStatus != ""}
-      <p>
-          Result:
-      </p>
-      <pre>
-{resultStatus}
-{result}
-      </pre>
-  {/if}
 </div>
   </body>
   
