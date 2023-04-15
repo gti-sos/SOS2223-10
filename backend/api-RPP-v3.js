@@ -2,10 +2,10 @@
 //var Datastore = require('nedb');
 import Datastore from "nedb";
 var db = new Datastore();
-const BASE_API_URL = "/api/v2";
+const BASE_API_URL = "/api/v3";
 
 //module.exports = (app) => {
-function loadBackend_RPP_v2(app) {
+function loadBackend_RPP_v3(app) {
 
 
     var environment_stats = [
@@ -21,8 +21,8 @@ function loadBackend_RPP_v2(app) {
         { year: 2017, city: "Cádiz", protected_space: 29, area: 23122, fire: 94 },
         { year: 2017, city: "Córdoba", protected_space: 19, area: 134597, fire: 78 },
         { year: 2017, city: "Almería", protected_space: 29, area: 123937, fire: 95 },
-        
-        
+
+
         { year: 2018, city: "Almería", protected_space: 18, area: 163937, fire: 87 },
         { year: 2018, city: "Cádiz", protected_space: 29, area: 23122, fire: 94 },
         { year: 2018, city: "Córdoba", protected_space: 19, area: 134597, fire: 78 },
@@ -43,7 +43,7 @@ function loadBackend_RPP_v2(app) {
     //  *********************************************************    /GET    *********************************************************
 
 
-    app.get(BASE_API_URL + "/environment-stats/loadInitialData", (req, res) => {
+   /*  app.get(BASE_API_URL + "/environment-stats/loadInitialData", (req, res) => {
 
         db.find({}, function (err, docs) {
 
@@ -72,8 +72,6 @@ function loadBackend_RPP_v2(app) {
                     { year: 2017, city: "Cádiz", protected_space: 29, area: 23122, fire: 94 },
                     { year: 2017, city: "Córdoba", protected_space: 19, area: 134597, fire: 78 },
                     { year: 2017, city: "Almería", protected_space: 29, area: 123937, fire: 95 },
-                    
-                    
                     { year: 2018, city: "Almería", protected_space: 18, area: 163937, fire: 87 },
                     { year: 2018, city: "Cádiz", protected_space: 29, area: 23122, fire: 94 },
                     { year: 2018, city: "Córdoba", protected_space: 19, area: 134597, fire: 78 },
@@ -82,8 +80,8 @@ function loadBackend_RPP_v2(app) {
                     { year: 2018, city: "Jaén", protected_space: 17, area: 317381, fire: 77 },
                     { year: 2018, city: "Málaga", protected_space: 28, area: 89272, fire: 64 },
                     { year: 2018, city: "Sevilla", protected_space: 24, area: 220868, fire: 64 },
-            
-            
+
+
                 ];
                 iniData.forEach((e) => {
                     db.insert(e);
@@ -91,7 +89,55 @@ function loadBackend_RPP_v2(app) {
                 res.sendStatus(200, "OK");
             }
         });
+    }); */
+    app.get(BASE_API_URL + "/environment-stats/loadInitialData", (req, res) => {
+
+        db.count({}, function (err, count) {
+            if (err) {
+                res.sendStatus(500, "ERROR IN CLIENT");
+                return;
+            }
+            if (count > 0) {
+                res.status(400).send("Database already contains data");
+                return;
+            } else {
+                db.remove({}, { multi: true }, (err, num) => {
+                    if (err) {
+                        res.sendStatus(500, "ERROR IN CLIENT");
+                        return;
+                    }
+                    var iniData = [
+                        { year: 2016, city: "Almería", protected_space: 18, area: 163937, fire: 57 },
+                        { year: 2016, city: "Cádiz", protected_space: 29, area: 23122, fire: 108 },
+                        { year: 2016, city: "Córdoba", protected_space: 19, area: 134597, fire: 90 },
+                        { year: 2016, city: "Granada", protected_space: 17, area: 220314, fire: 119 },
+                        { year: 2016, city: "Huelva", protected_space: 24, area: 31911, fire: 155 },
+                        { year: 2016, city: "Jaén", protected_space: 17, area: 317381, fire: 172 },
+                        { year: 2016, city: "Málaga", protected_space: 28, area: 89272, fire: 111 },
+                        { year: 2016, city: "Sevilla", protected_space: 24, area: 220868, fire: 124 },
+                        { year: 2017, city: "Almería", protected_space: 18, area: 163937, fire: 87 },
+                        { year: 2017, city: "Cádiz", protected_space: 29, area: 23122, fire: 94 },
+                        { year: 2017, city: "Córdoba", protected_space: 19, area: 134597, fire: 78 },
+                        { year: 2017, city: "Almería", protected_space: 29, area: 123937, fire: 95 },
+                        { year: 2018, city: "Almería", protected_space: 18, area: 163937, fire: 87 },
+                        { year: 2018, city: "Cádiz", protected_space: 29, area: 23122, fire: 94 },
+                        { year: 2018, city: "Córdoba", protected_space: 19, area: 134597, fire: 78 },
+                        { year: 2018, city: "Granada", protected_space: 17, area: 220314, fire: 89 },
+                        { year: 2018, city: "Huelva", protected_space: 24, area: 31911, fire: 104 },
+                        { year: 2018, city: "Jaén", protected_space: 17, area: 317381, fire: 77 },
+                        { year: 2018, city: "Málaga", protected_space: 28, area: 89272, fire: 64 },
+                        { year: 2018, city: "Sevilla", protected_space: 24, area: 220868, fire: 64 },
+
+                    ];
+                    iniData.forEach((e) => {
+                        db.insert(e);
+                    });
+                    res.sendStatus(200, "OK");
+                });
+            }
+        });
     });
+
 
 
 
@@ -100,14 +146,16 @@ function loadBackend_RPP_v2(app) {
         const { city, year, protected_space, area, fire, from, to } = request.query;
         const expectedFields = ["city", "year", "protected_space", "area", "fire", "from", "to", "limit", "offset"];
         var iuvYear = request.params.year;
+        const query = request.query;
+
 
 
         const receivedFields = Object.keys(request.query);
         const unexpectedFields = receivedFields.filter(field => !expectedFields.includes(field));
 
         const page = parseInt(request.query.page) || 1;
-        const limit = parseInt(request.query.limit) || 10;
-        const offset = (page - 1) * limit;
+        const limit = parseInt(request.query.limit) || 30;
+        const offset = parseInt(request.query.offset) || 0;
 
         const sortField = request.query.sortField || "year";
         const sortOrder = request.query.sortOrder === "desc" ? -1 : 1;
@@ -117,6 +165,7 @@ function loadBackend_RPP_v2(app) {
             console.log("No se han recibido los campos esperados:");
             return response.status(400).send("Bad Request");
         }
+
 
         db.find({}, (err, environmentStats) => {
             if (err) {
@@ -167,27 +216,31 @@ function loadBackend_RPP_v2(app) {
 
 
             filteredData.sort((a, b) => (a[sortField] < b[sortField] ? -1 : 1) * sortOrder);
-            filteredData = filteredData.slice(offset, offset + limit);
-
-            if (request.query.limit || request.query.offset) {
-                const limit = parseInt(request.query.limit) || environmentStats.length;
-                const offset = parseInt(request.query.offset) || 0;
-                filteredData = filteredData.slice(offset, offset + limit);
-            }
 
 
-            const docsCopy = environmentStats;
+            const paginatedData = filteredData.slice(offset, offset + limit);
+
+
+            //   let paginatedData = filteredData;
+            /*  if (request.query.limit || request.query.offset) {
+                 const queryLimit = parseInt(request.query.limit) || environmentStats.length;
+                 const queryOffset = parseInt(request.query.offset) || 0;
+                  paginatedData = filteredData.slice(queryOffset, queryOffset + queryLimit);
+             } */
+
+
+            let docsCopy = environmentStats;
             docsCopy.forEach((e) => {
                 delete e._id;
             })
 
 
-            response.json(filteredData);
+            response.json(paginatedData);
         });
     });
 
 
-//a
+    //a
 
 
     app.get(BASE_API_URL + "/environment-stats/:city", (req, res) => {
@@ -338,65 +391,65 @@ function loadBackend_RPP_v2(app) {
         const city = req.params.city;
         const updatedStat = req.body;
         console.log(`new_stat = <${JSON.stringify(updatedStat, null, 2)}>`);
-        
-        if (updatedStat.city && updatedStat.city!== city) {
-          return res.status(400).send('Ciudad en body no es el mismo que URL');
-        }
-        
-        db.update({ city: city }, updatedStat, {}, function (err, numReplaced) {
-          if (err) {
-            console.log(`Error updating environment stat with city ${city}: ${err}`);
-            res.sendStatus(500);
-          } else if (numReplaced === 0) {
-            console.log(`Environment stat with city ${city} not found`);
-            res.sendStatus(404);
-          } else {
-            console.log(`Environment stat with city ${city} updated`);
-            res.sendStatus(200);
-          }
-        });
-      
-        console.log("New PUT to /environment-stats/:city");
-      });
 
-      app.put(BASE_API_URL + "/environment-stats/:city/:year", (req, res) => {
+        if (updatedStat.city && updatedStat.city !== city) {
+            return res.status(400).send('Ciudad en body no es el mismo que URL');
+        }
+
+        db.update({ city: city }, updatedStat, {}, function (err, numReplaced) {
+            if (err) {
+                console.log(`Error updating environment stat with city ${city}: ${err}`);
+                res.sendStatus(500);
+            } else if (numReplaced === 0) {
+                console.log(`Environment stat with city ${city} not found`);
+                res.sendStatus(404);
+            } else {
+                console.log(`Environment stat with city ${city} updated`);
+                res.sendStatus(200);
+            }
+        });
+
+        console.log("New PUT to /environment-stats/:city");
+    });
+
+    app.put(BASE_API_URL + "/environment-stats/:city/:year", (req, res) => {
         const city = req.params.city;
         const year = req.params.year;
         const updatedStat = req.body;
         console.log(`new_stat = <${JSON.stringify(updatedStat, null, 2)}>`);
-        
-        if (updatedStat.city && updatedStat.city !== city) {
-          return res.status(400).send('Ciudad en body no es el mismo que URL');
-        }
-        
-        db.update({ city: city, year: parseInt(year) }, updatedStat, {}, function (err, numReplaced) {
-          if (err) {
-            console.log(`Error updating environment stat with city ${city} and year ${year}: ${err}`);
-            res.sendStatus(500);
-          } else if (numReplaced === 0) {
-            console.log(`Environment stat with city ${city} and year ${year} not found`);
-            res.sendStatus(404);
-          } else {
-            console.log(`Environment stat with city ${city} and year ${year} updated`);
-            res.sendStatus(200);
-          }
-        });
-      
-        console.log("New PUT to /environment-stats/:city/:year");
-        
-    });
-    
 
-      app.put(BASE_API_URL + "/environment-stats", (req, res) => {
+        if (updatedStat.city && updatedStat.city !== city) {
+            return res.status(400).send('Ciudad en body no es el mismo que URL');
+        }
+
+        db.update({ city: city, year: parseInt(year) }, updatedStat, {}, function (err, numReplaced) {
+            if (err) {
+                console.log(`Error updating environment stat with city ${city} and year ${year}: ${err}`);
+                res.sendStatus(500);
+            } else if (numReplaced === 0) {
+                console.log(`Environment stat with city ${city} and year ${year} not found`);
+                res.sendStatus(404);
+            } else {
+                console.log(`Environment stat with city ${city} and year ${year} updated`);
+                res.sendStatus(200);
+            }
+        });
+
+        console.log("New PUT to /environment-stats/:city/:year");
+
+    });
+
+
+    app.put(BASE_API_URL + "/environment-stats", (req, res) => {
         res.status(405).send('Method not Allowed');
         console.log(`Error 405 Method not Allowed`);
 
     });
-      
 
 
 
-//  ****************************************************************************************************************************
+
+    //  ****************************************************************************************************************************
 
 
     //  *********************************************************    /DELETE    *********************************************************
@@ -411,7 +464,7 @@ function loadBackend_RPP_v2(app) {
 
     app.delete(BASE_API_URL + "/environment-stats/:city", (req, res) => {
         const city = req.params.city;
-    
+
         db.remove({ city }, { multi: true }, function (err, numRemoved) {
             if (err) {
                 console.log(`Error deleting environment stat with city ${city}: ${err}`);
@@ -422,26 +475,26 @@ function loadBackend_RPP_v2(app) {
             } else {
                 console.log(`Environment stat with city ${city} deleted`);
                 res.sendStatus(200);
-                
+
             }
         });
     });
 
 
-    app.delete(BASE_API_URL +"/environment-stats/:city/:year",(request, response)=>{
+    app.delete(BASE_API_URL + "/environment-stats/:city/:year", (request, response) => {
         var city = request.params.city;
         var year = parseInt(request.params.year);
         console.log(`New DELETE to /environment-stats/${city}/${year}`);
-    
-        db.remove({city:city,year:parseInt(year)},{},function (err, dbRemoved){
-            if(err){
+
+        db.remove({ city: city, year: parseInt(year) }, {}, function (err, dbRemoved) {
+            if (err) {
                 console.log(`Error deleting`);
                 response.sendStatus(500);
-            }else{
-                if(dbRemoved==0){
+            } else {
+                if (dbRemoved == 0) {
                     response.status(404).send("Not Found");
                 }
-                else{
+                else {
                     console.log(`Files removed ${dbRemoved}`);
                     response.sendStatus(200);
                 }
@@ -449,10 +502,10 @@ function loadBackend_RPP_v2(app) {
         });
     });
 
-   
-    
-    
-   
+
+
+
+
 
 
     app.delete(BASE_API_URL + "/environment-stats", (req, res) => {
@@ -469,7 +522,7 @@ function loadBackend_RPP_v2(app) {
     });
 
 
-    
+
 
 }
-export{loadBackend_RPP_v2};
+export { loadBackend_RPP_v3 };

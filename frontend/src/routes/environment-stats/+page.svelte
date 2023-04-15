@@ -8,7 +8,7 @@
         getEnvironment();
     });
 
-    let API = "/api/v2/environment-stats";
+    let API = "/api/v3/environment-stats";
     let mensajeUsuario = "";
 
     if (dev) API = "http://localhost:12345" + API;
@@ -33,9 +33,13 @@
         const status = await res.status;
         resultStatus = status;
         if (status == 201) {
+            
             getEnvironmentReload();
         } else if (status == 400) {
             mensajeUsuario = "La base de Datos no está vacía";
+        }else if (status == 200){
+            mensajeUsuario= "Datos Iniciales Cargados"
+            getEnvironmentReload();
         }
     }
 
@@ -60,8 +64,16 @@
         } catch (error) {
             console.log(`Error parsing result: ${error}`);
         }
+
         const status = await res.status;
         resultStatus = status;
+        if (status==200 && !(environment_stats.length === 0)){
+            mensajeUsuario = "Datos Cargados Satisfactoriamente";
+
+        }
+        else if (environment_stats.length === 0){
+            mensajeUsuario = "Base de Datos Vacía"
+        }
     }
 
     let fromDate = "";
@@ -76,11 +88,16 @@
             const data = await res.json();
             result = JSON.stringify(data, null, 2);
             environment_stats = data;
+
         } catch (error) {
             console.log(`Error parsing result: ${error}`);
         }
         const status = await res.status;
         resultStatus = status;
+        if (status==200){
+            mensajeUsuario = "Datos Cargados Satisfactoriamente";
+
+        }
     }
 
     function searchInterval() {
@@ -284,7 +301,7 @@
 </script>
 
 <main>
-    <h1>Bienvenido a la API environment_stats</h1>
+    <h1>Bienvenido a la API</h1>
     <div style="text-align: center;">
         <h5>Desarrollada por Rushabh Patel</h5>
     </div>
@@ -312,6 +329,7 @@
             .botones {
                 margin-bottom: 30px;
             }
+           
             h2 {
                 text-align: center;
                 font-family: Arial, Helvetica, sans-serif;
@@ -334,11 +352,21 @@
                 background-color: #f2f2f2;
                 font-weight: bold;
             }
-            input {
-                padding: 5px;
-                width: 100%;
-                box-sizing: border-box;
+
+            .small-input {
+                width: 100px;
             }
+
+        
+            form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+
             .button {
                 display: inline-block;
                 padding: 10px;
@@ -388,11 +416,10 @@
                 {/if}
             </div>
         </div>
-        <div>
-            <button class="button" on:click={getEnvironment}
-                >Obtener Datos Medio Ambiente</button
-            >
-        </div>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <button class="button" on:click={getEnvironment}>Obtener Datos Medio Ambiente</button>
+          </div>
+          
         <form
             on:submit|preventDefault={searchInterval}
             class="p-3 border rounded"
@@ -401,9 +428,13 @@
                 <label for="from" class="font-weight-bold">Desde:</label>
                 <input
                     type="number"
-                    class="form-control form-control-sm"
                     id="from"
                     bind:value={fromDate}
+                    class="form-control form-control-sm small-input"
+                    min="1900"
+                    max="2100"
+                    step="1"
+                    pattern="\d+"
                 />
             </div>
             <div class="form-group">
@@ -495,4 +526,3 @@
         </div>
     </body>
 </html>
-

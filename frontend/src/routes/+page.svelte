@@ -106,7 +106,7 @@
                     <p>Desarollado por Joaquín Rodríguez Mariscal</p>
                 </div>
                 <div class="api-card">
-                    <a href="https://sos2223-10.ew.r.appspot.com/api/v2/environment-stats">Estadísticas Medio Ambiente API</a>
+                    <a href="https://sos2223-10.ew.r.appspot.com/api/v3/environment-stats">Estadísticas Medio Ambiente API</a>
                     <p>Desarrollado por Rushabh Patel Patel</p>
                 </div>
                 <div class="api-card">
@@ -127,7 +127,11 @@
                             <p>Desarollado por Joaquín Rodríguez Mariscal</p>
                         </div>
                         <div class="api-card">
-                            <a href="https://sos2223-10.ew.r.appspot.com/api/v2/environment-stats/docs">Documentación Medio Ambiente API</a>
+                            <a href="https://sos2223-10.ew.r.appspot.com/api/v2/environment-stats/docs">Documentación Medio Ambiente API v2</a>
+                            <p>Desarrollado por Rushabh Patel Patel</p>
+                        </div>
+                        <div class="api-card">
+                            <a href="https://sos2223-10.ew.r.appspot.com/api/v3/environment-stats/docs">Documentación Medio Ambiente API v3</a>
                             <p>Desarrollado por Rushabh Patel Patel</p>
                         </div>
                         <div class="api-card">
