@@ -13,7 +13,7 @@
     let acierto = "";
 
     if (dev) API = "http://localhost:12345" + API;
-
+//SI PONEMOS ALGO EN "" ES LO QUE SALDRA EN EL RECUADRO DE TEXTO DE ENTRADA.
     let employment_stats = [];
     let newPeriod = "";
     let newProvince = "";
@@ -24,6 +24,47 @@
 
     let result = "";
     let resultStatus = "";
+    let fromPeriod = "";
+    let toPeriod = "";
+    async function FromTo() {
+        resultStatus = result = "";
+        const url = `${API}?from=${fromPeriod}&to=${toPeriod}`;
+
+        const res = await fetch(url, {
+            method: "GET",
+        });
+
+        try {
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            employment_stats = data;
+        } catch (error) {
+            console.log(`Error parseando el resultado: ${error}`);
+        }
+
+        const status = await res.status;
+        resultStatus = status;
+    }
+
+    async function getEmployment() {
+        resultStatus = result = "";
+        const url = `${API}?offset=${offset}&limit=${limit}`;
+
+        const res = await fetch(url, {
+            method: "GET",
+        });
+
+        try {
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            employment_stats = data;
+        } catch (error) {
+            console.log(`Error parseando el resultado: ${error}`);
+        }
+
+        const status = await res.status;
+        resultStatus = status;
+    }
     async function loadData() {
         resultStatus = result = "";
         const res = await fetch(API + "/loadInitialData", {
@@ -35,9 +76,10 @@
             getEmployment();
         }
     }
-
+/*
     async function getEmployment() {
         resultStatus = result = "";
+        //const url = `${API}?limit=${limit}`;
         const res = await fetch(API, {
             method: "GET",
         });
@@ -51,6 +93,7 @@
         const status = await res.status;
         resultStatus = status;
     }
+    */
 
     let insertedData = [];
     async function createEmployment() {
@@ -65,9 +108,9 @@
         // Comprobar si el nuevo dato ya ha sido insertado previamente
         const existingData = insertedData.find(
             (data) =>
-                data.period === newperiod &&
+                data.period === newPeriod &&
                 data.province === newProvince &&
-                data.population_over_16_years === newPopulation_over_16_years &&
+                data.population_over_16_years === newpopulation_over_16_years &&
                 data.activity_men_percentage === newactivity_men_percentage &&
                 data.activity_women_percentage === newactivity_women_percentage
         );
@@ -133,6 +176,7 @@
         }
     }
     //Busqueda original 2 valores
+    
     async function searchEmployment() {
         resultStatus = result = "";
         const res = await fetch(`${API}/${newProvince}/${newPeriod}`, {
@@ -151,49 +195,120 @@
             mensajeUsuario = "No se ha podido realizar la búsqueda";
         }
     }
-    //5 valores
-    async function searchProvincia() {
+    
+    //////////////////////////////////////////////BUSCAR POR LAS 5 propiedades./////////////////////////////////
+    async function getProvince() {
         resultStatus = result = "";
-        const res = await fetch(`${API}/${newProvince}`, {
+        const url = `${API}?province=${newProvince}`;
+
+        const res = await fetch(url, {
             method: "GET",
         });
+
+        try {
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            employment_stats = data;
+        } catch (error) {
+            console.log(`Error parseando el resultado: ${error}`);
+        }
+
         const status = await res.status;
         resultStatus = status;
-        if (status == 200) {
-            const data = await res.json();
-            employment_stats = [data]; // Actualizar la lista con el resultado de búsqueda
-            acierto = `Resultado de búsqueda para ${newProvince}`;
-        } else if (status == 404) {
-            employment_stats = []; // Limpiar la lista si no se encuentra ningún resultado
-            mensajeUsuario = `No se encontraron resultados para ${newProvince}`;
-        } else {
-            mensajeUsuario = "No se ha podido realizar la búsqueda";
-        }
     }
-    async function searchPeriodo() {
+    async function getPeriod() {
         resultStatus = result = "";
-        const res = await fetch(`${API}/${newPeriod}`, {
+        const url = `${API}?period=${newPeriod}`;
+
+        const res = await fetch(url, {
             method: "GET",
         });
+        try {
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            employment_stats = data;
+        } catch (error) {
+            console.log(`Error parseando el resultado: ${error}`);
+        }
         const status = await res.status;
         resultStatus = status;
-        if (status == 200) {
-            const data = await res.json();
-            employment_stats = [data]; // Actualizar la lista con el resultado de búsqueda
-            acierto = `Resultado de búsqueda para ${newPeriod}`;
-        } else if (status == 404) {
-            employment_stats = []; // Limpiar la lista si no se encuentra ningún resultado
-            mensajeUsuario = `No se encontraron resultados para ${newProvince} en ${newPeriod}`;
-        } else {
-            mensajeUsuario = "No se ha podido realizar la búsqueda";
-        }
     }
+    async function getPopulation_over_16_years() {
+        resultStatus = result = "";
+        const url = `${API}?population_over_16_years=${newpopulation_over_16_years}`;
+
+        const res = await fetch(url, {
+            method: "GET",
+        });
+        try {
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            employment_stats = data;
+        } catch (error) {
+            console.log(`Error parseando el resultado: ${error}`);
+        }
+        const status = await res.status;
+        resultStatus = status;
+    }
+    async function getActivity_men_percentage() {
+        resultStatus = result = "";
+        const url = `${API}?activity_men_percentage=${newactivity_men_percentage}`;
+
+        const res = await fetch(url, {
+            method: "GET",
+        });
+
+        try {
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            employment_stats = data;
+        } catch (error) {
+            console.log(`Error parseando el resultado: ${error}`);
+        }
+        const status = await res.status;
+        resultStatus = status;
+    }
+    async function getActivity_women_percentage() {
+        resultStatus = result = "";
+        const url = `${API}?activity_women_percentage=${newactivity_women_percentage}`;
+
+        const res = await fetch(url, {
+            method: "GET",
+        });
+
+        try {
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            employment_stats = data;
+        } catch (error) {
+            console.log(`Error parseando el resultado: ${error}`);
+        }
+        const status = await res.status;
+        resultStatus = status;
+    }
+
     async function createAndReload() {
         createEmployment().then(() => {
             setTimeout(() => {}, displayTime);
         });
     }
     // Paginación
+    let offset = 0;
+    let limit = 10;
+    async function antPag() {
+        if (offset >= 10) {
+            offset = offset - limit;
+        }
+        getEmployment();
+    }
+    async function sigPag() {
+        if (offset + limit > employment_stats.length) {
+        } else {
+            offset = offset + limit;
+            getEmployment();
+        }
+    }
+    
 </script>
 
 <main>
@@ -215,82 +330,101 @@
         />
 <style>
         body {
-            font-family: 'Roboto';
-            font-size: 18px;
-        }
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+}
 
-        h1 {
-            text-align: center;
-            font-size: 40px;
-            margin-top: 50px;
-        }
-        .botones {
-            margin-bottom: 30px;
-        }
-        h2 {
-            text-align: center;
-            font-family: Arial, Helvetica, sans-serif;
-            color: blue;
-            margin-bottom: 20px;
-        }
-        table {
-            margin: 0 auto;
-            width: 80%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-        }
-        th, td {
-            text-align: center;
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-        th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-        }
-        input {
-            padding: 5px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .button {
-            display: inline-block;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            color: #fff;
-            background-color: #007bff;
-            text-decoration: none;
-            font-size: 16px;
-            margin-right: 10px;
-        }
-        .button:hover {
-            background-color: #0069d9;
-        }
-        .button.delete {
-            background-color: #dc3545;
-        }
-        .button.delete:hover {
-            background-color: #c82333;
-        }
-        .button-toolbar {
-            margin-bottom: 20px;
-        }
-        .alert {
-            text-align: center;
-            padding: 10px;
-            background-color: #f8d7da;
-            color: #721c24;
-            margin-bottom: 20px;
-            border: 1px solid #f5c6cb;
-            border-radius: 5px;
-        }
-        .success {
-            background-color: #d4edda; /* Color de fondo */
-                color: #155724; /* Color del texto */
-                border: 1px solid #c3e6cb; /* Borde del mensaje */
-                padding: 10px; /* Espaciado interno */
-                margin-bottom: 10px; /* Espaciado externo */
+h1 {
+  text-align: center;
+  font-size: 48px;
+  margin-top: 50px;
+}
+
+.botones {
+  margin-bottom: 20px;
+}
+
+h2 {
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  color: #005aaa;
+  margin-bottom: 20px;
+}
+
+table {
+  margin: 0 auto;
+  width: 80%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th, td {
+  text-align: center;
+  padding: 12px;
+  border: 2px solid #d2d2d2;
+}
+
+th {
+  background-color: #f5f5f5;
+  font-weight: bold;
+}
+
+input {
+  padding: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid #d2d2d2;
+  border-radius: 5px;
+  color: #005aaa;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+}
+
+.button {
+  display: inline-block;
+  padding: 12px 20px;
+  border-radius: 5px;
+  border: none;
+  color: #fff;
+  background-color: #ff8800;
+  text-decoration: none;
+  font-size: 16px;
+  margin-right: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.button:hover {
+  background-color: #ff6600;
+}
+
+.button.delete {
+  background-color: #cc0000;
+}
+
+.button.delete:hover {
+  background-color: #990000;
+}
+
+.button-toolbar {
+  margin-bottom: 20px;
+}
+
+.alert {
+  text-align: center;
+  padding: 12px;
+  background-color: #ffe6cc;
+  color:#721c24;
+  margin-bottom: 20px;
+  border: 2px solid #ffd699;
+  border-radius: 5px;
+}
+.success {
+    background-color: #d4edda; /* Color de fondo */
+        color: #155724; /* Color del texto */
+        border: 1px solid #c3e6cb; /* Borde del mensaje */
+        padding: 10px; /* Espaciado interno */
+        margin-bottom: 10px; /* Espaciado externo */
         }
         </style>
     </head>
@@ -313,18 +447,18 @@
             </div>
         </div>
 <!-- original Busca por periodo y por provincia -->
-
         <form
+
             on:submit|preventDefault={searchEmployment}
             class="p-3 border rounded"
         >
             <div class="form-group">
-                <label for="province" class="font-weight-bold">Provincia:</label
-                >
+                <label for="province" class="font-weight-bold">Provincia:</label>
                 <input
                     type="text"
                     class="form-control form-control-sm"
                     id="province"
+                    required
                     bind:value={newProvince}
                 />
             </div>
@@ -334,42 +468,129 @@
                     type="number"
                     class="form-control form-control-sm"
                     id="period"
+                    required
                     bind:value={newPeriod}
                 />
             </div>
             <Button color="primary" type="submit" class="mt-3">Buscar</Button>
         </form>
-        <!-- modificado 5 -->
-        <form
-            on:submit|preventDefault={searchPeriodo}
-            class="p-3 border rounded"
-        >
+        <form on:submit|preventDefault={getEmployment} class="p-3 border rounded">
             <div class="form-group">
-                <label for="period" class="font-weight-bold">Periodo:</label>
+                <label for="from" class="font-weight-bold">Offset:</label>
                 <input
                     type="number"
                     class="form-control form-control-sm"
-                    id="period"
-                    bind:value={newPeriod}
+                    id="offset"
+                    bind:value={offset}
                 />
             </div>
-            <Button color="primary" type="submit" class="mt-3">Buscar</Button>
+            <div class="form-group">
+                <label for="to" class="font-weight-bold">Límite:</label>
+                <input
+                    type="number"
+                    class="form-control form-control-sm"
+                    id="limit"
+                    bind:value={limit}
+                />
+            </div>
+            <Button color="primary" type="submit" class="mt-3">Busqueda</Button>
         </form>
 
+        
+        <!-- ########################   BUSQUEDA 5 PROPIEDADES  ############################### -->
         <form
-            on:submit|preventDefault={searchProvincia}
+        on:submit|preventDefault={getProvince}
+        class="p-3 border rounded"
+    >
+        <div class="form-group">
+            <label for="period" class="font-weight-bold">Provincia:</label>
+            <input
+                type="text"
+                class="form-control form-control-sm"
+                id="province"
+                bind:value={newProvince}
+            />
+        </div>
+        <Button color="primary" type="submit" class="mt-3">Buscar</Button>
+    </form>
+        <form
+            on:submit|preventDefault={getPeriod}
             class="p-3 border rounded"
         >
             <div class="form-group">
-                <label for="period" class="font-weight-bold">Provincia:</label>
+                <label for="period" class="font-weight-bold">Periodo:</label>
                 <input
-                    type="text"
+                    type="number"
                     class="form-control form-control-sm"
-                    id="province"
-                    bind:value={newProvince}
+                    id="period"
+                    bind:value={newPeriod}
                 />
             </div>
             <Button color="primary" type="submit" class="mt-3">Buscar</Button>
+        </form>  
+        <!--    ####################   DE AQUI PARA ABAJO MODIFICO ###################-->   
+        <form on:submit|preventDefault={getPopulation_over_16_years}
+         class="p-3 border rounded"
+         >
+            <div class="form-group">
+                <label for="population_over_16_years" class="font-weight-bold">Poblacion mayor 16:</label>
+                <input
+                    type="number"
+                    class="form-control form-control-sm"
+                    id="population_over_16_years"
+                    bind:value={newpopulation_over_16_years}
+                />
+            </div>
+            <Button color="primary" type="submit" class="mt-3">Buscar</Button>
+        </form>
+        <form on:submit|preventDefault={getActivity_men_percentage} class="p-3 border rounded">
+            <div class="form-group">
+                <label for="to" class="font-weight-bold">Porcentaje hombres</label>
+                <input
+                    type="number" 
+                    step="0.1" 
+                    min="0"
+                    class="form-control form-control-sm"
+                    id="to"
+                    bind:value={newactivity_men_percentage}
+                />
+            </div>
+            <Button color="primary" type="submit" class="mt-3">Buscar</Button>
+        </form>
+        <form on:submit|preventDefault={getActivity_women_percentage} class="p-3 border rounded">
+            <div class="form-group">
+                <label for="to" class="font-weight-bold">Porcentaje mujeres:</label>
+                <input
+                    type="number" 
+                    step="0.1" 
+                    min="0"
+                    class="form-control form-control-sm"
+                    id="to"
+                    bind:value={newactivity_women_percentage}
+                />
+            </div>
+            <Button color="primary" type="submit" class="mt-3">Buscar</Button>
+        </form>
+        <form on:submit|preventDefault={FromTo} class="p-3 border rounded">
+            <div class="form-group">
+                <label for="from" class="font-weight-bold">Desde:</label>
+                <input
+                    type="number"
+                    class="form-control form-control-sm"
+                    id="from"
+                    bind:value={fromPeriod}
+                />
+            </div>
+            <div class="form-group">
+                <label for="to" class="font-weight-bold">Hasta:</label>
+                <input
+                    type="number"
+                    class="form-control form-control-sm"
+                    id="to"
+                    bind:value={toPeriod}
+                />
+            </div>
+            <Button color="primary" type="submit" class="mt-3">Busqueda</Button>
         </form>
 
         <div>
@@ -383,7 +604,7 @@
                 <tr>
                     <th>Provincia</th>
                     <th>Periodo</th>
-                    <th>Poblacion mayor de edad</th>
+                    <th>Poblacion mayor de 16</th>
                     <th>Porcentaje de actividad en hombres</th>
                     <th>Porcentaje de actividad en mujeres</th>
                     <th>Acciones</th>
@@ -445,6 +666,8 @@
                 </div>
             </tbody>
         </table>
+        <Button on:click={antPag}>Anterior</Button>
+        <Button on:click={sigPag}>Siguiente</Button>
     </body>
 </html>
 
