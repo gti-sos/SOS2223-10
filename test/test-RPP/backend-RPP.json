@@ -358,7 +358,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Documentación Postman\", function () {",
+							"pm.test(\"POST Sevilla\", function () {",
 							"    pm.response.to.have.status(201);",
 							"});"
 						],
@@ -371,7 +371,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 2323,\n        \"area\": 123456,\n        \"fire\": 24\n        \n    }",
+					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Segovia\",\n        \"protected_space\": 2323,\n        \"area\": 123456,\n        \"fire\": 24\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -412,7 +412,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 2323,\n        \"area\": 123456,\n        \"fire\": 24\n        \n    }",
+					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Segovia\",\n        \"protected_space\": 2323,\n        \"area\": 123456,\n        \"fire\": 24\n        \n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -453,7 +453,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 23,\n        \"area\": 123.456\n        \n    }",
+					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Segovia\",\n        \"protected_space\": 23,\n        \"area\": 123.456\n        \n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -494,7 +494,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "   {\n        \"year\": 2000,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 1,\n        \"area\": 123,\n        \"fire\": 2\n    }",
+					"raw": "   {\n        \"year\": 2000,\n        \"city\": \"Segovia\",\n        \"protected_space\": 1,\n        \"area\": 123,\n        \"fire\": 2\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -536,7 +536,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "  {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 1,\n        \"area\": 1,\n        \"fire\": 2\n    }",
+					"raw": "  {\n        \"year\": 2023,\n        \"city\": \"Segovia\",\n        \"protected_space\": 1,\n        \"area\": 1,\n        \"fire\": 2\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -544,7 +544,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL-BASE}}/api/v3/environment-stats/Sevilla",
+					"raw": "{{URL-BASE}}/api/v3/environment-stats/Segovia",
 					"host": [
 						"{{URL-BASE}}"
 					],
@@ -552,7 +552,7 @@
 						"api",
 						"v3",
 						"environment-stats",
-						"Sevilla"
+						"Segovia"
 					]
 				}
 			},
@@ -578,7 +578,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "  {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 2222,\n        \"area\": 22222,\n        \"fire\": 22222\n    }",
+					"raw": "  {\n        \"year\": 2023,\n        \"city\": \"Segovia\",\n        \"protected_space\": 2222,\n        \"area\": 22222,\n        \"fire\": 22222\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -586,7 +586,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{URL-BASE}}/api/v3/environment-stats/Sevilla/2023",
+					"raw": "{{URL-BASE}}/api/v3/environment-stats/Segovia/2023",
 					"host": [
 						"{{URL-BASE}}"
 					],
@@ -594,7 +594,7 @@
 						"api",
 						"v3",
 						"environment-stats",
-						"Sevilla",
+						"Segovia",
 						"2023"
 					]
 				}
@@ -626,7 +626,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URL-BASE}}/api/v3/environment-stats/Sevilla/2023",
+					"raw": "{{URL-BASE}}/api/v3/environment-stats/Segovia/2023",
 					"host": [
 						"{{URL-BASE}}"
 					],
@@ -634,7 +634,7 @@
 						"api",
 						"v3",
 						"environment-stats",
-						"Sevilla",
+						"Segovia",
 						"2023"
 					]
 				}
@@ -689,7 +689,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Conflicto POST\", function () {",
+							"pm.test(\"Error 400 PUT\", function () {",
 							"    pm.response.to.have.status(400);",
 							"});"
 						],
@@ -747,7 +747,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "{{URL-BASE}}/api/v3/environment-stats/Sevilla/2023",
+					"raw": "{{URL-BASE}}/api/v3/environment-stats/Segovia/2023",
 					"host": [
 						"{{URL-BASE}}"
 					],
@@ -755,7 +755,7 @@
 						"api",
 						"v3",
 						"environment-stats",
-						"Sevilla",
+						"Segovia",
 						"2023"
 					]
 				}
