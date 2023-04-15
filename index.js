@@ -1,7 +1,5 @@
 const BASE_API_URL = "/api/v2";
 
-
-
 import express from "express";
 import cors from "cors";
 import {loadBackend_RDQ_v2} from "./backend/api-RDQ-v2.js";
@@ -13,14 +11,11 @@ import {loadBackend_RPP_v2} from "./backend/api-RPP-v2.js";
 import { handler } from "./frontend/build/handler.js";
 
 
+
 var app = express();
-
-
-app.use(cors());
-
 var port = process.env.PORT || 12345;
 
-// app.use("/",express.static("./public"));
+//app.use("/",express.static("./public"));
 app.use(express.json());
 
 

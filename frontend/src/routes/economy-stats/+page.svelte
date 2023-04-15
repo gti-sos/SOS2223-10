@@ -18,13 +18,15 @@
     let newTourist = "tourist";
     let result = "";
     let resultStatus = "";
+    const displayTime = 1500;
+
+    
+    
     async function getEconomy() {
         resultStatus = result = "";
-        const res = await fetch(`${API}?limit=${limit}&offset=${offset}`);
-        if (res.ok)
-            ({
-                method: "GET",
-            });
+        const res = await fetch(API, {
+            method: "GET",
+        });
         try {
             const data = await res.json();
             result = JSON.stringify(data, null, 2);
@@ -37,9 +39,11 @@
     }
     let insertedData = [];
 
+    
+
     let fromPeriod = "";
     let toPeriod = "";
-    async function getEconomyRecurso() {
+    async function getFromTo() {
         resultStatus = result = "";
         const url = `${API}?from=${fromPeriod}&to=${toPeriod}`;
 
@@ -58,6 +62,131 @@
         const status = await res.status;
         resultStatus = status;
     }
+
+    let offSet=0;
+    let limite=0;
+    async function getOffsetLimit() {
+        resultStatus = result = "";
+        const url = `${API}?offset=${offSet}&limit=${limite}`;
+
+        const res = await fetch(url, {
+            method: "GET",
+        });
+
+        try {
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            economy_stats = data;
+        } catch (error) {
+            console.log(`Error parseando el resultado: ${error}`);
+        }
+
+        const status = await res.status;
+        resultStatus = status;
+    }
+
+    
+    async function getTerritory() {
+        resultStatus = result = "";
+        const url = `${API}?territory=${newTerritory}`;
+
+        const res = await fetch(url, {
+            method: "GET",
+        });
+
+        try {
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            economy_stats = data;
+        } catch (error) {
+            console.log(`Error parseando el resultado: ${error}`);
+        }
+
+        const status = await res.status;
+        resultStatus = status;
+    }
+
+    async function getPeriod() {
+        resultStatus = result = "";
+        const url = `${API}?period=${newPeriod}`;
+
+        const res = await fetch(url, {
+            method: "GET",
+        });
+
+        try {
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            economy_stats = data;
+        } catch (error) {
+            console.log(`Error parseando el resultado: ${error}`);
+        }
+
+        const status = await res.status;
+        resultStatus = status;
+    }
+
+    async function getFinishedHouse() {
+        resultStatus = result = "";
+        const url = `${API}?finished_house=${newFinished_house}`;
+
+        const res = await fetch(url, {
+            method: "GET",
+        });
+
+        try {
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            economy_stats = data;
+        } catch (error) {
+            console.log(`Error parseando el resultado: ${error}`);
+        }
+
+        const status = await res.status;
+        resultStatus = status;
+    }
+
+    async function getHalPriceMTwo() {
+        resultStatus = result = "";
+        const url = `${API}?half_price_m_two=${newHalf_price_m_two}`;
+
+        const res = await fetch(url, {
+            method: "GET",
+        });
+
+        try {
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            economy_stats = data;
+        } catch (error) {
+            console.log(`Error parseando el resultado: ${error}`);
+        }
+
+        const status = await res.status;
+        resultStatus = status;
+    }
+
+    async function getTourist() {
+        resultStatus = result = "";
+        const url = `${API}?tourist=${newTourist}`;
+
+        const res = await fetch(url, {
+            method: "GET",
+        });
+
+        try {
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            economy_stats = data;
+        } catch (error) {
+            console.log(`Error parseando el resultado: ${error}`);
+        }
+
+        const status = await res.status;
+        resultStatus = status;
+    }
+    
+    
 
     async function createEconomy() {
         resultStatus = result = "";
@@ -109,7 +238,7 @@
         }
     }
 
-    const displayTime = 1500;
+    
 
     async function createAndReload() {
         createEconomy().then(() => {
@@ -194,7 +323,9 @@
     </h2>
 {/if}
 
-<form on:submit|preventDefault={getEconomyRecurso} class="p-3 border rounded">
+
+
+<form on:submit|preventDefault={getFromTo} class="p-3 border rounded">
     <div class="form-group">
         <label for="from" class="font-weight-bold">Desde:</label>
         <input
@@ -214,6 +345,89 @@
         />
     </div>
     <Button color="primary" type="submit" class="mt-3">Busqueda</Button>
+</form>
+
+<form on:submit|preventDefault={getOffsetLimit} class="p-3 border rounded">
+    <div class="form-group">
+        <label for="from" class="font-weight-bold">Offset:</label>
+        <input
+            type="number"
+            class="form-control form-control-sm"
+            id="offset"
+            bind:value={offSet}
+        />
+    </div>
+    <div class="form-group">
+        <label for="to" class="font-weight-bold">Límite:</label>
+        <input
+            type="number"
+            class="form-control form-control-sm"
+            id="limit"
+            bind:value={limite}
+        />
+    </div>
+    <Button color="primary" type="submit" class="mt-3">Busqueda</Button>
+</form>
+
+<form on:submit|preventDefault={getTerritory} class="p-3 border rounded">
+    <div class="form-group">
+        <label for="to" class="font-weight-bold">Territorio:</label>
+        <input
+            type="string"
+            class="form-control form-control-sm"
+            id="to"
+            bind:value={newTerritory}
+        />
+    </div>
+    <Button color="primary" type="submit" class="mt-3">Buscar territorio</Button>
+</form>
+<form on:submit|preventDefault={getPeriod} class="p-3 border rounded">
+    <div class="form-group">
+        <label for="to" class="font-weight-bold">Periodo:</label>
+        <input
+            type="number"
+            class="form-control form-control-sm"
+            id="to"
+            bind:value={newPeriod}
+        />
+    </div>
+    <Button color="primary" type="submit" class="mt-3">Buscar periodo</Button>
+</form>
+<form on:submit|preventDefault={getFinishedHouse} class="p-3 border rounded">
+    <div class="form-group">
+        <label for="to" class="font-weight-bold">Casas Finalizadas:</label>
+        <input
+            type="number"
+            class="form-control form-control-sm"
+            id="to"
+            bind:value={newFinished_house}
+        />
+    </div>
+    <Button color="primary" type="submit" class="mt-3">Buscar número de casas</Button>
+</form>
+<form on:submit|preventDefault={getHalPriceMTwo} class="p-3 border rounded">
+    <div class="form-group">
+        <label for="to" class="font-weight-bold">Precio medio metro cuadrado:</label>
+        <input
+            type="number"
+            class="form-control form-control-sm"
+            id="to"
+            bind:value={newHalf_price_m_two}
+        />
+    </div>
+    <Button color="primary" type="submit" class="mt-3">Buscar precio</Button>
+</form>
+<form on:submit|preventDefault={getTourist} class="p-3 border rounded">
+    <div class="form-group">
+        <label for="to" class="font-weight-bold">Turistas:</label>
+        <input
+            type="number"
+            class="form-control form-control-sm"
+            id="to"
+            bind:value={newTourist}
+        />
+    </div>
+    <Button color="primary" type="submit" class="mt-3">Buscar número de turistas</Button>
 </form>
 
 <Table striped>
@@ -237,7 +451,8 @@
             <td><input bind:value={newHalf_price_m_two} /></td>
             <td><input bind:value={newTourist} /></td>
             <td>
-                <Button color="success" on:click={createAndReload}>Crear</Button>
+                <Button color="success" on:click={createAndReload}>Crear</Button
+                >
             </td>
         </tr>
 
@@ -280,6 +495,7 @@
         >Borrar Datos</button
     >
 </div>
+
 <!--
     {#if resultStatus != ""}
         <p>
