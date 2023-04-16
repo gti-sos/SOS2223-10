@@ -81,13 +81,13 @@ app.get(BASE_API_URL + "/employment-stats", (req,res)=>{
         dbquery['province'] = convertirAMinusculas(query.province);
         console.log(offset);
     }
-    if(query.finished_house){
+    if(query.population_over_16_years){
         dbquery['population_over_16_years'] = parseInt(query.population_over_16_years);
     }
-    if(query.half_price_m_two){
+    if(query.activity_men_percentage){
         dbquery['activity_men_percentage'] = parseFloat(query.activity_men_percentage);
     }
-    if(query.tourist){
+    if(query.activity_women_percentage){
         dbquery['activity_women_percentage'] = parseFloat(query.activity_women_percentage);
     }
     

@@ -1,1 +1,1 @@
-Made by gti-sos 
+Hecho por GTI-SOS2223-10. 
