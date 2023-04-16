@@ -24,6 +24,10 @@
     const displayTime = 1500;
     let result = "";
     let resultStatus = "";
+
+
+
+    
     async function loadData() {
         resultStatus = result = "";
         const res = await fetch(API + "/loadInitialData", {
@@ -71,7 +75,7 @@
 
         }
         else if (environment_stats.length === 0){
-            mensajeUsuario = "Base de Datos Vacía"
+            mensajeUsuario = "No hay Datos a mostrar"
         }
     }
 
@@ -290,13 +294,16 @@
 
         getEnvironment();
     }
+    
+
     async function handleNextPage() {
         offset += limit;
-        if (offset > 30) {
-            offset = 30;
+        if (offset > 20) {
+            offset = 20;
         }
         getEnvironment();
-    }
+}
+
 </script>
 
 <main>

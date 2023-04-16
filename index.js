@@ -2,6 +2,9 @@ const BASE_API_URL = "/api/v2";
 
 import express from "express";
 import cors from "cors";
+
+import {loadBackend_RPP_v1} from "./backend/api-RPP.js";
+
 import {loadBackend_RDQ_v2} from "./backend/api-RDQ-v2.js";
 import {loadBackend_JRM_v2} from "./backend/api-JRM-v2.js";
 import {loadBackend_RPP_v2} from "./backend/api-RPP-v2.js";
@@ -48,12 +51,18 @@ app.get("/api/v3/environment-stats/docs", (req, res) => {
 
 });
 
+app.get("/api/v1/environment-stats/docs", (req, res) => {
+    console.log("Se ejecuta");
+    res.redirect("https://documenter.getpostman.com/view/26063123/2s93JzN1dM");
+
+});
+
 
 
 loadBackend_RDQ_v2(app);
 loadBackend_JRM_v2(app);
 loadBackend_RPP_v2(app);
-
+loadBackend_RPP_v1(app);
 loadBackend_RPP_v3(app);
 
 
