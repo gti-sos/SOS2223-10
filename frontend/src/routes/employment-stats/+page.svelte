@@ -312,7 +312,7 @@
 </script>
 
 <main>
-    <h1>Bienvenido a la API employment_stats</h1>
+    <h1>Bienvenido a la API de Datos de Empleo</h1>
     <div style="text-align: center;">
         <h5>Desarrollada por Rafael Diaz Quintero</h5>
     </div>
@@ -623,11 +623,11 @@ input {
             </thead>
             <tbody>
                 <tr>
-                    <td><input bind:value={newProvince} /></td>
-                    <td><input bind:value={newPeriod} /></td>
-                    <td><input bind:value={newpopulation_over_16_years} /></td>
-                    <td><input bind:value={newactivity_men_percentage} /></td>
-                    <td><input bind:value={newactivity_women_percentage} /></td>
+                    <td><input type = text bind:value={newProvince} /></td>
+                    <td><input type = number bind:value={newPeriod} /></td>
+                    <td><input type = number bind:value={newpopulation_over_16_years} /></td>
+                    <td><input type = number bind:value={newactivity_men_percentage} /></td>
+                    <td><input type = number bind:value={newactivity_women_percentage} /></td>
                     <td
                         ><button class="button" on:click={createAndReload}
                             >Crear</button
