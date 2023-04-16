@@ -55,7 +55,6 @@
         }
         const status = await res.status;
         resultStatus = status;
-        
     }
     let insertedData = [];
 
@@ -348,76 +347,109 @@
         />
         <style>
             body {
-                font-family: "Roboto";
-                font-size: 18px;
+                font-family: "Helvetica Neue", Arial, sans-serif;
+                font-size: 16px;
+                line-height: 1.6;
+                color: #555;
+                background-color: #f7f7f7;
             }
 
             h1 {
                 text-align: center;
-                font-size: 40px;
+                font-size: 42px;
+                font-weight: bold;
                 margin-top: 50px;
-            }
-            .botones {
                 margin-bottom: 30px;
             }
+
+            .botones {
+                margin-bottom: 50px;
+            }
+
             h2 {
                 text-align: center;
-                font-family: Arial, Helvetica, sans-serif;
-                color: blue;
-                margin-bottom: 20px;
+                font-family: "Roboto", sans-serif;
+                color: #333;
+                font-size: 32px;
+                margin-bottom: 30px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
             }
+
             table {
                 margin: 0 auto;
-                width: 80%;
+                width: 100%;
+                max-width: 800px;
                 border-collapse: collapse;
                 margin-bottom: 30px;
             }
+
             th,
             td {
                 text-align: center;
-                padding: 10px;
+                padding: 15px;
                 border: 1px solid #ddd;
+                font-size: 18px;
             }
+
             th {
                 background-color: #f2f2f2;
                 font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 2px;
             }
+
             input {
-                padding: 5px;
+                padding: 10px;
                 width: 100%;
                 box-sizing: border-box;
+                border-radius: 5px;
+                border: 1px solid #ddd;
+                font-size: 18px;
+                margin-bottom: 20px;
             }
+
             .button {
                 display: inline-block;
-                padding: 10px;
+                padding: 12px 24px;
                 border-radius: 5px;
                 border: none;
                 color: #fff;
                 background-color: #007bff;
                 text-decoration: none;
-                font-size: 16px;
+                font-size: 18px;
                 margin-right: 10px;
+                cursor: pointer;
+                transition: all 0.3s ease;
             }
+
             .button:hover {
                 background-color: #0069d9;
             }
+
             .button.delete {
                 background-color: #dc3545;
             }
+
             .button.delete:hover {
                 background-color: #c82333;
             }
+
             .button-toolbar {
-                margin-bottom: 20px;
+                margin-bottom: 50px;
+                text-align: center;
             }
+
             .alert {
                 text-align: center;
-                padding: 10px;
+                padding: 15px;
                 background-color: #f8d7da;
                 color: #721c24;
-                margin-bottom: 20px;
+                margin-bottom: 30px;
                 border: 1px solid #f5c6cb;
                 border-radius: 5px;
+                font-size: 18px;
+                line-height: 1.4;
             }
             .success {
                 background-color: #d4edda; /* Color de fondo */
