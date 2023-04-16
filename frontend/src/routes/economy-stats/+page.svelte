@@ -81,6 +81,47 @@
         resultStatus = status;
     }
 
+    
+    async function searchEconomy() {
+        const queryParams = [];
+
+        if (newTerritory) queryParams.push(`territory=${newTerritory}`);
+        if (newPeriod) queryParams.push(`period=${newPeriod}`);
+        if (newFinished_house)
+            queryParams.push(`finished_house=${newFinished_house}`);
+        if (newHalf_price_m_two) queryParams.push(`half_price_m_two=${newHalf_price_m_two}`);
+        if (newTourist) queryParams.push(`tourist=${newTourist}`);
+
+        const queryString = queryParams.join("&");
+
+        if (!queryString) {
+            mensaje = "Debe ingresar algún criterio de búsqueda";
+            mensaje = "";
+            return;
+        }
+
+        const res = await fetch(`${API}?${queryString}`, {
+            method: "GET",
+        });
+
+        const status = res.status;
+        resultStatus = status;
+
+        if (status === 200) {
+            const data = await res.json();
+            economy_stats = data;
+            mensaje = `Resultados de búsqueda: ${data.length} elementos encontrados`;
+            mensaje2 = "";
+        } else if (status === 404) {
+            economy_stats = [];
+            mensaje2 = "No se encontraron resultados para la búsqueda";
+            mensaje = "";
+        } else {
+            mensaje2 = "No se ha podido realizar la búsqueda";
+            mensaje = "";
+        }
+    }
+    /*
     async function searchEconomy() {
         resultStatus = result = "";
         if (`${newTerritory}` != "" && `${newPeriod}` != "") {
@@ -260,7 +301,8 @@
             resultStatus = status;
         }
     }
-/*
+*/
+    /*
     let offSet = 0;
     let limite = 0;
     async function getOffsetLimit() {
@@ -679,9 +721,9 @@
                 bind:value={toPeriod}
             />
         </div>
-        <button class= "button" color="primary" type="submit">Busqueda</button>
+        <button class="button" color="primary" type="submit">Busqueda</button>
     </form>
-<!--
+    <!--
     <form on:submit|preventDefault={getOffsetLimit} class="p-3 border rounded">
         <div class="form-group">
             <label for="from" class="font-weight-bold">Offset:</label>
@@ -800,15 +842,15 @@
                 <td><input bind:value={newHalf_price_m_two} /></td>
                 <td><input bind:value={newTourist} /></td>
                 <td
-                        ><button class="button" on:click={createEconomy}
-                            >Crear</button
-                        ></td
-                    >
+                    ><button class="button" on:click={createEconomy}
+                        >Crear</button
+                    ></td
+                >
                 <td
-                        ><button class="button" on:click={searchEconomy}
-                            >Buscar</button
-                        ></td
-                    >
+                    ><button class="button" on:click={searchEconomy}
+                        >Buscar</button
+                    ></td
+                >
             </tr>
 
             {#each economy_stats as economy}
