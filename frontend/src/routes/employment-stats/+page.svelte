@@ -10,6 +10,7 @@
 
     let API = "/api/v2/employment-stats";
     let mensajeUsuario = "";
+    let mensajeUsuario2 ="";
     let acierto = "";
 
     if (dev) API = "http://localhost:12345" + API;
@@ -24,27 +25,9 @@
 
     let result = "";
     let resultStatus = "";
-    let fromPeriod = "";
-    let toPeriod = "";
-    async function FromTo() {
-        resultStatus = result = "";
-        const url = `${API}?from=${fromPeriod}&to=${toPeriod}`;
-
-        const res = await fetch(url, {
-            method: "GET",
-        });
-
-        try {
-            const data = await res.json();
-            result = JSON.stringify(data, null, 2);
-            employment_stats = data;
-        } catch (error) {
-            console.log(`Error parseando el resultado: ${error}`);
-        }
-
-        const status = await res.status;
-        resultStatus = status;
-    }
+    let fromPeriod = 0;
+    let toPeriod = 0;
+    
 
     async function getEmployment() {
         resultStatus = result = "";
@@ -65,6 +48,49 @@
         const status = await res.status;
         resultStatus = status;
     }
+    /*
+    async function getFromTo() {
+        resultStatus = result = "";
+        const url = `${API}?from=${fromPeriod}&to=${toPeriod}`;
+        
+        const res = await fetch(url, {
+            method: "GET",
+        });
+
+        try {
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            employment_stats = data;
+        } catch (error) {
+            console.log(`Error parseando el resultado: ${error}`);
+        }
+
+        const status = await res.status;
+        resultStatus = status;
+    }
+    */
+    async function getEmployment2() {
+        resultStatus = result = "";
+        let url = `${API}?from=${fromPeriod}&to=${toPeriod}`;
+        const res = await fetch(url, {
+            method: "GET",
+        });
+        try {
+            const data = await res.json();
+            result = JSON.stringify(data, null, 2);
+            employment_stats = data;
+        } catch (error) {
+            console.log(`Error parsing result: ${error}`);
+        }
+        const status = await res.status;
+        resultStatus = status;
+        if (status == 200) {
+            acierto = "Datos Cargados Satisfactoriamente";
+            mensajeUsuario2 = "";
+        }
+    }
+
+    
     async function loadData() {
         resultStatus = result = "";
         const res = await fetch(API + "/loadInitialData", {
@@ -76,6 +102,14 @@
             getEmployment();
         }
     }
+    async function loadAndReload() {
+        loadData().then(() => {
+            setTimeout(() => {
+                location.reload(); // Recargar la página después de un tiempo de espera
+            }, displayTime);
+        });
+    }
+    
 /*
     async function getEmployment() {
         resultStatus = result = "";
@@ -176,7 +210,7 @@
         }
     }
     //Busqueda original 2 valores
-    
+/*
     async function searchEmployment() {
         resultStatus = result = "";
         const res = await fetch(`${API}/${newProvince}/${newPeriod}`, {
@@ -286,6 +320,47 @@
         const status = await res.status;
         resultStatus = status;
     }
+    */
+    async function searchEmployment() {
+  const queryParams = [];
+
+  if (newProvince) queryParams.push(`province=${newProvince}`);
+  if (newPeriod) queryParams.push(`period=${newPeriod}`);
+  if (newpopulation_over_16_years) queryParams.push(`population_over_16_years=${newpopulation_over_16_years}`);
+  if (newactivity_men_percentage) queryParams.push(`activity_men_percentage=${newactivity_men_percentage}`);
+  if (newactivity_women_percentage) queryParams.push(`newactivity_women_percentage=${newactivity_women_percentage}`);
+
+
+  const queryString = queryParams.join('&');
+
+  if (!queryString) {
+    acierto = "Debe ingresar algún criterio de búsqueda";
+    mensajeUsuario2 = "";
+    return;
+  }
+
+  const res = await fetch(`${API}?${queryString}`, {
+    method: "GET",
+  });
+  
+  const status = res.status;
+  resultStatus = status;
+  
+  if (status === 200) {
+    const data = await res.json();
+    employment_stats = data;
+    acierto = `Resultados de búsqueda: ${data.length} elementos encontrados`;
+    mensajeUsuario2 = "";
+  } else if (status === 404) {
+    employment_stats = [];
+    mensajeUsuario2 = "No se encontraron resultados para la búsqueda";
+    acierto = "";
+  } else {
+    mensajeUsuario2 = "No se ha podido realizar la búsqueda";
+    acierto = "";
+  }
+}
+
 
     async function createAndReload() {
         createEmployment().then(() => {
@@ -433,7 +508,7 @@ input {
         <div class="botones">
             <div style="text-align: center;">
                 <div class="button-toolbar">
-                    <button class="button" on:click={loadData}
+                    <button class="button" on:click={loadAndReload}
                         >Datos Empleo</button
                     >
                 </div>
@@ -447,33 +522,33 @@ input {
             </div>
         </div>
 
-<!-- original Busca por periodo y por provincia -->
-        
-
-
-
-<form
-
-            on:submit|preventDefault={searchEmployment}
-            class="p-3 border rounded"
-        >
-            <div class="form-group">
-                <label for="province" class="font-weight-bold">Provincia:</label>
+        <!-- original Busca por periodo y por provincia -->
+            
+            
+            
+            <!--
+                
+                <form
+                on:submit|preventDefault={searchEmployment}
+                class="p-3 border rounded"
+                >
+                <div class="form-group">
+                    <label for="province" class="font-weight-bold">Provincia:</label>
                 <input
-                    type="text"
+                type="text"
                     class="form-control form-control-sm"
                     id="province"
                     bind:value={newProvince}
-                />
-            </div>
-            <div class="form-group">
-                <label for="period" class="font-weight-bold">Periodo:</label>
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="period" class="font-weight-bold">Periodo:</label>
                 <input
                     type="number"
                     class="form-control form-control-sm"
                     id="period"
                     bind:value={newPeriod}
-                />
+                    />
             </div>
             <Button color="primary" type="submit" class="mt-3">Buscar</Button>
         </form>
@@ -486,7 +561,7 @@ input {
                     class="form-control form-control-sm"
                     id="offset"
                     bind:value={offset}
-                />
+                    />
             </div>
             <div class="form-group">
                 <label for="to" class="font-weight-bold">Límite:</label>
@@ -496,66 +571,66 @@ input {
                     class="form-control form-control-sm"
                     id="limit"
                     bind:value={limit}
-                />
+                    />
             </div>
             <Button color="primary" type="submit" class="mt-3">Busqueda</Button>
         </form>
 
-        
-        <!-- ########################   BUSQUEDA 5 PROPIEDADES  ############################### -->
+
         <form
         on:submit|preventDefault={getProvince}
         class="p-3 border rounded"
     >
-        <div class="form-group">
+    <div class="form-group">
             <label for="period" class="font-weight-bold">Provincia:</label>
             <input
-                type="text"
-                required
-                class="form-control form-control-sm"
+            type="text"
+            required
+            class="form-control form-control-sm"
                 id="province"
                 bind:value={newProvince}
             />
         </div>
         <Button color="primary" type="submit" class="mt-3">Buscar</Button>
     </form>
-        <form
-            on:submit|preventDefault={getPeriod}
-            class="p-3 border rounded"
-        >
-            <div class="form-group">
-                <label for="period" class="font-weight-bold">Periodo:</label>
-                <input
-                    type="number"
-                    required
-                    class="form-control form-control-sm"
-                    id="period"
-                    bind:value={newPeriod}
-                />
-            </div>
-            <Button color="primary" type="submit" class="mt-3">Buscar</Button>
-        </form>  
-        <form on:submit|preventDefault={getPopulation_over_16_years}
-         class="p-3 border rounded"
-         >
-            <div class="form-group">
-                <label for="population_over_16_years" class="font-weight-bold">Poblacion mayor 16:</label>
-                <input
-                    type="number"
-                    required
-                    class="form-control form-control-sm"
-                    id="population_over_16_years"
-                    bind:value={newpopulation_over_16_years}
-                />
-            </div>
-            <Button color="primary" type="submit" class="mt-3">Buscar</Button>
-        </form>
-        <form on:submit|preventDefault={getActivity_men_percentage} class="p-3 border rounded">
-            <div class="form-group">
+    <form
+    on:submit|preventDefault={getPeriod}
+    class="p-3 border rounded"
+    >
+    <div class="form-group">
+        <label for="period" class="font-weight-bold">Periodo:</label>
+        <input
+        type="number"
+        required
+        class="form-control form-control-sm"
+        id="period"
+        bind:value={newPeriod}
+        />
+    </div>
+    <Button color="primary" type="submit" class="mt-3">Buscar</Button>
+    </form>  
+    <form on:submit|preventDefault={getPopulation_over_16_years}
+class="p-3 border rounded"
+>
+<div class="form-group">
+    <label for="population_over_16_years" class="font-weight-bold">Poblacion mayor 16:</label>
+    <input
+    type="number"
+    required
+    class="form-control form-control-sm"
+    id="population_over_16_years"
+    bind:value={newpopulation_over_16_years}
+    />
+</div>
+    <Button color="primary" type="submit" class="mt-3">Buscar</Button>
+</form>
+
+    <form on:submit|preventDefault={getActivity_men_percentage} class="p-3 border rounded">
+        <div class="form-group">
                 <label for="to" class="font-weight-bold">Porcentaje hombres</label>
                 <input
-                    type="number" 
-                    required
+                type="number" 
+                required
                     step="0.1" 
                     min="0"
                     class="form-control form-control-sm"
@@ -569,8 +644,8 @@ input {
             <div class="form-group">
                 <label for="to" class="font-weight-bold">Porcentaje mujeres:</label>
                 <input
-                    type="number" 
-                    required
+                type="number" 
+                required
                     step="0.1" 
                     min="0"
                     class="form-control form-control-sm"
@@ -584,8 +659,32 @@ input {
             <div class="form-group">
                 <label for="from" class="font-weight-bold">Desde:</label>
                 <input
+                type="number"
+                required
+                    class="form-control form-control-sm"
+                    id="from"
+                    bind:value={fromPeriod}
+                    />
+                </div>
+            <div class="form-group">
+                <label for="to" class="font-weight-bold">Hasta:</label>
+                <input
                     type="number"
                     required
+                    class="form-control form-control-sm"
+                    id="to"
+                    bind:value={toPeriod}
+                    />
+                </div>
+                <Button color="primary" type="submit" class="mt-3">Busqueda</Button>
+            </form>
+        -->
+
+        <form on:submit|preventDefault={getEmployment2} class="p-3 border rounded">
+            <div class="form-group">
+                <label for="from" class="font-weight-bold">Desde:</label>
+                <input
+                    type="number"
                     class="form-control form-control-sm"
                     id="from"
                     bind:value={fromPeriod}
@@ -595,17 +694,16 @@ input {
                 <label for="to" class="font-weight-bold">Hasta:</label>
                 <input
                     type="number"
-                    required
                     class="form-control form-control-sm"
                     id="to"
                     bind:value={toPeriod}
                 />
             </div>
-            <Button color="primary" type="submit" class="mt-3">Busqueda</Button>
+            <button class="button" color="primary" type="submit">Busqueda</button>
         </form>
 
         <div>
-            <button class="button" on:click={getEmployment}
+            <button class="button" on:click={loadAndReload}
                 >Obtener Datos Empleo</button
             >
         </div>
@@ -633,6 +731,11 @@ input {
                             >Crear</button
                         ></td
                     >
+                    <td
+                    ><button class="button" on:click={searchEmployment}
+                        >Buscar</button
+                    ></td
+                >
                 </tr>
                 {#each employment_stats as Employment}
                     <tr>

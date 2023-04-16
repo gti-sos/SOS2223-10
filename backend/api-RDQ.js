@@ -61,11 +61,19 @@ app.get(BASE_API_URL+"/employment-stats/loadInitialData", (req,res) => {
 //b
 app.get(BASE_API_URL + "/employment-stats", (req,res)=>{ 
     var query = req.query;
-    var dbquery = {};
+    const dbquery = {};
     console.log("Peticion GET");
     console.log(query.period);
     var limit = Number.MAX_SAFE_INTEGER;
     var offset = 0;
+    
+    var from = req.query.from;
+    var to = req.query.to;
+    if(from>to){
+        console.log(`No se han recibido los campos esperados:`);
+        res.status(400).send("Bad Request");
+    }
+      
     if(query.offset){
         offset = parseInt(query.offset);
         console.log(offset);
@@ -83,13 +91,13 @@ app.get(BASE_API_URL + "/employment-stats", (req,res)=>{
         dbquery['province'] = convertirAMinusculas(query.province);
         console.log(offset);
     }
-    if(query.finished_house){
+    if(query.population_over_16_years){
         dbquery['population_over_16_years'] = parseInt(query.population_over_16_years);
     }
-    if(query.half_price_m_two){
+    if(query.activity_men_percentage){
         dbquery['activity_men_percentage'] = parseFloat(query.activity_men_percentage);
     }
-    if(query.tourist){
+    if(query.activity_women_percentage){
         dbquery['activity_women_percentage'] = parseFloat(query.activity_women_percentage);
     }
     
@@ -101,16 +109,27 @@ app.get(BASE_API_URL + "/employment-stats", (req,res)=>{
             res.sendStatus(500);
         }
         else{
+            if(from != null && to != null){
+                docs = docs.filter((reg)=>
+                {
+                    return (reg.period >= from && reg.period <=to);
+                });
+    
+                if (docs==0){
+                    console.log(`Data not found /economy-stats: ${err}`);
+                    res.status(404).send("Data not found");
+                }    
+            }
             if(docs == 0){
-                docs.forEach((data) => {
-                    delete data._id;
+                docs.forEach((docs) => {
+                    delete docs._id;
                 });
                 res.status(200).send(JSON.stringify(docs,null,2));
                 //res.sendStatus(404);
             }
             else{
-                docs.forEach((data) => {
-                    delete data._id;
+                docs.forEach((docs) => {
+                    delete docs._id;
                 });
                 res.status(200).send(JSON.stringify(docs,null,2));
             }

@@ -64,6 +64,14 @@ app.get(BASE_API_URL + "/employment-stats", (req,res)=>{
     console.log(query.period);
     var limit = Number.MAX_SAFE_INTEGER;
     var offset = 0;
+    
+    var from = req.query.from;
+    var to = req.query.to;
+    if(from>to){
+        console.log(`No se han recibido los campos esperados:`);
+        res.status(400).send("Bad Request");
+    }
+      
     if(query.offset){
         offset = parseInt(query.offset);
         console.log(offset);
@@ -99,16 +107,27 @@ app.get(BASE_API_URL + "/employment-stats", (req,res)=>{
             res.sendStatus(500);
         }
         else{
+            if(from != null && to != null){
+                docs = docs.filter((reg)=>
+                {
+                    return (reg.period >= from && reg.period <=to);
+                });
+    
+                if (docs==0){
+                    console.log(`Data not found /economy-stats: ${err}`);
+                    res.status(404).send("Data not found");
+                }    
+            }
             if(docs == 0){
-                docs.forEach((data) => {
-                    delete data._id;
+                docs.forEach((docs) => {
+                    delete docs._id;
                 });
                 res.status(200).send(JSON.stringify(docs,null,2));
                 //res.sendStatus(404);
             }
             else{
-                docs.forEach((data) => {
-                    delete data._id;
+                docs.forEach((docs) => {
+                    delete docs._id;
                 });
                 res.status(200).send(JSON.stringify(docs,null,2));
             }
@@ -152,7 +171,7 @@ app.get(BASE_API_URL+"/employment-stats/:province", (request,response) => {
                 }));
             }
              else{
-                console.log(`Data not found /employment-stats/${provincia}: ${err}`);
+                console.log(`Data not found /economy-stats/${provincia}: ${err}`);
                 response.status(404).send("Data not found");
              }        
         }
