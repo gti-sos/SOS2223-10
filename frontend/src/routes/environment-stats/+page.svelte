@@ -10,6 +10,7 @@
 
     let API = "/api/v3/environment-stats";
     let mensajeUsuario = "";
+    let mensajeUsuario2 = "";
 
     if (dev) API = "http://localhost:12345" + API;
 
@@ -25,9 +26,6 @@
     let result = "";
     let resultStatus = "";
 
-
-
-    
     async function loadData() {
         resultStatus = result = "";
         const res = await fetch(API + "/loadInitialData", {
@@ -36,12 +34,13 @@
         const status = await res.status;
         resultStatus = status;
         if (status == 201) {
-            
             getEnvironmentReload();
         } else if (status == 400) {
-            mensajeUsuario = "La base de Datos no está vacía";
-        }else if (status == 200){
-            mensajeUsuario= "Datos Iniciales Cargados"
+            mensajeUsuario2 = "La base de Datos no está vacía";
+            mensajeUsuario = "";
+        } else if (status == 200) {
+            mensajeUsuario = "Datos Iniciales Cargados";
+            mensajeUsuario2 = "";
             getEnvironmentReload();
         }
     }
@@ -70,12 +69,10 @@
 
         const status = await res.status;
         resultStatus = status;
-        if (status==200 && !(environment_stats.length === 0)){
-            mensajeUsuario = "Datos Cargados Satisfactoriamente";
 
-        }
-        else if (environment_stats.length === 0){
-            mensajeUsuario = "No hay Datos a mostrar"
+        if (environment_stats.length === 0) {
+            mensajeUsuario2 = "No hay Datos a mostrar";
+            mensajeUsuario = "";
         }
     }
 
@@ -91,15 +88,14 @@
             const data = await res.json();
             result = JSON.stringify(data, null, 2);
             environment_stats = data;
-
         } catch (error) {
             console.log(`Error parsing result: ${error}`);
         }
         const status = await res.status;
         resultStatus = status;
-        if (status==200){
+        if (status == 200) {
             mensajeUsuario = "Datos Cargados Satisfactoriamente";
-
+            mensajeUsuario2 = "";
         }
     }
 
@@ -127,7 +123,8 @@
                 data.fire === newEnvironmentfire
         );
         if (existingData) {
-            mensajeUsuario = "Ya existe ese dato";
+            mensajeUsuario2 = "Ya existe ese dato";
+            mensajeUsuario = "";
             return;
         }
         const res = await fetch(API, {
@@ -142,16 +139,20 @@
         if (status == 201) {
             getEnvironment();
             mensajeUsuario = "Se ha creado el nuevo dato introducido";
+            mensajeUsuario2 = "";
             insertedData.push(newEnvironment);
         } else if (status == 409) {
-            mensajeUsuario = "El dato introducido ya existe";
+            mensajeUsuario2 = "El dato introducido ya existe";
+            mensajeUsuario = "";
             getEnvironment();
         } else if (status == 400) {
-            mensajeUsuario =
+            mensajeUsuario2 =
                 "Las propiedades introducidas no tienen un formato correcto";
+                mensajeUsuario = "";
             getEnvironment();
         } else {
-            mensajeUsuario = "No se ha podido crear el dato introducido";
+            mensajeUsuario2 = "No se ha podido crear el dato introducido";
+            mensajeUsuario = "";
             getEnvironment();
         }
     }
@@ -165,11 +166,14 @@
         if (status == 200) {
             getEnvironment();
             mensajeUsuario = "Recurso borrado";
+            mensajeUsuario2 = "";
         } else if (status == 500) {
-            mensajeUsuario = "Error cliente";
+            mensajeUsuario2 = "Error cliente";
+            mensajeUsuario = "";
         } else if (status == 404) {
             getEnvironment();
-            mensajeUsuario = "No se ha encontrado ese recurso";
+            mensajeUsuario2 = "No se ha encontrado ese recurso";
+            mensajeUsuario = "";
         }
     }
     async function deleteEnvironmentAll() {
@@ -182,8 +186,10 @@
         if (status == 200 || status == 204) {
             await getEnvironment();
             mensajeUsuario = "Se han borrado correctamente los datos";
+            mensajeUsuario2 = "";
         } else {
-            mensajeUsuario = "No se han podido borrar los datos";
+            mensajeUsuario2 = "No se han podido borrar los datos";
+            mensajeUsuario = "";
         }
     }
 
@@ -201,11 +207,14 @@
                 const data = await res.json();
                 environment_stats = [data]; // Actualizar la lista con el resultado de búsqueda
                 mensajeUsuario = `Resultado de búsqueda para ${newCity} en ${newYear}`;
+                mensajeUsuario2 = "";
             } else if (status == 404) {
                 environment_stats = []; // Limpiar la lista si no se encuentra ningún resultado
-                mensajeUsuario = `No se encontraron resultados para ${newCity} en ${newYear}`;
+                mensajeUsuario2 = `No se encontraron resultados para ${newCity} en ${newYear}`;
+                mensajeUsuario = "";
             } else {
-                mensajeUsuario = "No se ha podido realizar la búsqueda";
+                mensajeUsuario2 = "No se ha podido realizar la búsqueda";
+                mensajeUsuario = "";
             }
         } else if (`${newCity}` != "") {
             resultStatus = result = "";
@@ -223,12 +232,15 @@
                 environment_stats = data;
                 if (status == 200) {
                     mensajeUsuario = `Resultado de búsqueda para ${newCity}`;
+                    mensajeUsuario2 = "";
                 } else if (status == 404) {
-                    mensajeUsuario = `No se encontraron resultados para ${newCity}`;
+                    mensajeUsuario2 = `No se encontraron resultados para ${newCity}`;
+                    mensajeUsuario = "";
                 }
             } catch (error) {
                 console.log(`Error parsing result: ${error}`);
-                mensajeUsuario = `No se encontraron resultados para ${newCity}`;
+                mensajeUsuario2 = `No se encontraron resultados para ${newCity}`;
+                mensajeUsuario = "";
             }
             const status = await res.status;
             resultStatus = status;
@@ -247,14 +259,18 @@
                 environment_stats = data;
                 if (status == 200 && !(data.length === 0)) {
                     mensajeUsuario = `Resultado de búsqueda para el año ${newYear}`;
+                    mensajeUsuario2 = "";
                 } else if (status == 404) {
-                    mensajeUsuario = `No se encontraron resultados para el año ${newYear}`;
+                    mensajeUsuario2 = `No se encontraron resultados para el año ${newYear}`;
+                    mensajeUsuario = "";
                 } else if (data.length === 0) {
-                    mensajeUsuario = `No se encontraron resultados para el año ${newYear}`;
+                    mensajeUsuario2 = `No se encontraron resultados para el año ${newYear}`;
+                    mensajeUsuario = "";
                 }
             } catch (error) {
                 console.log(`Error parsing result: ${error}`);
-                mensajeUsuario = `No se encontraron resultados para el año ${newYear}`;
+                mensajeUsuario2 = `No se encontraron resultados para el año ${newYear}`;
+                mensajeUsuario = "";
             }
             const status = await res.status;
             resultStatus = status;
@@ -275,14 +291,51 @@
                 environment_stats = data;
                 if (status == 200 && !(data.length === 0)) {
                     mensajeUsuario = `Resultado de búsqueda para nº Espacios Protegidos: ${newProtected_space}`;
+                    mensajeUsuario2 = "";
                 } else if (status == 404) {
-                    mensajeUsuario = `No se encontraron resultados para nº Espacios Protegidos: ${newProtected_space}`;
+                    mensajeUsuario2 = `No se encontraron resultados para nº Espacios Protegidos: ${newProtected_space}`;
+                    mensajeUsuario = "";
                 } else if (data.length === 0) {
-                    mensajeUsuario = `No se encontraron resultados para nº Espacios Protegidos: ${newProtected_space}`;
+                    mensajeUsuario2 = `No se encontraron resultados para nº Espacios Protegidos: ${newProtected_space}`;
+                    mensajeUsuario = "";
                 }
             } catch (error) {
                 console.log(`Error parsing result: ${error}`);
-                mensajeUsuario = `No se encontraron resultados para nº Espacios Protegidos: ${newProtected_space}`;
+                mensajeUsuario2 = `No se encontraron resultados para nº Espacios Protegidos: ${newProtected_space}`;
+                mensajeUsuario = "";
+            }
+            const status = await res.status;
+            resultStatus = status;
+        }
+        else if (`${newArea}` != "") {
+            resultStatus = result = "";
+            const res = await fetch(
+                `${API}?area=${newArea}`
+            );
+            if (res.ok) {
+                ({
+                    method: "GET",
+                });
+            }
+            try {
+                const data = await res.json();
+                const status = await res.status;
+                result = JSON.stringify(data, null, 2);
+                environment_stats = data;
+                if (status == 200 && !(data.length === 0)) {
+                    mensajeUsuario = `Resultado de búsqueda para Area: ${newArea}`;
+                    mensajeUsuario2 = "";
+                } else if (status == 404) {
+                    mensajeUsuario2 = `No se encontraron resultados para Area: ${newArea}`;
+                    mensajeUsuario = "";
+                } else if (data.length === 0) {
+                    mensajeUsuario2 = `No se encontraron resultados para Area: ${newArea}`;
+                    mensajeUsuario = "";
+                }
+            } catch (error) {
+                console.log(`Error parsing result: ${error}`);
+                mensajeUsuario2 = `No se encontraron resultados para Area: ${newArea}`;
+                mensajeUsuario = "";
             }
             const status = await res.status;
             resultStatus = status;
@@ -294,7 +347,6 @@
 
         getEnvironment();
     }
-    
 
     async function handleNextPage() {
         offset += limit;
@@ -302,8 +354,7 @@
             offset = 20;
         }
         getEnvironment();
-}
-
+    }
 </script>
 
 <main>
@@ -335,7 +386,7 @@
             .botones {
                 margin-bottom: 30px;
             }
-           
+
             h2 {
                 text-align: center;
                 font-family: Arial, Helvetica, sans-serif;
@@ -363,15 +414,13 @@
                 width: 100px;
             }
 
-        
             form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 40px;
-}
-
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                margin-top: 40px;
+            }
 
             .button {
                 display: inline-block;
@@ -405,6 +454,15 @@
                 border: 1px solid #f5c6cb;
                 border-radius: 5px;
             }
+            .success {
+                text-align: center;
+                padding: 10px;
+                background-color: #d4edda;
+                color: #155724;
+                margin-bottom: 20px;
+                border: 1px solid #c3e6cb;
+                border-radius: 5px;
+            }
         </style>
     </head>
 
@@ -418,14 +476,23 @@
                     >
                 </div>
                 {#if mensajeUsuario != ""}
-                    <div class="alert">{mensajeUsuario}</div>
+                    <div class="success">{mensajeUsuario}</div>
+                {/if}
+            </div>
+            <div>
+                {#if mensajeUsuario2 != ""}
+                    <div class="alert">{mensajeUsuario2}</div>
                 {/if}
             </div>
         </div>
-        <div style="display: flex; justify-content: center; align-items: center;">
-            <button class="button" on:click={getEnvironment}>Obtener Datos Medio Ambiente</button>
-          </div>
-          
+        <div
+            style="display: flex; justify-content: center; align-items: center;"
+        >
+            <button class="button" on:click={getEnvironment}
+                >Obtener Datos Medio Ambiente</button
+            >
+        </div>
+
         <form
             on:submit|preventDefault={searchInterval}
             class="p-3 border rounded"

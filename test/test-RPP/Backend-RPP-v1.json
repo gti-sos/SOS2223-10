@@ -1,0 +1,312 @@
+{
+	"info": {
+		"_postman_id": "f4a9996c-099c-4938-8e7d-8788562dc4cb",
+		"name": "Pruebas v1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26063123"
+	},
+	"item": [
+		{
+			"name": "InitialData Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL-BASE}}/api/v1/environment-stats/loadInitialData",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"environment-stats",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InitialData",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL-BASE}}/api/v1/environment-stats",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"environment-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /environment-stats/Almeria",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL-BASE}}/api/v1/environment-stats/Sevilla",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"environment-stats",
+						"Sevilla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /environment-stats/Madrid Error 404",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL-BASE}}/api/v1/environment-stats/Madrid",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"environment-stats",
+						"Madrid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /environment-stats",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Segovia\",\n        \"protected_space\": 23,\n        \"area\": 123.456,\n        \"fire\": 30\n        \n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL-BASE}}/api/v1/environment-stats",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"environment-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /environment-stats Error 409 Conflict",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "   {\n         \"year\": 2023,\n        \"city\": \"Segovia\",\n        \"protected_space\": 23,\n        \"area\": 123.456,\n        \"fire\": 30\n        \n    \n        \n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL-BASE}}/api/v1/environment-stats",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"environment-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /environment-stats Error 400",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 23,\n        \"area\": 123.456\n        \n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL-BASE}}/api/v1/environment-stats",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"environment-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /environment-stats/Sevilla Error 405",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "   {\n        \"year\": 2000,\n        \"city\": \"Segovia\",\n        \"protected_space\": 1,\n        \"area\": 123,\n        \"fire\": 2\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL-BASE}}/api/v1/environment-stats/Segovia",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"environment-stats",
+						"Segovia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /environment-stats Error 405",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n        \"year\": 2020,\n        \"city\": \"Cordoba\",\n        \"protected_space\": 123,\n        \"area\": 123,\n        \"fire\": 20\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL-BASE}}/api/v1/environment-stats",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"environment-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /environment-stats/Sevilla",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n        \"year\": 2025,\n        \"city\": \"Segovia\",\n        \"protected_space\": 1,\n        \"area\": 1,\n        \"fire\": 2\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL-BASE}}/api/v1/environment-stats/Segovia",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"environment-stats",
+						"Segovia"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /environment-stats/Sevilla Error 400",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n        \"year\": 2023,\n        \"city\": \"Cordoba\",\n        \"protected_space\": 12,\n        \"area\": 12,\n        \"fire\": 20\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL-BASE}}/api/v1/environment-stats/Madrid",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"environment-stats",
+						"Madrid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /environment-stats/Almeria",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{URL-BASE}}/api/v1/environment-stats/Segovia",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"environment-stats",
+						"Segovia"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -8,14 +8,15 @@
     });
     let API = "/api/v2/economy-stats";
     let mensaje = "";
+    let mensaje2 = "";
     if (dev) API = "http://localhost:12345" + API;
 
     let economy_stats = [];
-    let newTerritory = "territory";
-    let newPeriod = "period";
-    let newFinished_house = "finished_house";
-    let newHalf_price_m_two = "half_price_m_two";
-    let newTourist = "tourist";
+    let newTerritory = "";
+    let newPeriod = "";
+    let newFinished_house = "";
+    let newHalf_price_m_two = "";
+    let newTourist = "";
     let result = "";
     let resultStatus = "";
     const displayTime = 1500;
@@ -55,7 +56,6 @@
         }
         const status = await res.status;
         resultStatus = status;
-        
     }
     let insertedData = [];
 
@@ -81,6 +81,186 @@
         resultStatus = status;
     }
 
+    async function searchEconomy() {
+        resultStatus = result = "";
+        if (`${newTerritory}` != "" && `${newPeriod}` != "") {
+            const res = await fetch(`${API}/${newTerritory}/${newPeriod}`, {
+                method: "GET",
+            });
+            const status = await res.status;
+            resultStatus = status;
+            if (status == 200) {
+                const data = await res.json();
+                economy_stats = [data]; // Actualizar la lista con el resultado de búsqueda
+                mensaje = `Resultado de búsqueda para ${newTerritory} en ${newPeriod}`;
+                mensaje2 = "";
+            } else if (status == 404) {
+                economy_stats = []; // Limpiar la lista si no se encuentra ningún resultado
+                mensaje2 = `No se encontraron resultados para ${newTerritory} en ${newPeriod}`;
+                mensaje = "";
+            } else {
+                mensaje2 = "No se ha podido realizar la búsqueda";
+                mensaje = "";
+            }
+        } else if (`${newTerritory}` != "") {
+            resultStatus = result = "";
+            const res = await fetch(`${API}/${newTerritory}`);
+
+            if (res.ok) {
+                ({
+                    method: "GET",
+                });
+            }
+            try {
+                const data = await res.json();
+                const status = await res.status;
+                result = JSON.stringify(data, null, 2);
+                economy_stats = data;
+                if (status == 200) {
+                    mensaje = `Resultado de búsqueda para ${newTerritory}`;
+                    mensaje2 = "";
+                } else if (status == 404) {
+                    mensaje2 = `No se encontraron resultados para ${newTerritory}`;
+                    mensaje = "";
+                }
+            } catch (error) {
+                console.log(`Error parsing result: ${error}`);
+                mensaje2 = `No se encontraron resultados para ${newTerritory}`;
+                mensaje = "";
+            }
+            const status = await res.status;
+            resultStatus = status;
+        } else if (`${newPeriod}` != "") {
+            resultStatus = result = "";
+            const res = await fetch(`${API}?period=${newPeriod}`);
+            if (res.ok) {
+                ({
+                    method: "GET",
+                });
+            }
+            try {
+                const data = await res.json();
+                const status = await res.status;
+                result = JSON.stringify(data, null, 2);
+                economy_stats = data;
+                if (status == 200 && !(data.length === 0)) {
+                    mensaje = `Resultado de búsqueda para el año ${newPeriod}`;
+                    mensaje2 = "";
+                } else if (status == 404) {
+                    mensaje2 = `No se encontraron resultados para el año ${newPeriod}`;
+                    mensaje = "";
+                } else if (data.length === 0) {
+                    mensaje2 = `No se encontraron resultados para el año ${newPeriod}`;
+                    mensaje = "";
+                }
+            } catch (error) {
+                console.log(`Error parsing result: ${error}`);
+                mensaje2 = `No se encontraron resultados para el año ${newPeriod}`;
+                mensaje = "";
+            }
+            const status = await res.status;
+            resultStatus = status;
+        } else if (`${newFinished_house}` != "") {
+            resultStatus = result = "";
+            const res = await fetch(
+                `${API}?finished_house=${newFinished_house}`
+            );
+            if (res.ok) {
+                ({
+                    method: "GET",
+                });
+            }
+            try {
+                const data = await res.json();
+                const status = await res.status;
+                result = JSON.stringify(data, null, 2);
+                economy_stats = data;
+                if (status == 200 && !(data.length === 0)) {
+                    mensaje = `Resultado de búsqueda para nº casas finalizadas: ${newFinished_house}`;
+                    mensaje2 = "";
+                } else if (status == 404) {
+                    mensaje2 = `No se encontraron resultados para nº casas finalizadas: ${newFinished_house}`;
+                    mensaje = "";
+                } else if (data.length === 0) {
+                    mensaje2 = `No se encontraron resultados para nº casas finalizadas: ${newFinished_house}`;
+                    mensaje = "";
+                }
+            } catch (error) {
+                console.log(`Error parsing result: ${error}`);
+                mensaje2 = `No se encontraron resultados para nº casas finalizadas: ${newFinished_house}`;
+                mensaje = "";
+            }
+            const status = await res.status;
+            resultStatus = status;
+        }
+        else if (`${newHalf_price_m_two}` != "") {
+            resultStatus = result = "";
+            const res = await fetch(
+                `${API}?half_price_m_two=${newHalf_price_m_two}`
+            );
+            if (res.ok) {
+                ({
+                    method: "GET",
+                });
+            }
+            try {
+                const data = await res.json();
+                const status = await res.status;
+                result = JSON.stringify(data, null, 2);
+                economy_stats = data;
+                if (status == 200 && !(data.length === 0)) {
+                    mensaje = `Resultado de búsqueda para precio medio metro cuadrado: ${newHalf_price_m_two}`;
+                    mensaje2 = "";
+                } else if (status == 404) {
+                    mensaje2 = `No se encontraron resultados para precio medio metro cuadrado: ${newHalf_price_m_two}`;
+                    mensaje = "";
+                } else if (data.length === 0) {
+                    mensaje2 = `No se encontraron resultados para precio medio metro cuadrado: ${newHalf_price_m_two}`;
+                    mensaje = "";
+                }
+            } catch (error) {
+                console.log(`Error parsing result: ${error}`);
+                mensaje2 = `No se encontraron resultados para precio medio metro cuadrado: ${newHalf_price_m_two}`;
+                mensaje = "";
+            }
+            const status = await res.status;
+            resultStatus = status;
+        }
+        else if (`${newTourist}` != "") {
+            resultStatus = result = "";
+            const res = await fetch(
+                `${API}?tourist=${newTourist}`
+            );
+            if (res.ok) {
+                ({
+                    method: "GET",
+                });
+            }
+            try {
+                const data = await res.json();
+                const status = await res.status;
+                result = JSON.stringify(data, null, 2);
+                economy_stats = data;
+                if (status == 200 && !(data.length === 0)) {
+                    mensaje = `Resultado de búsqueda para nº de turistas: ${newTourist}`;
+                    mensaje2 = "";
+                } else if (status == 404) {
+                    mensaje2 = `No se encontraron resultados para nº de turistas: ${newTourist}`;
+                    mensaje = "";
+                } else if (data.length === 0) {
+                    mensaje2 = `No se encontraron resultados para nº de turistas: ${newTourist}`;
+                    mensaje = "";
+                }
+            } catch (error) {
+                console.log(`Error parsing result: ${error}`);
+                mensaje2 = `No se encontraron resultados para nº de turistas: ${newTourist}`;
+                mensaje = "";
+            }
+            const status = await res.status;
+            resultStatus = status;
+        }
+    }
+/*
     let offSet = 0;
     let limite = 0;
     async function getOffsetLimit() {
@@ -206,7 +386,7 @@
         const status = await res.status;
         resultStatus = status;
     }
-
+*/
     async function createEconomy() {
         resultStatus = result = "";
         const newEconomy = {
@@ -348,76 +528,109 @@
         />
         <style>
             body {
-                font-family: "Roboto";
-                font-size: 18px;
+                font-family: "Helvetica Neue", Arial, sans-serif;
+                font-size: 16px;
+                line-height: 1.6;
+                color: #555;
+                background-color: #f7f7f7;
             }
 
             h1 {
                 text-align: center;
-                font-size: 40px;
+                font-size: 42px;
+                font-weight: bold;
                 margin-top: 50px;
-            }
-            .botones {
                 margin-bottom: 30px;
             }
+
+            .botones {
+                margin-bottom: 50px;
+            }
+
             h2 {
                 text-align: center;
-                font-family: Arial, Helvetica, sans-serif;
-                color: blue;
-                margin-bottom: 20px;
+                font-family: "Roboto", sans-serif;
+                color: #333;
+                font-size: 32px;
+                margin-bottom: 30px;
+                text-transform: uppercase;
+                letter-spacing: 2px;
             }
+
             table {
                 margin: 0 auto;
-                width: 80%;
+                width: 100%;
+                max-width: 800px;
                 border-collapse: collapse;
                 margin-bottom: 30px;
             }
+
             th,
             td {
                 text-align: center;
-                padding: 10px;
+                padding: 15px;
                 border: 1px solid #ddd;
+                font-size: 18px;
             }
+
             th {
                 background-color: #f2f2f2;
                 font-weight: bold;
+                text-transform: uppercase;
+                letter-spacing: 2px;
             }
+
             input {
-                padding: 5px;
+                padding: 10px;
                 width: 100%;
                 box-sizing: border-box;
+                border-radius: 5px;
+                border: 1px solid #ddd;
+                font-size: 18px;
+                margin-bottom: 20px;
             }
+
             .button {
                 display: inline-block;
-                padding: 10px;
+                padding: 12px 24px;
                 border-radius: 5px;
                 border: none;
                 color: #fff;
                 background-color: #007bff;
                 text-decoration: none;
-                font-size: 16px;
+                font-size: 18px;
                 margin-right: 10px;
+                cursor: pointer;
+                transition: all 0.3s ease;
             }
+
             .button:hover {
                 background-color: #0069d9;
             }
+
             .button.delete {
                 background-color: #dc3545;
             }
+
             .button.delete:hover {
                 background-color: #c82333;
             }
+
             .button-toolbar {
-                margin-bottom: 20px;
+                margin-bottom: 50px;
+                text-align: center;
             }
+
             .alert {
                 text-align: center;
-                padding: 10px;
+                padding: 15px;
                 background-color: #f8d7da;
                 color: #721c24;
-                margin-bottom: 20px;
+                margin-bottom: 30px;
                 border: 1px solid #f5c6cb;
                 border-radius: 5px;
+                font-size: 18px;
+                line-height: 1.4;
             }
             .success {
                 background-color: #d4edda; /* Color de fondo */
@@ -466,9 +679,9 @@
                 bind:value={toPeriod}
             />
         </div>
-        <Button color="primary" type="submit" class="mt-3">Busqueda</Button>
+        <button class= "button" color="primary" type="submit">Busqueda</button>
     </form>
-
+<!--
     <form on:submit|preventDefault={getOffsetLimit} class="p-3 border rounded">
         <div class="form-group">
             <label for="from" class="font-weight-bold">Offset:</label>
@@ -565,7 +778,7 @@
             >Buscar número de turistas</Button
         >
     </form>
-
+-->
     <Table striped>
         <thead>
             <tr>
@@ -586,11 +799,16 @@
                 <td><input bind:value={newFinished_house} /></td>
                 <td><input bind:value={newHalf_price_m_two} /></td>
                 <td><input bind:value={newTourist} /></td>
-                <td>
-                    <Button color="success" on:click={createAndReload}
-                        >Crear</Button
+                <td
+                        ><button class="button" on:click={createEconomy}
+                            >Crear</button
+                        ></td
                     >
-                </td>
+                <td
+                        ><button class="button" on:click={searchEconomy}
+                            >Buscar</button
+                        ></td
+                    >
             </tr>
 
             {#each economy_stats as economy}
