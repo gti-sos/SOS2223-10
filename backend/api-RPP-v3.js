@@ -93,8 +93,6 @@ function loadBackend_RPP_v3(app) {
     });
 
 
-
-
     app.get(BASE_API_URL + "/environment-stats", (request, response) => {
         console.log("New GET to /environment-stats");
         const { city, year, protected_space, area, fire, from, to } = request.query;
