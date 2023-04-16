@@ -41,9 +41,14 @@ app.get(BASE_API_URL_v1 + "/economy-stats/docs", (req, res) => {
 
 
 //redireccion Rafa.
+app.get(BASE_API_URL_v1 + "/employment-stats/docs", (req, res) => {
+    console.log("Se ejecuta" + BASE_API_URL_v1 + "/employment-stats/docs");
+    res.redirect("https://documenter.getpostman.com/view/25969335/2s93JzM1Bb");
+    
+});
 app.get(BASE_API_URL + "/employment-stats/docs", (req, res) => {
     console.log("Se ejecuta" + BASE_API_URL + "/employment-stats/docs");
-    res.redirect("https://documenter.getpostman.com/view/25969335/2s93JzM1Bb");
+    res.redirect("https://documenter.getpostman.com/view/25969335/2s93XyTi8G");
 
 });
 

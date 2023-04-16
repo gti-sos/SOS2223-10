@@ -1,8 +1,6 @@
 <script>
     let URL = "http://localhost:12345";
 </script>
-
-<!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="UTF-8" />
@@ -103,21 +101,28 @@
                     <div class="api-card">
                         <a
                             href="https://sos2223-10.ew.r.appspot.com/api/v1/economy-stats"
-                            >Estadísticas Economía API
+                            >Estadísticas Economía API V1
                         </a>
                         <p>Desarollado por Joaquín Rodríguez Mariscal</p>
                     </div>
                     <div class="api-card">
                         <a
                             href="https://sos2223-10.ew.r.appspot.com/api/v2/economy-stats"
-                            >Estadísticas Economía API
+                            >Estadísticas Economía API V2
                         </a>
                         <p>Desarollado por Joaquín Rodríguez Mariscal</p>
                     </div>
                     <div class="api-card">
                         <a
+                            href="https://sos2223-10.ew.r.appspot.com/api/v1/employment-stats"
+                            >Estadísticas Empleo API V1</a
+                        >
+                        <p>Desarollado por Rafael Díaz Quintero</p>
+                    </div>
+                    <div class="api-card">
+                        <a
                             href="https://sos2223-10.ew.r.appspot.com/api/v2/employment-stats"
-                            >Estadísticas Empleo API</a
+                            >Estadísticas Empleo API V2</a
                         >
                         <p>Desarollado por Rafael Díaz Quintero</p>
                     </div>
@@ -155,7 +160,7 @@
                             <div class="api-card">
                                 <a
                                     href="https://sos2223-10.ew.r.appspot.com/api/v1/economy-stats/docs"
-                                    >Documentación Economía API
+                                    >Documentación Economía API V1
                                 </a>
                                 <p>
                                     Desarollado por Joaquín Rodríguez Mariscal
@@ -164,7 +169,7 @@
                             <div class="api-card">
                                 <a
                                     href="https://sos2223-10.ew.r.appspot.com/api/v2/economy-stats/docs"
-                                    >Documentación Economía API
+                                    >Documentación Economía API V2
                                 </a>
                                 <p>
                                     Desarollado por Joaquín Rodríguez Mariscal
@@ -193,8 +198,15 @@
                             </div>
                             <div class="api-card">
                                 <a
+                                    href="https://sos2223-10.ew.r.appspot.com/api/v1/employment-stats/docs"
+                                    >Documentación Empleo API V1</a
+                                >
+                                <p>Desarollado por Rafael Díaz Quintero</p>
+                            </div>
+                            <div class="api-card">
+                                <a
                                     href="https://sos2223-10.ew.r.appspot.com/api/v2/employment-stats/docs"
-                                    >Documentación Empleo API</a
+                                    >Documentación Empleo API v2</a
                                 >
                                 <p>Desarollado por Rafael Díaz Quintero</p>
                             </div>

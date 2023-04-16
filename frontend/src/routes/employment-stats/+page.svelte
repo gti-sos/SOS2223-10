@@ -488,6 +488,7 @@ input {
                 <label for="to" class="font-weight-bold">Límite:</label>
                 <input
                     type="number"
+                    required
                     class="form-control form-control-sm"
                     id="limit"
                     bind:value={limit}
@@ -506,6 +507,7 @@ input {
             <label for="period" class="font-weight-bold">Provincia:</label>
             <input
                 type="text"
+                required
                 class="form-control form-control-sm"
                 id="province"
                 bind:value={newProvince}
@@ -521,6 +523,7 @@ input {
                 <label for="period" class="font-weight-bold">Periodo:</label>
                 <input
                     type="number"
+                    required
                     class="form-control form-control-sm"
                     id="period"
                     bind:value={newPeriod}
@@ -528,7 +531,6 @@ input {
             </div>
             <Button color="primary" type="submit" class="mt-3">Buscar</Button>
         </form>  
-        <!--    ####################   DE AQUI PARA ABAJO MODIFICO ###################-->   
         <form on:submit|preventDefault={getPopulation_over_16_years}
          class="p-3 border rounded"
          >
@@ -536,6 +538,7 @@ input {
                 <label for="population_over_16_years" class="font-weight-bold">Poblacion mayor 16:</label>
                 <input
                     type="number"
+                    required
                     class="form-control form-control-sm"
                     id="population_over_16_years"
                     bind:value={newpopulation_over_16_years}
@@ -548,6 +551,7 @@ input {
                 <label for="to" class="font-weight-bold">Porcentaje hombres</label>
                 <input
                     type="number" 
+                    required
                     step="0.1" 
                     min="0"
                     class="form-control form-control-sm"
@@ -562,6 +566,7 @@ input {
                 <label for="to" class="font-weight-bold">Porcentaje mujeres:</label>
                 <input
                     type="number" 
+                    required
                     step="0.1" 
                     min="0"
                     class="form-control form-control-sm"
@@ -576,6 +581,7 @@ input {
                 <label for="from" class="font-weight-bold">Desde:</label>
                 <input
                     type="number"
+                    required
                     class="form-control form-control-sm"
                     id="from"
                     bind:value={fromPeriod}
@@ -585,6 +591,7 @@ input {
                 <label for="to" class="font-weight-bold">Hasta:</label>
                 <input
                     type="number"
+                    required
                     class="form-control form-control-sm"
                     id="to"
                     bind:value={toPeriod}
