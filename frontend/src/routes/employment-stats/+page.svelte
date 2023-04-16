@@ -213,85 +213,86 @@
             href="https://fonts.googleapis.com/css?family=Roboto"
             rel="stylesheet"
         />
-<style>
-        body {
-            font-family: 'Roboto';
-            font-size: 18px;
-        }
+        <style>
+            body {
+                font-family: "Roboto";
+                font-size: 18px;
+            }
 
-        h1 {
-            text-align: center;
-            font-size: 40px;
-            margin-top: 50px;
-        }
-        .botones {
-            margin-bottom: 30px;
-        }
-        h2 {
-            text-align: center;
-            font-family: Arial, Helvetica, sans-serif;
-            color: blue;
-            margin-bottom: 20px;
-        }
-        table {
-            margin: 0 auto;
-            width: 80%;
-            border-collapse: collapse;
-            margin-bottom: 30px;
-        }
-        th, td {
-            text-align: center;
-            padding: 10px;
-            border: 1px solid #ddd;
-        }
-        th {
-            background-color: #f2f2f2;
-            font-weight: bold;
-        }
-        input {
-            padding: 5px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .button {
-            display: inline-block;
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            color: #fff;
-            background-color: #007bff;
-            text-decoration: none;
-            font-size: 16px;
-            margin-right: 10px;
-        }
-        .button:hover {
-            background-color: #0069d9;
-        }
-        .button.delete {
-            background-color: #dc3545;
-        }
-        .button.delete:hover {
-            background-color: #c82333;
-        }
-        .button-toolbar {
-            margin-bottom: 20px;
-        }
-        .alert {
-            text-align: center;
-            padding: 10px;
-            background-color: #f8d7da;
-            color: #721c24;
-            margin-bottom: 20px;
-            border: 1px solid #f5c6cb;
-            border-radius: 5px;
-        }
-        .success {
-            background-color: #d4edda; /* Color de fondo */
+            h1 {
+                text-align: center;
+                font-size: 40px;
+                margin-top: 50px;
+            }
+            .botones {
+                margin-bottom: 30px;
+            }
+            h2 {
+                text-align: center;
+                font-family: Arial, Helvetica, sans-serif;
+                color: blue;
+                margin-bottom: 20px;
+            }
+            table {
+                margin: 0 auto;
+                width: 80%;
+                border-collapse: collapse;
+                margin-bottom: 30px;
+            }
+            th,
+            td {
+                text-align: center;
+                padding: 10px;
+                border: 1px solid #ddd;
+            }
+            th {
+                background-color: #f2f2f2;
+                font-weight: bold;
+            }
+            input {
+                padding: 5px;
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .button {
+                display: inline-block;
+                padding: 10px;
+                border-radius: 5px;
+                border: none;
+                color: #fff;
+                background-color: #007bff;
+                text-decoration: none;
+                font-size: 16px;
+                margin-right: 10px;
+            }
+            .button:hover {
+                background-color: #0069d9;
+            }
+            .button.delete {
+                background-color: #dc3545;
+            }
+            .button.delete:hover {
+                background-color: #c82333;
+            }
+            .button-toolbar {
+                margin-bottom: 20px;
+            }
+            .alert {
+                text-align: center;
+                padding: 10px;
+                background-color: #f8d7da;
+                color: #721c24;
+                margin-bottom: 20px;
+                border: 1px solid #f5c6cb;
+                border-radius: 5px;
+            }
+            .success {
+                background-color: #d4edda; /* Color de fondo */
                 color: #155724; /* Color del texto */
                 border: 1px solid #c3e6cb; /* Borde del mensaje */
                 padding: 10px; /* Espaciado interno */
                 margin-bottom: 10px; /* Espaciado externo */
-        }
+            }
         </style>
     </head>
     <body>
@@ -312,7 +313,7 @@
                 {/if}
             </div>
         </div>
-<!-- original Busca por periodo y por provincia -->
+        <!-- original Busca por periodo y por provincia -->
 
         <form
             on:submit|preventDefault={searchEmployment}
@@ -451,7 +452,7 @@
 <!--
     {#if resultStatus != ""}
         <p>
-            <strong>Número de datos: {economy_stats.length}</strong>
+            <strong>Número de datos: {employment_stats.length}</strong>
         </p>
         <strong>Result:</strong>
         <pre>
