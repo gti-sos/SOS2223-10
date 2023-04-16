@@ -446,8 +446,13 @@ input {
                 {/if}
             </div>
         </div>
+
 <!-- original Busca por periodo y por provincia -->
-        <form
+        
+
+
+
+<form
 
             on:submit|preventDefault={searchEmployment}
             class="p-3 border rounded"
@@ -458,7 +463,6 @@ input {
                     type="text"
                     class="form-control form-control-sm"
                     id="province"
-                    required
                     bind:value={newProvince}
                 />
             </div>
@@ -468,12 +472,12 @@ input {
                     type="number"
                     class="form-control form-control-sm"
                     id="period"
-                    required
                     bind:value={newPeriod}
                 />
             </div>
             <Button color="primary" type="submit" class="mt-3">Buscar</Button>
         </form>
+
         <form on:submit|preventDefault={getEmployment} class="p-3 border rounded">
             <div class="form-group">
                 <label for="from" class="font-weight-bold">Offset:</label>
