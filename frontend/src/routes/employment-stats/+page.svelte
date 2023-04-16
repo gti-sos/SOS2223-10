@@ -674,7 +674,7 @@ input {
 <!--
     {#if resultStatus != ""}
         <p>
-            <strong>Número de datos: {economy_stats.length}</strong>
+            <strong>Número de datos: {employment_stats.length}</strong>
         </p>
         <strong>Result:</strong>
         <pre>

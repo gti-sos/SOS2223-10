@@ -1,10 +1,12 @@
-var Datastore = require('nedb');
+//var Datastore = require('nedb');
+import Datastore from "nedb";
 var db = new Datastore();
 const BASE_API_URL = "/api/v1";
-const express = require('express');
+//const express = require('express');
 //const Joi = require('joi');
 
-module.exports = (app) => {
+// module.exports = (app) => {
+    function loadBackend_RPP_v1(app) {
 
 
     var environment_stats = [
@@ -181,11 +183,7 @@ module.exports = (app) => {
             }
 
 
-            docsCopy = environmentStats;
-            docsCopy.forEach((e) => {
-                delete e._id;
-            })
-
+            
 
             response.json(filteredData);
         });
@@ -200,6 +198,8 @@ module.exports = (app) => {
         const from = req.query.from;
         const to = req.query.to;
         //búsqueda
+
+        let docsCopy = []
 
         let query = { city };
         if (from && to) {
@@ -474,3 +474,4 @@ module.exports = (app) => {
     
 
 }
+export{loadBackend_RPP_v1};

@@ -1,8 +1,7 @@
-const { response } = require('express');
-var Datastore = require('nedb');
+import Datastore from "nedb";
 var db = new Datastore();
 const BASE_API_URL = "/api/v1";
-module.exports = (app) => {
+function loadBackend_JRM_v1(app)  {
     var economy_stats = [
         { period: 1999, territory: "Jaén", finished_house: 3704, half_price_m_two: 440, tourist: 857295 },
         { period: 1998, territory: "Sevilla", finished_house: 7176, half_price_m_two: 534, tourist: 1247438 },
@@ -311,6 +310,9 @@ module.exports = (app) => {
     });
 
 }
+
+export {loadBackend_JRM_v1}
+
 
 
 //https://documenter.getpostman.com/view/25969218/2s93JzMgXV
