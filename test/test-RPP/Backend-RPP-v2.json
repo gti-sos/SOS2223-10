@@ -1,0 +1,766 @@
+{
+	"info": {
+		"_postman_id": "3e203209-fa8d-4edc-b6cc-ab7e8bd007a4",
+		"name": "F06",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26063123"
+	},
+	"item": [
+		{
+			"name": "LoadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Datos insertados en Base de Datos\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/loadInitialData",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"environment-stats",
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /environment-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"GET /environment-stats\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    ",
+							"    pm.expect(jsonData).to.have.length.gte(10); // utilizando la función greaterThan",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL-BASE}}/api/v2/environment-stats",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"environment-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /environment-stats Paginación",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Limit 15\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.lengthOf(15);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL-BASE}}/api/v2/environment-stats?limit=15",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"environment-stats"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "15"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /environment-stats/Almeria",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Datos de Almería\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Verify array length\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.lengthOf(4);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Almería",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"environment-stats",
+						"Almería"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /environment-stats/Sevilla",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify array length\", function() {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.lengthOf(2);",
+							"});",
+							"pm.test(\"Datos de Sevilla\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Sevilla",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"environment-stats",
+						"Sevilla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /environment-stats?protected_space=28",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verificar propiedad en JSON\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData[0]).to.have.nested.property(\"protected_space\", 17);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL-BASE}}/api/v2/environment-stats?protected_space=17",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"environment-stats"
+					],
+					"query": [
+						{
+							"key": "protected_space",
+							"value": "17"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /environment-stats?from=2015&to=2017",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"2015 a 2017\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL-BASE}}/api/v2/environment-stats?from=2020&to=2023",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"environment-stats"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2020"
+						},
+						{
+							"key": "to",
+							"value": "2023"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /environment-stats/Almería?from=2010&to=2023",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Documentación Postman\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Almería?from=2010&to=2023",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"environment-stats",
+						"Almería"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2010"
+						},
+						{
+							"key": "to",
+							"value": "2023"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /environment-stats/Madrid Error 404",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Documentación Postman\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Madrid",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"environment-stats",
+						"Madrid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /environment-stats",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Documentación Postman\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 2323,\n        \"area\": 123456,\n        \"fire\": 24\n        \n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL-BASE}}/api/v2/environment-stats",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"environment-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /environment-stats Error 409 Conflict",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Conflicto POST\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 2323,\n        \"area\": 123456,\n        \"fire\": 24\n        \n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL-BASE}}/api/v2/environment-stats",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"environment-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /environment-stats Error 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Conflicto POST\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "   {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 23,\n        \"area\": 123.456\n        \n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL-BASE}}/api/v2/environment-stats",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"environment-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /environment-stats/Sevilla Error 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Método no permitido\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "   {\n        \"year\": 2000,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 1,\n        \"area\": 123,\n        \"fire\": 2\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Sevilla",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"environment-stats",
+						"Sevilla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /environment-stats/Sevilla",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT Sevilla\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 1,\n        \"area\": 1,\n        \"fire\": 2\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Sevilla",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"environment-stats",
+						"Sevilla"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /environment-stats/Sevilla Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT Sevilla\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n        \"year\": 2023,\n        \"city\": \"Sevilla\",\n        \"protected_space\": 2222,\n        \"area\": 22222,\n        \"fire\": 22222\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Sevilla/2023",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"environment-stats",
+						"Sevilla",
+						"2023"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /environment-stats/Sevilla/2023",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Verificar propiedad en JSON\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.year).to.equal(2023);",
+							"pm.test(\"Datos de Sevilla\", function () {",
+							"    pm.response.to.have.status(200);",
+							"",
+							"    });",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Sevilla/2023",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"environment-stats",
+						"Sevilla",
+						"2023"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /environment-stats Error 405",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"PUT no permitido\", function () {",
+							"    pm.response.to.have.status(405);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n        \"year\": 2020,\n        \"city\": \"Cordoba\",\n        \"protected_space\": 123,\n        \"area\": 123,\n        \"fire\": 20\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL-BASE}}/api/v2/environment-stats",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"environment-stats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /environment-stats/Sevilla Error 400",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Conflicto POST\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n        \"year\": 2023,\n        \"city\": \"Córdoba\",\n        \"protected_space\": 12,\n        \"area\": 12,\n        \"fire\": 20\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Madrid",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"environment-stats",
+						"Madrid"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /environment-stats/Sevilla/2023",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Delete\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{URL-BASE}}/api/v2/environment-stats/Sevilla/2023",
+					"host": [
+						"{{URL-BASE}}"
+					],
+					"path": [
+						"api",
+						"v2",
+						"environment-stats",
+						"Sevilla",
+						"2023"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

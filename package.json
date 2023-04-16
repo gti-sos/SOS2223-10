@@ -8,9 +8,11 @@
     "start": "node index",
     "test-economy-stats-v1": "npx newman run ./test/test-JRM/backend-JRM.json -e ./test/test-JRM/env/gcloud.json",
     "test-economy-stats-v2": "npx newman run ./test/test-JRM/backend-JRM-v2.json -e ./test/test-JRM/env/gcloud.json",
-    "test-environment": "npx newman run ./test/test-RPP/backend-RPP.json -e ./test/test-RPP/env/gcloud.json",
+    "test-environment-v1": "npx newman run ./test/test-RPP/backend-RPP-v1.json -e ./test/test-RPP/env/gcloud.json",
+    "test-environment-v2": "npx newman run ./test/test-RPP/backend-RPP-v2.json -e ./test/test-RPP/env/gcloud.json",
+    "test-environment-v3": "npx newman run ./test/test-RPP/backend-RPP-v3.json -e ./test/test-RPP/env/gcloud.json",
     "test-employment-stats": "npx newman run ./test/test-RDQ/backend-RDQ2.json -e ./test/test-RDQ/env/gcloud.json",
-    "test": "npm run test-environment && npm run test-employment-stats && npm run test-economy-stats-v1 && npm run test-economy-stats-v2"
+    "test": "npm run test-environment-v3 && npm run test-environment-v2 && npm run test-economy-stats-v1 && npm run test-economy-stats-v2 && npm run test-employment-stats && npm run test-environment-v1"
   },
   "repository": {
     "type": "git",

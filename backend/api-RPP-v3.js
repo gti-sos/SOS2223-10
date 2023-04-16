@@ -11,27 +11,26 @@ function loadBackend_RPP_v3(app) {
 
     var environment_stats = [
         { year: 2016, city: "Almería", protected_space: 18, area: 163937, fire: 57 },
-        { year: 2016, city: "Cádiz", protected_space: 29, area: 23122, fire: 108 },
-        { year: 2016, city: "Córdoba", protected_space: 19, area: 134597, fire: 90 },
-        { year: 2016, city: "Granada", protected_space: 17, area: 220314, fire: 119 },
-        { year: 2016, city: "Huelva", protected_space: 24, area: 31911, fire: 155 },
-        { year: 2016, city: "Jaén", protected_space: 17, area: 317381, fire: 172 },
-        { year: 2016, city: "Málaga", protected_space: 28, area: 89272, fire: 111 },
-        { year: 2016, city: "Sevilla", protected_space: 24, area: 220868, fire: 124 },
-        { year: 2017, city: "Almería", protected_space: 18, area: 163937, fire: 87 },
-        { year: 2017, city: "Cádiz", protected_space: 29, area: 23122, fire: 94 },
-        { year: 2017, city: "Córdoba", protected_space: 19, area: 134597, fire: 78 },
-        { year: 2017, city: "Almería", protected_space: 29, area: 123937, fire: 95 },
-
-
-        { year: 2018, city: "Almería", protected_space: 18, area: 163937, fire: 87 },
-        { year: 2018, city: "Cádiz", protected_space: 29, area: 23122, fire: 94 },
-        { year: 2018, city: "Córdoba", protected_space: 19, area: 134597, fire: 78 },
-        { year: 2018, city: "Granada", protected_space: 17, area: 220314, fire: 89 },
-        { year: 2018, city: "Huelva", protected_space: 24, area: 31911, fire: 104 },
-        { year: 2018, city: "Jaén", protected_space: 17, area: 317381, fire: 77 },
-        { year: 2018, city: "Málaga", protected_space: 28, area: 89272, fire: 64 },
-        { year: 2018, city: "Sevilla", protected_space: 24, area: 220868, fire: 64 },
+                        { year: 2016, city: "Cádiz", protected_space: 29, area: 23122, fire: 108 },
+                        { year: 2016, city: "Córdoba", protected_space: 19, area: 134597, fire: 90 },
+                        { year: 2016, city: "Granada", protected_space: 17, area: 220314, fire: 119 },
+                        { year: 2016, city: "Huelva", protected_space: 24, area: 31911, fire: 155 },
+                        { year: 2016, city: "Jaén", protected_space: 17, area: 317381, fire: 172 },
+                        { year: 2016, city: "Málaga", protected_space: 28, area: 89272, fire: 111 },
+                        { year: 2016, city: "Sevilla", protected_space: 24, area: 220868, fire: 124 },
+                        { year: 2017, city: "Almería", protected_space: 18, area: 163937, fire: 87 },
+                        { year: 2017, city: "Cádiz", protected_space: 29, area: 23122, fire: 94 },
+                        { year: 2017, city: "Córdoba", protected_space: 19, area: 134597, fire: 78 },
+                        { year: 2017, city: "Almería", protected_space: 29, area: 123937, fire: 95 },
+                        { year: 2018, city: "Almería", protected_space: 18, area: 163937, fire: 87 },
+                        { year: 2018, city: "Cádiz", protected_space: 29, area: 23122, fire: 94 },
+                        { year: 2018, city: "Córdoba", protected_space: 19, area: 134597, fire: 78 },
+                        { year: 2018, city: "Granada", protected_space: 17, area: 220314, fire: 89 },
+                        { year: 2018, city: "Huelva", protected_space: 24, area: 31911, fire: 104 },
+                        { year: 2018, city: "Jaén", protected_space: 17, area: 317381, fire: 77 },
+                        { year: 2018, city: "Málaga", protected_space: 28, area: 89272, fire: 64 },
+                        { year: 2018, city: "Sevilla", protected_space: 24, area: 220868, fire: 64 },
+        
 
 
     ];
@@ -39,7 +38,7 @@ function loadBackend_RPP_v3(app) {
     function stripAccents(text) {
         return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     }
-    //  db.insert(environment_stats);
+      db.insert(environment_stats);
 
     //  *********************************************************    /GET    *********************************************************
 
