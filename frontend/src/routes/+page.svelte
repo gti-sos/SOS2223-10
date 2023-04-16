@@ -123,7 +123,11 @@
                     <h2 class="section-title">Documentación Grupo POSTMAN </h2>
                     <div class="section-content">
                         <div class="api-card">
-                            <a href="https://sos2223-10.ew.r.appspot.com/api/v2/economy-stats/docs">Documentación Economía API </a>
+                            <a href="https://sos2223-10.ew.r.appspot.com/api/v1/economy-stats/docs">Documentación Economía API v1 </a>
+                            <p>Desarollado por Joaquín Rodríguez Mariscal</p>
+                        </div>
+                        <div class="api-card">
+                            <a href="https://sos2223-10.ew.r.appspot.com/api/v2/economy-stats/docs">Documentación Economía API v2 </a>
                             <p>Desarollado por Joaquín Rodríguez Mariscal</p>
                         </div>
                         <div class="api-card">
