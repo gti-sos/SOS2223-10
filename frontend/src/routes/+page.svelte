@@ -102,6 +102,13 @@
                 <div class="section-content">
                     <div class="api-card">
                         <a
+                            href="https://sos2223-10.ew.r.appspot.com/api/v1/economy-stats"
+                            >Estadísticas Economía API
+                        </a>
+                        <p>Desarollado por Joaquín Rodríguez Mariscal</p>
+                    </div>
+                    <div class="api-card">
+                        <a
                             href="https://sos2223-10.ew.r.appspot.com/api/v2/economy-stats"
                             >Estadísticas Economía API
                         </a>
@@ -137,73 +144,105 @@
                     </div>
                    
                 </div>
-            </div>
-        </section>
-        <div>
+            </section>
+            <div>
+                <div class="container">
+                    <section class="section">
+                        <h2 class="section-title">
+                            Documentación POSTMAN
+                        </h2>
+                        <div class="section-content">
+                            <div class="api-card">
+                                <a
+                                    href="https://sos2223-10.ew.r.appspot.com/api/v1/economy-stats/docs"
+                                    >Documentación Economía API
+                                </a>
+                                <p>
+                                    Desarollado por Joaquín Rodríguez Mariscal
+                                </p>
+                            </div>
+                            <div class="api-card">
+                                <a
+                                    href="https://sos2223-10.ew.r.appspot.com/api/v2/economy-stats/docs"
+                                    >Documentación Economía API
+                                </a>
+                                <p>
+                                    Desarollado por Joaquín Rodríguez Mariscal
+                                </p>
+                            </div>
+                            <div class="api-card">
+                                <a
+                                    href="https://sos2223-10.ew.r.appspot.com/api/v1/environment-stats/docs"
+                                    >Documentación Medio Ambiente API v1</a
+                                >
+                                <p>Desarrollado por Rushabh Patel Patel</p>
+                            </div>
+                            <div class="api-card">
+                                <a
+                                    href="https://sos2223-10.ew.r.appspot.com/api/v2/environment-stats/docs"
+                                    >Documentación Medio Ambiente API v2</a
+                                >
+                                <p>Desarrollado por Rushabh Patel Patel</p>
+                            </div>
+                            <div class="api-card">
+                                <a
+                                    href="https://sos2223-10.ew.r.appspot.com/api/v3/environment-stats/docs"
+                                    >Documentación Medio Ambiente API v3</a
+                                >
+                                <p>Desarrollado por Rushabh Patel Patel</p>
+                            </div>
+                            <div class="api-card">
+                                <a
+                                    href="https://sos2223-10.ew.r.appspot.com/api/v2/employment-stats/docs"
+                                    >Documentación Empleo API</a
+                                >
+                                <p>Desarollado por Rafael Díaz Quintero</p>
+                            </div>
+                        </div>
+                    </section>
+                    <div>
+                        <div class="container">
+                            <h1 class="section-title">
+                                Repositorio de github de SOS2223-10
+                            </h1>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://github.com/gti-sos/SOS2223-10"
+                                        >SOS2223-10</a
+                                    >
+                                </li>
+                            </ul>
+                            <h2 class="section-title">Participantes</h2>
+                            <ul>
+                                <li>
+                                    Joaquín Rodríguez Mariscal -> economy-stats
+                                </li>
+                                <li>
+                                    Rushabh Patel Patel -> environment-stats
+                                </li>
+                                <li>
+                                    Rafael Díaz Quintero -> employment-stats
+                                </li>
+                            </ul>
+                        </div>
 
-
-            <div class="container">
-                <section class="section">
-                    <h2 class="section-title">Documentación Grupo POSTMAN </h2>
-                    <div class="section-content">
-                        <div class="api-card">
-                            <a href="https://sos2223-10.ew.r.appspot.com/api/v2/economy-stats/docs">Documentación Economía API </a>
-                            <p>Desarollado por Joaquín Rodríguez Mariscal</p>
-                        </div>
-                        <div class="api-card">
-                            <a href="https://sos2223-10.ew.r.appspot.com/api/v2/environment-stats/docs">Documentación Medio Ambiente API v2</a>
-                            <p>Desarrollado por Rushabh Patel Patel</p>
-                        </div>
-                        <div class="api-card">
-                            <a href="https://sos2223-10.ew.r.appspot.com/api/v3/environment-stats/docs">Documentación Medio Ambiente API v3</a>
-                            <p>Desarrollado por Rushabh Patel Patel</p>
-                        </div>
-                        <div class="api-card">
-                            <a href="https://sos2223-10.ew.r.appspot.com/api/v2/employment-stats/docs">Documentación Empleo API</a>
-                            <p>Desarollado por Rafael Díaz Quintero</p>
-                        </div>
+                        <style>
+                            .container {
+                                display: flex;
+                                flex-direction: column;
+                                justify-content: center;
+                                align-items: center;
+                                height: 100%;
+                            }
+                            .section-title {
+                                margin-bottom: 1.5rem;
+                                text-align: center;
+                            }
+                        </style>
                     </div>
-                </section>
-                <div>
-
-
-
-            <div class="container">
-                <h1 class="section-title">Repositorio de github de SOS2223-10</h1>
-                <ul>
-                  <li>
-                    <a href="https://github.com/gti-sos/SOS2223-10">SOS2223-10</a>
-                  </li>
-                </ul>
-                <h2 class="section-title">Participantes</h2>
-                <ul> 
-                  <li>
-                    Joaquín Rodríguez Mariscal -> economy-stats
-                  </li>
-                  <li>
-                    Rushabh Patel Patel -> environment-stats
-                  </li>
-                  <li>
-                    Rafael Díaz Quintero -> employment-stats
-                  </li>
-                </ul>
-              </div>
-              
-              <style>
-              .container {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                height: 100%;
-              }
-              
-              .section-title {
-                margin-bottom: 1.5rem;
-                text-align: center;
-              }
-              </style>
-              
-    
-</body>
+                </div>
+            </div>
+        </div></body
+    >
 </html>

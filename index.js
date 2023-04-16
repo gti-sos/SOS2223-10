@@ -65,11 +65,6 @@ app.get("/api/v1/environment-stats/docs", (req, res) => {
 
 });
 
-app.get("/api/v1/environment-stats/docs", (req, res) => {
-    console.log("Se ejecuta");
-    res.redirect("https://documenter.getpostman.com/view/26063123/2s93JzN1dM");
-
-});
 
 
 loadBackend_JRM_v1(app);
