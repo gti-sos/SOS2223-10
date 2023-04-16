@@ -1,8 +1,10 @@
-const { response } = require('express');
-var Datastore = require('nedb');
+//const { response } = require('express');
+//var Datastore = require('nedb');
+import Datastore from "nedb";
 var db = new Datastore();
 const BASE_API_URL = "/api/v1";
-module.exports = (app) =>{
+function loadBackend_RDQ_v1(app) {
+//module.exports = (app) =>{
     var vacio =[ ]
 var employment_stats = [
     { period: 1998, province: "sevilla", population_over_16_years: 1349525, activity_men_percentage: 65.5, activity_women_percentage: 36.3 },
@@ -59,7 +61,7 @@ app.get(BASE_API_URL+"/employment-stats/loadInitialData", (req,res) => {
 //b
 app.get(BASE_API_URL + "/employment-stats", (req,res)=>{ 
     var query = req.query;
-    dbquery = {};
+    var dbquery = {};
     console.log("Peticion GET");
     console.log(query.period);
     var limit = Number.MAX_SAFE_INTEGER;
@@ -702,6 +704,7 @@ app.get(BASE_API_URL+"/employment-stats", (request,response) => {
 
 
    
-}
+};
+export{loadBackend_RDQ_v1};
 
 
