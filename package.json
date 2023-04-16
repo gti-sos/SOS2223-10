@@ -8,9 +8,9 @@
     "start": "node index",
     "test-economy-stats-v1": "npx newman run ./test/test-JRM/backend-JRM.json -e ./test/test-JRM/env/gcloud.json",
     "test-economy-stats-v2": "npx newman run ./test/test-JRM/backend-JRM-v2.json -e ./test/test-JRM/env/gcloud.json",
-    "test-environment-v1": "npx newman run ./test/test-RPP/backend-RPP-v1.json -e ./test/test-RPP/env/gcloud.json",
-    "test-environment-v2": "npx newman run ./test/test-RPP/backend-RPP-v2.json -e ./test/test-RPP/env/gcloud.json",
-    "test-environment-v3": "npx newman run ./test/test-RPP/backend-RPP-v3.json -e ./test/test-RPP/env/gcloud.json",
+    "test-environment-v1": "npx newman run ./test/test-RPP/Backend-RPP-v1.json -e ./test/test-RPP/env/gcloud.json",
+    "test-environment-v2": "npx newman run ./test/test-RPP/Backend-RPP-v2.json -e ./test/test-RPP/env/gcloud.json",
+    "test-environment-v3": "npx newman run ./test/test-RPP/Backend-RPP-v3.json -e ./test/test-RPP/env/gcloud.json",
     "test-employment-stats-v1": "npx newman run ./test/test-RDQ/backend-RDQ1.json -e ./test/test-RDQ/env/gcloud.json",
     "test-employment-stats-v2": "npx newman run ./test/test-RDQ/backend-RDQ2.json -e ./test/test-RDQ/env/gcloud.json",
     "test": "npm run test-environment-v3 && npm run test-environment-v2-v1 && npm run test-employment-stats-v2 && npm run test-economy-stats-v1 && npm run test-economy-stats-v2 && npm run test-employment-stats && npm run test-environment-v1"
