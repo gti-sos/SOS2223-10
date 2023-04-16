@@ -312,7 +312,7 @@
 </script>
 
 <main>
-    <h1>Bienvenido a la API employment_stats</h1>
+    <h1>Bienvenido a la API de Datos de Empleo</h1>
     <div style="text-align: center;">
         <h5>Desarrollada por Rafael Diaz Quintero</h5>
     </div>
@@ -446,8 +446,13 @@ input {
                 {/if}
             </div>
         </div>
+
 <!-- original Busca por periodo y por provincia -->
-        <form
+        
+
+
+
+<form
 
             on:submit|preventDefault={searchEmployment}
             class="p-3 border rounded"
@@ -458,7 +463,6 @@ input {
                     type="text"
                     class="form-control form-control-sm"
                     id="province"
-                    required
                     bind:value={newProvince}
                 />
             </div>
@@ -468,12 +472,12 @@ input {
                     type="number"
                     class="form-control form-control-sm"
                     id="period"
-                    required
                     bind:value={newPeriod}
                 />
             </div>
             <Button color="primary" type="submit" class="mt-3">Buscar</Button>
         </form>
+
         <form on:submit|preventDefault={getEmployment} class="p-3 border rounded">
             <div class="form-group">
                 <label for="from" class="font-weight-bold">Offset:</label>
@@ -619,11 +623,11 @@ input {
             </thead>
             <tbody>
                 <tr>
-                    <td><input bind:value={newProvince} /></td>
-                    <td><input bind:value={newPeriod} /></td>
-                    <td><input bind:value={newpopulation_over_16_years} /></td>
-                    <td><input bind:value={newactivity_men_percentage} /></td>
-                    <td><input bind:value={newactivity_women_percentage} /></td>
+                    <td><input type = text bind:value={newProvince} /></td>
+                    <td><input type = number bind:value={newPeriod} /></td>
+                    <td><input type = number bind:value={newpopulation_over_16_years} /></td>
+                    <td><input type = number bind:value={newactivity_men_percentage} /></td>
+                    <td><input type = number bind:value={newactivity_women_percentage} /></td>
                     <td
                         ><button class="button" on:click={createAndReload}
                             >Crear</button

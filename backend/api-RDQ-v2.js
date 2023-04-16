@@ -285,8 +285,12 @@ app.put(BASE_API_URL+"/employment-stats/:province/:period", (request,response) =
     if(!newStat.period || !newStat.province || !newStat.population_over_16_years || !newStat.activity_men_percentage || !newStat.activity_women_percentage){
         console.log(`No se han recibido los campos esperados:`);
         response.status(400).send("Bad Request");
+    }
+    else if(provincia !== request.body.province || periodo !== request.body.period) {
+        console.log("El id no es igual al de la URL");
+        response.status(400).send("Bad Request");
     }else{
-        db.update({$and: [{provinve:provincia}, {period:periodo}]}, {$set: newStat},function(err, data){
+        db.update({province : provincia, period:parseInt(periodo)},newStat,{}, function(err, data){
             if(err){
                 console.log(`Error put /employment-stats/${provincia}/${periodo}: ${err}`);
                 response.sendStatus(500);
