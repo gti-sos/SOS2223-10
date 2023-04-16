@@ -337,8 +337,6 @@ function loadBackend_RPP_v3(app) {
 
     //  *********************************************************    /PUT    *********************************************************
 
-
-
     app.put(BASE_API_URL + "/environment-stats/:city", (req, res) => {
         const city = req.params.city;
         const updatedStat = req.body;
