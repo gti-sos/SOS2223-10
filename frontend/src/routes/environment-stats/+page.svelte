@@ -195,7 +195,7 @@
 
     let url = `${API}?from=${fromDate}&to=${toDate}`;
 
-    async function searchEnvironment() {
+    /* async function searchEnvironment() {
         resultStatus = result = "";
         if (`${newCity}` != "" && `${newYear}` != "") {
             const res = await fetch(`${API}/${newCity}/${newYear}`, {
@@ -340,7 +340,47 @@
             const status = await res.status;
             resultStatus = status;
         }
-    }
+    } */
+    async function searchEnvironment() {
+  const queryParams = [];
+
+  if (newCity) queryParams.push(`city=${newCity}`);
+  if (newYear) queryParams.push(`year=${newYear}`);
+  if (newProtected_space) queryParams.push(`protected_space=${newProtected_space}`);
+  if (newArea) queryParams.push(`area=${newArea}`);
+  if (newFire) queryParams.push(`fire=${newFire}`);
+
+
+  const queryString = queryParams.join('&');
+
+  if (!queryString) {
+    mensajeUsuario = "Debe ingresar algún criterio de búsqueda";
+    mensajeUsuario2 = "";
+    return;
+  }
+
+  const res = await fetch(`${API}?${queryString}`, {
+    method: "GET",
+  });
+  
+  const status = res.status;
+  resultStatus = status;
+  
+  if (status === 200) {
+    const data = await res.json();
+    environment_stats = data;
+    mensajeUsuario = `Resultados de búsqueda: ${data.length} elementos encontrados`;
+    mensajeUsuario2 = "";
+  } else if (status === 404) {
+    environment_stats = [];
+    mensajeUsuario2 = "No se encontraron resultados para la búsqueda";
+    mensajeUsuario = "";
+  } else {
+    mensajeUsuario2 = "No se ha podido realizar la búsqueda";
+    mensajeUsuario = "";
+  }
+}
+
 
     async function handlePrevPage() {
         offset = Math.max(offset - limit, 0);
