@@ -13,7 +13,7 @@
     "test-environment-v3": "npx newman run ./test/test-RPP/Backend-RPP-v3.json -e ./test/test-RPP/env/gcloud.json",
     "test-employment-stats-v1": "npx newman run ./test/test-RDQ/backend-RDQ1.json -e ./test/test-RDQ/env/gcloud.json",
     "test-employment-stats-v2": "npx newman run ./test/test-RDQ/backend-RDQ2.json -e ./test/test-RDQ/env/gcloud.json",
-    "test": "npm run test-environment-v3 && npm run test-environment-v2 && npm run test-employment-stats-v2 && npm run test-economy-stats-v1 && npm run test-economy-stats-v2 && npm run test-employment-stats-v1 && npm run test-environment-v1"
+    "test": "npm run test-environment-v3 && npm run test-environment-v2 && npm run test-employment-stats-v2 && npm run test-economy-stats-v1 && npm run test-economy-stats-v2 && npm run test-environment-v1"
   },
   "repository": {
     "type": "git",

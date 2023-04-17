@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "ef8bb31d-8acc-4f8f-8d52-b168bfb56c8f",
-		"name": "Gcloud V2",
+		"name": "V2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25969335"
 	},
@@ -341,7 +341,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{URLBASE}}/api/v2/employment-stats?from=999&to=1001",
+					"raw": "{{URLBASE}}/api/v2/employment-stats?from=0&to=1003",
 					"host": [
 						"{{URLBASE}}"
 					],
@@ -353,11 +353,11 @@
 					"query": [
 						{
 							"key": "from",
-							"value": "999"
+							"value": "0"
 						},
 						{
 							"key": "to",
-							"value": "1001"
+							"value": "1003"
 						}
 					]
 				}
