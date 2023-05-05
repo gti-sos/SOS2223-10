@@ -4,7 +4,10 @@
             <a href="/">Inicio</a>
             <a href="/economy-stats">Datos Economía</a>
             <a href="/environment-stats">Datos Medio Ambiente</a>
-            <a href="/employment-stats">Datos Empleo</a>        
+            <a href="/employment-stats">Datos Empleo</a>
+        </div>
+        <div class="container">
+            <a href="/graph/economy-stats">Grafo economia</a>
         </div>
     </nav>
 </main>
