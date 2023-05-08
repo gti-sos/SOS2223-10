@@ -3,6 +3,8 @@
     import * as echarts from "echarts";
     import { onMount } from "svelte";
     import { dev } from "$app/environment";
+    import * as highcharts from "highcharts";
+
 
     let API = "/api/v3/environment-stats";
     if (dev) API = "http://localhost:12345" + API;
@@ -46,29 +48,7 @@
             ],
         });
 
-        /*      var myChart2 = echarts.init(document.getElementById('container2'));
-myChart2.setOption({
-  title: {
-    text: 'Incendios en Andalucía'
-  },
-  tooltip: {},
-  legend: {
-    data: graphData.map(item => item.city)
-  },
-  xAxis: {
-          data: graphData.map(item => `${item.year}`)
-        },
-  yAxis: {
-    name: 'Número de Incendios'
-  },
-  series: graphData.map(item => {
-    return {
-      name: item.city,
-      type: 'line',
-      data: graphData.map(item => item.fire)
-    }
-  })
-});  */
+        
         //Líneas
         var myChart2 = echarts.init(document.getElementById("container2"));
         myChart2.setOption({
@@ -175,7 +155,63 @@ myChart2.setOption({
             ],
             color: colors,
         });
+
+      
+
+        
     }
+
+    async function loadHighchart(graphData) {
+  const chartData = graphData.reduce((acc, data) => {
+    const { city, protected_space, area } = data;
+    acc[city] = acc[city] || { protected_space: 0, area: 0 };
+    acc[city].protected_space += protected_space;
+    acc[city].area += area;
+    return acc;
+  }, {});
+
+  const seriesData = Object.entries(chartData).map(([city, { protected_space, area }]) => ({
+    name: city,
+    y: protected_space,
+    extra: area,
+  }));
+
+  Highcharts.chart("containerPie", {
+    chart: {
+      type: "pie",
+    },
+    title: {
+      text: "Comparación de áreas protegidas y áreas en la ciudad por ciudad",
+    },
+    tooltip: {
+      pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y}</b> ({point.percentage:.1f}%)<br/>' +
+        'Área total: <b>{point.extra}</b>',
+    },
+    plotOptions: {
+      pie: {
+        allowPointSelect: true,
+        cursor: "pointer",
+        dataLabels: {
+          enabled: true,
+          format: '<b>{point.name}</b>: {point.y}',
+        },
+        showInLegend: true,
+      },
+    },
+    series: [
+      {
+        name: "Áreas protegidas",
+        data: seriesData,
+      },
+    ],
+  });
+}
+
+
+    
+  
+
+
 
     async function getData() {
         resultStatus = result = "";
@@ -189,6 +225,7 @@ myChart2.setOption({
             console.log("environment_stats", environment_stats);
 
             loadEchart(environment_stats);
+            loadHighchart(environment_stats);
         } catch (error) {
             console.log(`Error parseando el resultado: ${error}`);
         }
@@ -204,10 +241,16 @@ myChart2.setOption({
 <svelte:head>
     <script
         src="https://cdn.jsdelivr.net/npm/echarts@5.2.2/dist/echarts.min.js"
+
     ></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+
 </svelte:head>
 
 <main>
+
+    <div id="containerPie" style="width: 1300px;height:400px;" />
+
     <div id="container" style="width: 1300px;height:400px;" />
 
     <body>Hola</body>
