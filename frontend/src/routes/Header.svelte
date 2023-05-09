@@ -7,7 +7,7 @@
             <a href="/employment-stats">Datos Empleo</a>
         </div>
         <div class="container">
-            <a href="/graph/economy-stats">Grafo economia Highchart</a>
+            <a href="/graph/economy-stats">Gráfica Economía</a>
         </div>
     </nav>
 </main>

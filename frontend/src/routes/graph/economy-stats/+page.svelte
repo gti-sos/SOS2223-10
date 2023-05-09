@@ -41,7 +41,7 @@
                 inverted: true,
             },
             title: {
-                text: "Fertilizantes por paises",
+                text: "Gráfica  Highchart",
             },
 
             xAxis: {
@@ -80,8 +80,77 @@
         });
     }
 
+    
+        var trace1 = {
+            x: territory,
+            y: finished_house,
+            mode: "lines",
+            name: "finished_house",
+            line: {
+                shape: "spline",
+            },
+        };
+
+        var trace2 = {
+            x: territory,
+            y: half_price_m_two,
+            mode: "lines",
+            name: "half_price_m_two",
+            line: {
+                shape: "spline",
+            },
+        };
+
+        var trace3 = {
+            x: territory,
+            y: tourist,
+            mode: "lines",
+            name: "tourist",
+            line: {
+                shape: "spline",
+            },
+        };
+
+        var data = [trace1, trace2, trace3];
+
+        var layout = {
+            xaxis: {
+                type: "category",
+            },
+            margin: {
+                t: 50,
+                b: 50,
+                l: 50,
+                r: 50,
+            },
+            title: "Grafica Plotly",
+        };
+    
+
+    /*
+    const data = [
+        {
+            x: ["Manzanas", "Naranjas", "Plátanos"],
+            y: [10, 15, 13],
+            type: "bar",
+        },
+    ];
+
+    // Configuración del layout
+    const layout = {
+        title: "Ejemplo de gráfica de barras",
+    };
+*/
     onMount(async () => {
-        loadGraph();
+        await loadGraph(); //Highchart
+
+        const plotlyScript = document.createElement("script");
+        plotlyScript.src = "https://cdn.plot.ly/plotly-2.3.0.min.js";
+        plotlyScript.onload = () => {
+            // Crear la gráfica
+            Plotly.newPlot("myDiv", data, layout);
+        };
+        document.head.appendChild(plotlyScript);
     });
 </script>
 
@@ -91,6 +160,8 @@
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 </svelte:head>
+
+<div id="myDiv" />
 
 <main>
     <figure class="highcharts-figure">
