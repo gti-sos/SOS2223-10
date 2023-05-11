@@ -20,7 +20,7 @@ import { handler } from "./frontend/build/handler.js";
 
 
 var app = express();
-app.use(cors());
+app.use(cors());         //Para el same Origin Policy
 var port = process.env.PORT || 12345;
 
 //app.use("/",express.static("./public"));
