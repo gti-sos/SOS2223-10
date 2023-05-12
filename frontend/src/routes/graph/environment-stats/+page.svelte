@@ -23,6 +23,8 @@
             }
         });
 
+        console.log("graphData", graphData);
+
         var myChart = echarts.init(document.getElementById("container"));
         myChart.setOption({
             title: {
