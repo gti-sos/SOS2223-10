@@ -1,15 +1,12 @@
 <script>
-    //@ts-nocheck
+    // @ts-nocheck
+    // # selecciona por id
+    // . selecciona por clase
     import { onMount } from "svelte";
+    const delay = (ms) => new Promise((res) => setTimeout(res, ms));
     import { dev } from "$app/environment";
     import { Button, Label } from "sveltestrap";
-    //let API = "/api/v2/data";
     let API = "/api/v2/employment-stats";
-
-    if (dev) API = "http://localhost:12345" + API;
-
-    //let propiedadX = "period";
-    let propiedadY = "activity_men_percentage";
     let graph = [];
     let results = "";
     let datos = [];
@@ -18,8 +15,12 @@
     let anio = "period";
     let pruebas = 0;
     let resultStatus = "";
+    onMount(async () => {
+        getData2();
+    });
+    if (dev) API = "http://localhost:12345" + API;
 
-    async function getData() {
+    async function getData2() {
         resultStatus = results = "";
         const res = await fetch(API, {
             method: "GET",
@@ -27,81 +28,13 @@
         try {
             const dataRecived = await res.json();
             results = JSON.stringify(dataRecived, null, 2);
-            data = dataRecived;
-            loadChart(data);
-            loadChart2(data);
+            datos = dataRecived;
+            loadChart2(datos);
         } catch (error) {
             console.log(`Error parsing result: ${error}`);
         }
         const status = await res.status;
         resultStatus = status;
-    }
-
-    async function loadChart(graphData) {
-        //var valoresX = [];
-        var workers = [];
-        var unemployed = [];
-
-        for (var i = 0; i < graphData.length; i++) {
-            if (
-                graphData[i].province == "almeria" &&
-                graphData[i].period == 2011
-            ) {
-                //valoresX.push(graphData[i][propiedadX]);
-                workers.push(graphData[i][propiedadY]);
-                unemployed = 100 - workers;
-                workers = parseFloat(workers)
-            }
-        }
-
-        Highcharts.chart("container", {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: 0,
-                plotShadow: false,
-            },
-            title: {
-                text: "<br>Porcentaje<br>desempleo<br>en hombres<br>Almería<br>2011",
-                align: "center",
-                verticalAlign: "middle",
-                y: 60,
-            },
-            tooltip: {
-                pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>",
-            },
-            accessibility: {
-                point: {
-                    valueSuffix: "%",
-                },
-            },
-            plotOptions: {
-                pie: {
-                    dataLabels: {
-                        enabled: true,
-                        distance: -50,
-                        style: {
-                            fontWeight: "bold",
-                            color: "white",
-                        },
-                    },
-                    startAngle: -90,
-                    endAngle: 90,
-                    center: ["50%", "75%"],
-                    size: "110%",
-                },
-            },
-            series: [
-                {
-                    type: "pie",
-                    name: "Porcentaje de desempleo en hombres de Almería 2011",
-                    innerSize: "50%",
-                    data: [
-                        ["Empleados", workers],
-                        ["Desempleados", unemployed]
-                    ],
-                },
-            ],
-        });
     }
     function ordenarPorPeriodo(lista) {
         lista.sort(function (a, b) {
@@ -109,15 +42,18 @@
         });
         return lista;
     }
+
+    // Llamamos a la función pasando como argumento la matriz a ordenar
+    
+
     async function loadChart2(datos) {
         var trabajadoras = [];
         var anyo = [];
         var datosOrdenados = ordenarPorPeriodo(datos);
         for (var i = 0; i < datosOrdenados.length; i++) {
                 anyo.push(datosOrdenados[i][anio]);
-                trabajadoras.push(datosOrdenados[i][trabaj]);
+                trabajadoras.push(datosOrdenados[i][anio]);
             }
-            console.log(trabajadoras);
         var data = {
             labels: anyo,
             series: [trabajadoras],
@@ -129,11 +65,6 @@
 
         new Chartist.Line("#ct-chart", data, options);
     }
-
-    onMount(async () => {
-        getData();
-        
-    });
 </script>
 
 <svelte:head>
@@ -154,11 +85,8 @@
     <script
         src="https://cdn.jsdelivr.net/npm/@kblo55/chartist-plugin-tooltips@0.0.18/dist/chartist-plugin-tooltip.min.js"
     ></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 </svelte:head>
-<!-- Poner siempre el html dentro de main-->
+
 <main>
     <h2 style="text-align: center;">
         Porcentaje de mujeres trabajadoras en Andalucía
@@ -245,24 +173,4 @@
     <div style="text-align:center">
         <Button color="primary" href="/">Volver a Inicio</Button>
     </div>
-    <h1>Grafico</h1>
-    <figure class="highcharts-figure">
-        <div id="container" />
-        <p class="highcharts-description">
-        </p>
-    </figure>
 </main>
-
-<style>
-    .highcharts-figure{
-        min-width: 320px;
-        max-width: 500px;
-        margin: 1em auto;
-    }
-
-    #container {
-        height: 400px;
-    }
-
-    
-</style>
