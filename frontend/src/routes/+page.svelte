@@ -12,6 +12,7 @@
                 padding: 0;
             }
             header {
+                font-family: Arial, sans-serif;
                 background-color: rgb(2, 56, 107);
                 color: white;
                 padding: 20px;
