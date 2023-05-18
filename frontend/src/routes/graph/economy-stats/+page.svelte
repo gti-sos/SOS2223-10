@@ -80,67 +80,55 @@
         });
     }
 
-    
-        var trace1 = {
-            x: territory,
-            y: finished_house,
-            mode: "lines",
-            name: "finished_house",
-            line: {
-                shape: "spline",
-            },
-        };
-
-        var trace2 = {
-            x: territory,
-            y: half_price_m_two,
-            mode: "lines",
-            name: "half_price_m_two",
-            line: {
-                shape: "spline",
-            },
-        };
-
-        var trace3 = {
-            x: territory,
-            y: tourist,
-            mode: "lines",
-            name: "tourist",
-            line: {
-                shape: "spline",
-            },
-        };
-
-        var data = [trace1, trace2, trace3];
-
-        var layout = {
-            xaxis: {
-                type: "category",
-            },
-            margin: {
-                t: 50,
-                b: 50,
-                l: 50,
-                r: 50,
-            },
-            title: "Grafica Plotly",
-        };
-    
-
-    /*
-    const data = [
-        {
-            x: ["Manzanas", "Naranjas", "Plátanos"],
-            y: [10, 15, 13],
-            type: "bar",
+    var trace1 = {
+        x: territory,
+        y: finished_house,
+        type: "line",
+        name: "finished_house",
+        marker: {
+            color: "blue",
         },
-    ];
-
-    // Configuración del layout
-    const layout = {
-        title: "Ejemplo de gráfica de barras",
     };
-*/
+
+    var trace2 = {
+        x: territory,
+        y: half_price_m_two,
+        type: "line",
+        name: "half_price_m_two",
+        marker: {
+            color: "red",
+        },
+    };
+
+    var trace3 = {
+        x: territory,
+        y: tourist,
+        type: "line",
+        name: "tourist",
+        marker: {
+            color: "green",
+        },
+    };
+
+    var data = [trace1, trace2, trace3];
+
+    var layout = {
+        xaxis: {
+            type: "category",
+            title: "Territorios",
+        },
+        yaxis: {
+            title: "Valores",
+        },
+        margin: {
+            t: 50,
+            b: 50,
+            l: 50,
+            r: 50,
+        },
+        title: "Gráfica Plotly",
+    };
+
     onMount(async () => {
         await loadGraph(); //Highchart
 
@@ -153,6 +141,7 @@
         document.head.appendChild(plotlyScript);
     });
 </script>
+<div id="myDiv" />
 
 <svelte:head>
     <script src="https://code.highcharts.com/highcharts.js"></script>
