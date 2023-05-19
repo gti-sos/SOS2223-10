@@ -48,27 +48,7 @@
         const status = await res.status;
         resultStatus = status;
     }
-    /*
-    async function getFromTo() {
-        resultStatus = result = "";
-        const url = `${API}?from=${fromPeriod}&to=${toPeriod}`;
-        
-        const res = await fetch(url, {
-            method: "GET",
-        });
 
-        try {
-            const data = await res.json();
-            result = JSON.stringify(data, null, 2);
-            employment_stats = data;
-        } catch (error) {
-            console.log(`Error parseando el resultado: ${error}`);
-        }
-
-        const status = await res.status;
-        resultStatus = status;
-    }
-    */
     async function getEmployment2() {
         resultStatus = result = "";
         let url = `${API}?from=${fromPeriod}&to=${toPeriod}`;
@@ -321,6 +301,7 @@
         resultStatus = status;
     }
     */
+
     async function searchEmployment() {
   const queryParams = [];
 
@@ -521,164 +502,6 @@ input {
                 {/if}
             </div>
         </div>
-
-        <!-- original Busca por periodo y por provincia -->
-            
-            
-            
-            <!--
-                
-                <form
-                on:submit|preventDefault={searchEmployment}
-                class="p-3 border rounded"
-                >
-                <div class="form-group">
-                    <label for="province" class="font-weight-bold">Provincia:</label>
-                <input
-                type="text"
-                    class="form-control form-control-sm"
-                    id="province"
-                    bind:value={newProvince}
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="period" class="font-weight-bold">Periodo:</label>
-                <input
-                    type="number"
-                    class="form-control form-control-sm"
-                    id="period"
-                    bind:value={newPeriod}
-                    />
-            </div>
-            <Button color="primary" type="submit" class="mt-3">Buscar</Button>
-        </form>
-
-        <form on:submit|preventDefault={getEmployment} class="p-3 border rounded">
-            <div class="form-group">
-                <label for="from" class="font-weight-bold">Offset:</label>
-                <input
-                    type="number"
-                    class="form-control form-control-sm"
-                    id="offset"
-                    bind:value={offset}
-                    />
-            </div>
-            <div class="form-group">
-                <label for="to" class="font-weight-bold">Límite:</label>
-                <input
-                    type="number"
-                    required
-                    class="form-control form-control-sm"
-                    id="limit"
-                    bind:value={limit}
-                    />
-            </div>
-            <Button color="primary" type="submit" class="mt-3">Busqueda</Button>
-        </form>
-
-
-        <form
-        on:submit|preventDefault={getProvince}
-        class="p-3 border rounded"
-    >
-    <div class="form-group">
-            <label for="period" class="font-weight-bold">Provincia:</label>
-            <input
-            type="text"
-            required
-            class="form-control form-control-sm"
-                id="province"
-                bind:value={newProvince}
-            />
-        </div>
-        <Button color="primary" type="submit" class="mt-3">Buscar</Button>
-    </form>
-    <form
-    on:submit|preventDefault={getPeriod}
-    class="p-3 border rounded"
-    >
-    <div class="form-group">
-        <label for="period" class="font-weight-bold">Periodo:</label>
-        <input
-        type="number"
-        required
-        class="form-control form-control-sm"
-        id="period"
-        bind:value={newPeriod}
-        />
-    </div>
-    <Button color="primary" type="submit" class="mt-3">Buscar</Button>
-    </form>  
-    <form on:submit|preventDefault={getPopulation_over_16_years}
-class="p-3 border rounded"
->
-<div class="form-group">
-    <label for="population_over_16_years" class="font-weight-bold">Poblacion mayor 16:</label>
-    <input
-    type="number"
-    required
-    class="form-control form-control-sm"
-    id="population_over_16_years"
-    bind:value={newpopulation_over_16_years}
-    />
-</div>
-    <Button color="primary" type="submit" class="mt-3">Buscar</Button>
-</form>
-
-    <form on:submit|preventDefault={getActivity_men_percentage} class="p-3 border rounded">
-        <div class="form-group">
-                <label for="to" class="font-weight-bold">Porcentaje hombres</label>
-                <input
-                type="number" 
-                required
-                    step="0.1" 
-                    min="0"
-                    class="form-control form-control-sm"
-                    id="to"
-                    bind:value={newactivity_men_percentage}
-                />
-            </div>
-            <Button color="primary" type="submit" class="mt-3">Buscar</Button>
-        </form>
-        <form on:submit|preventDefault={getActivity_women_percentage} class="p-3 border rounded">
-            <div class="form-group">
-                <label for="to" class="font-weight-bold">Porcentaje mujeres:</label>
-                <input
-                type="number" 
-                required
-                    step="0.1" 
-                    min="0"
-                    class="form-control form-control-sm"
-                    id="to"
-                    bind:value={newactivity_women_percentage}
-                />
-            </div>
-            <Button color="primary" type="submit" class="mt-3">Buscar</Button>
-        </form>
-        <form on:submit|preventDefault={FromTo} class="p-3 border rounded">
-            <div class="form-group">
-                <label for="from" class="font-weight-bold">Desde:</label>
-                <input
-                type="number"
-                required
-                    class="form-control form-control-sm"
-                    id="from"
-                    bind:value={fromPeriod}
-                    />
-                </div>
-            <div class="form-group">
-                <label for="to" class="font-weight-bold">Hasta:</label>
-                <input
-                    type="number"
-                    required
-                    class="form-control form-control-sm"
-                    id="to"
-                    bind:value={toPeriod}
-                    />
-                </div>
-                <Button color="primary" type="submit" class="mt-3">Busqueda</Button>
-            </form>
-        -->
 
         <form on:submit|preventDefault={getEmployment2} class="p-3 border rounded">
             <div class="form-group">
