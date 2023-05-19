@@ -9,13 +9,15 @@
   if (dev) API = "http://localhost:12345" + API;
 
   let results = "";
-  let datosAPI1 = [];
-  let datosAPI2 = [];
+  let datosAPI1 = "";
+  let datosAPI2 = "";
   let resultStatus = "";
+
   const APIEx1 =
-    "https://weatherbit-v1-mashape.p.rapidapi.com/forecast/3hourly?lat=35.5&lon=-78.5";
+    "https://trading-view.p.rapidapi.com/v2/auto-complete?text=tesla&lang=en&start=0";
   const apiExterna2 =
-    "https://local-business-data.p.rapidapi.com/search?query=Hotels%20in%20San%20Francisco%2C%20USA&limit=20&lat=37.359428&lng=-121.925337&zoom=13&language=en&region=us";
+    "https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=50&offset=0";
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   async function getDataApi1() {
     resultStatus = results = "";
@@ -23,14 +25,14 @@
       method: "GET",
       headers: {
         "X-RapidAPI-Key": "bf07a2acb0msh7f5e40a2ed07776p1bdb14jsndbe5bc17f154",
-        "X-RapidAPI-Host": "weatherbit-v1-mashape.p.rapidapi.com",
+        "X-RapidAPI-Host": "trading-view.p.rapidapi.com",
       },
     });
     try {
       const dataRecived = await res.json();
+      //console.log(dataRecived);
       results = JSON.stringify(dataRecived, null, 2);
-      datosAPI1 = dataRecived;
-      datosAPI1 = datosAPI1.data.slice(0, 5);
+      datosAPI1 = dataRecived.symbols.slice(10, 15);
       console.log(datosAPI1);
     } catch (error) {
       console.log(`Error parsing result: ${error}`);
@@ -43,65 +45,80 @@
     const res = await fetch(apiExterna2, {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "6e05226348mshbac5baf127d9c4cp13df23jsnfca096197252",
-        "X-RapidAPI-Host": "local-business-data.p.rapidapi.com",
+        "X-RapidAPI-Key": "bf07a2acb0msh7f5e40a2ed07776p1bdb14jsndbe5bc17f154",
+        "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
       },
     });
+
     try {
       const dataRecived = await res.json();
+      //console.log(dataRecived);
       results = JSON.stringify(dataRecived, null, 2);
-      datosAPI2 = dataRecived;
-      datosAPI2 = datosAPI2.data.slice(0, 5);
-      //console.log(datos);
-      console.log(datosAPI2);
+      datosAPI2 = dataRecived.data.coins.slice(0, 5);
+      //console.log(datosAPI2);
     } catch (error) {
       console.log(`Error parsing result: ${error}`);
     }
+
     const status = await res.status;
-    resultStatus = status;
+    resultStatus = status; //Sirve para almacenar el codigo de estado de la peticion.
   }
+
   onMount(async () => {
-    getDataApi1();
-    getDataApi2();
+    await getDataApi1();
+    await getDataApi2();
   });
 </script>
 
-<table>
-  <thead>
-    <tr>
-      <th>Nombre</th>
-      <th>Valoracion</th>
-      <th>Numero de telefono</th>
-    </tr>
-  </thead>
-  <tbody>
-    {#each datosAPI1 as dato1}
+{#await getDataApi1()}
+  <p>Fetching data from API 1...</p>
+{:then}
+  <table>
+    <thead>
       <tr>
-        <td>{dato1.name}</td>
-        <td>{dato1.rating}</td>
-        <td>{dato1.phone_number}</td>
+        <th>Codigo de la moneda</th>
+        <th>Tipo</th>
+        <th>Exchange</th>
       </tr>
-    {/each}
-  </tbody>
-</table>
-<table>
-  <thead>
-    <tr>
-      <th>Temperatura</th>
-      <th>Ozono</th>
-      <th>Fecha</th>
-    </tr>
-  </thead>
-  <tbody>
-    {#each datosAPI2 as dato2}
+    </thead>
+    <tbody>
+      {#each datosAPI1 as dato1}
+        <tr>
+          <td>{dato1.currency_code}</td>
+          <td>{dato1.type}</td>
+          <td>{dato1.exchange}</td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+{:catch error}
+  <p>Error fetching data from API 1: {error.message}</p>
+{/await}
+
+{#await getDataApi2()}
+  <p>Fetching data from API 2...</p>
+{:then}
+  <table>
+    <thead>
       <tr>
-        <td>{dato2.app_temp}</td>
-        <td>{dato2.ozone}</td>
-        <td>{dato2.datetime}</td>
+        <th>Nombre</th>
+        <th>Posicion</th>
+        <th>Precio en bitcoin</th>
       </tr>
-    {/each}
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      {#each datosAPI2 as dato2}
+        <tr>
+          <td>{dato2.name}</td>
+          <td>{dato2.rank}</td>
+          <td>{dato2.btcPrice}</td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
+{:catch error}
+  <p>Error fetching data from API 2: {error.message}</p>
+{/await}
 
 <style>
   table {
