@@ -174,7 +174,7 @@
 
         Highcharts.chart("containerPie", {
             chart: {
-                type: "pie",
+                type: "bar",
             },
             title: {
                 text: "Comparación de áreas protegidas y áreas en la ciudad por ciudad",
@@ -185,7 +185,7 @@
                     "Área total: <b>{point.extra}</b>",
             },
             plotOptions: {
-                pie: {
+                bar: {
                     allowPointSelect: true,
                     cursor: "pointer",
                     dataLabels: {
