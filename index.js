@@ -33,7 +33,7 @@ app.use(cors());         //Para el same Origin Policy
 
 //Proxy RPP
 
-var pathprox = "/proxyrpp"
+var pathprox = "/proxyRPP"
 var apiServerHost = "https://sos2223-22.appspot.com/api/v2/jobs-companies-innovation-stats"
 app.use(pathprox, function(req, res) {
   var url = apiServerHost + req.url;
