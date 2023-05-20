@@ -179,25 +179,29 @@
     },
     tooltip: {},
     xAxis: {
-      type: "value",
-      name: "Runs",
+      type: "category",
+      data: names,
     },
     yAxis: {
-      data: names,
-      type: "category",
+      type: "value",
+      name: "Runs",
     },
     series: [
       {
         name: "Runs",
-        type: "bar",
+        type: "line",
+        smooth: true,
+        areaStyle: {},
         data: runs,
       },
     ],
   };
 
-  // Mostrar la gráfica
+  // Establecer las opciones en la gráfica
   chart.setOption(options);
 }
+
+
 
 function loadEcharts4(coins) {
   const chartData = coins.data.coins.map((coin) => ({

@@ -40,6 +40,9 @@
             <a href="/integrations/environment-stats"
                 >Integraciones/Usos Medio Ambiente</a
             >
+            <a href="/analytics"
+                >Integracion Grupo</a
+            >
         </div>
     </nav>
 </main>
