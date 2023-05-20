@@ -3,136 +3,130 @@
     import { onMount } from "svelte";
     import { dev } from "$app/environment";
     import { Button, Label } from "sveltestrap";
-    //let API = "/api/v2/data";
     let API = "/api/v2/employment-stats";
 
     if (dev) API = "http://localhost:12345" + API;
 
-    //let propiedadX = "period";
-    let propiedadY = "activity_men_percentage";
-    let graph = [];
     let results = "";
-    let datos = [];
-    let data = [];
-    let trabaj = "activity_women_percentage";
-    let anio = "period";
-    let pruebas = 0;
+    let datosAPI1 = "";
+    let myStats = [];
+    let statsC = [];
+    let datosMyAPI = "";
+    let datosAPI2 = "";
     let resultStatus = "";
+    let stats = "";
+    let stats1 = "";
+    let period = "";
+    let jobs_industry = [];
+    let population_over_16_years = "population_over_16_years";
 
-    async function getData() {
+    const APIIntegracion1 =
+        "https://sos2223-22.appspot.com/api/v1/jobs-companies-innovation-stats";
+    const myData = "https://sos2223-10.appspot.com/api/v1/employment-stats";
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    async function getDataApi3() {
         resultStatus = results = "";
-        const res = await fetch(API, {
+        const res = await fetch(APIIntegracion1, {
             method: "GET",
         });
+
         try {
             const dataRecived = await res.json();
+            console.log(dataRecived);
             results = JSON.stringify(dataRecived, null, 2);
-            data = dataRecived;
-            loadChart(data);
-            loadChart2(data);
+            //datosAPI2 = dataRecived.elementList.slice(0, 5);
+            datosAPI2 = dataRecived;
+            //console.log(datosAPI2);
         } catch (error) {
             console.log(`Error parsing result: ${error}`);
         }
+
         const status = await res.status;
-        resultStatus = status;
+        resultStatus = status; //Sirve para almacenar el codigo de estado de la peticion.
     }
+    /*
+    async function getMyData() {
+        resultStatus = results = "";
+        const res = await fetch(myData, {
+            method: "GET",
+        });
 
-    async function loadChart(graphData) {
-        //var valoresX = [];
-        var workers = [];
-        var unemployed = [];
-
-        for (var i = 0; i < graphData.length; i++) {
-            if (
-                graphData[i].province == "almeria" &&
-                graphData[i].period == 2011
-            ) {
-                //valoresX.push(graphData[i][propiedadX]);
-                workers.push(graphData[i][propiedadY]);
-                unemployed = 100 - workers;
-                workers = parseFloat(workers)
-            }
+        try {
+            const dataRecived = await res.json();
+            results = JSON.stringify(dataRecived, null, 2);
+            //datosAPI2 = dataRecived.elementList.slice(0, 5);
+            datosMyAPI = dataRecived;
+            loadChart(datosMyAPI)
+            console.log(datosMyAPI);
+        } catch (error) {
+            console.log(`Error parsing result: ${error}`);
         }
 
-        Highcharts.chart("container", {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: 0,
-                plotShadow: false,
-            },
-            title: {
-                text: "<br>Porcentaje<br>desempleo<br>en hombres<br>Almería<br>2011",
-                align: "center",
-                verticalAlign: "middle",
-                y: 60,
-            },
-            tooltip: {
-                pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>",
-            },
-            accessibility: {
-                point: {
-                    valueSuffix: "%",
-                },
-            },
-            plotOptions: {
-                pie: {
-                    dataLabels: {
-                        enabled: true,
-                        distance: -50,
-                        style: {
-                            fontWeight: "bold",
-                            color: "white",
-                        },
-                    },
-                    startAngle: -90,
-                    endAngle: 90,
-                    center: ["50%", "75%"],
-                    size: "110%",
-                },
-            },
-            series: [
-                {
-                    type: "pie",
-                    name: "Porcentaje de desempleo en hombres de Almería 2011",
-                    innerSize: "50%",
-                    data: [
-                        ["Empleados", workers],
-                        ["Desempleados", unemployed]
-                    ],
-                },
-            ],
-        });
+        const status = await res.status;
+        resultStatus = status; //Sirve para almacenar el codigo de estado de la peticion.
     }
-    function ordenarPorPeriodo(lista) {
-        lista.sort(function (a, b) {
-            return a.period - b.period;
-        });
-        return lista;
+    */
+    async function getData() {
+        console.log("Fetching stats....");
+        const res = await fetch(
+            "https://sos2223-22.appspot.com/api/v1/jobs-companies-innovation-stats"
+        );
+        const res1 = await fetch(
+            "https://sos2223-10.appspot.com/api/v1/employment-stats"
+        );
+        if (res.ok && res1.ok) {
+            const data = await res.json();
+            console.log(data)
+            const data1 = await res1.json();
+            statsC = data;
+            console.log("Estadísticas recibidas: " + statsC.length);
+            //inicializamos los arrays para mostrar los datos
+            myStats = data1;
+            console.log("Estadísticas recibidas: " + myStats.length);
+            //inicializamos los arrays para mostrar los datos
+        } else {
+            console.log("Error cargando los datos");
+        }
+        loadChart(statsC, myStats);
+        console.log("Comprobando");
     }
-    async function loadChart2(datos) {
-        var trabajadoras = [];
-        var anyo = [];
-        var datosOrdenados = ordenarPorPeriodo(datos);
-        for (var i = 0; i < datosOrdenados.length; i++) {
-                anyo.push(datosOrdenados[i][anio]);
-                trabajadoras.push(datosOrdenados[i][trabaj]);
-            }
-            console.log(trabajadoras);
+
+    async function loadChart(datosC, datosM) {
+        var auxiliarPeriodo = [];
+        var auxiliarPopulation = [];
+        var auxiliarJobs = [];
+        for (var i = 0; i < datosM.length; i++) {
+            console.log("Se inserta", datosM[i].period);
+            auxiliarPeriodo.push(datosM[i].period);
+            auxiliarPopulation.push(datosM[i].population_over_16_years);
+        }
+        console.log(datosC);
+        console.log(auxiliarPeriodo);
+        for (var i = 0; i < datosC.length; i++) {
+            auxiliarJobs.push(datosC[i].jobs_industry);
+        }
         var data = {
-            labels: anyo,
-            series: [trabajadoras],
+            labels: auxiliarPeriodo,
+            series: [auxiliarPopulation, auxiliarJobs],
         };
 
         var options = {
-            showArea: true,
+            seriesBarDistance: 15,
+            plugins: [
+                Chartist.plugins.tooltip({
+                    transformTooltipTextFnc: function (value) {
+                        return value.toString();
+                    },
+                }),
+            ],
         };
 
-        new Chartist.Line("#ct-chart", data, options);
+        new Chartist.Bar("#barras-chart", data, options);
     }
 
     onMount(async () => {
-        getData();
-        
+        await getData();
     });
 </script>
 
@@ -161,8 +155,9 @@
 <!-- Poner siempre el html dentro de main-->
 <main>
     <h2 style="text-align: center;">
-        Porcentaje de mujeres trabajadoras en Andalucía
+        Integracion
     </h2>
+    <div id="barras-chart" />
     <style>
     h2 {
       fontWeight: 'bold',
@@ -238,8 +233,7 @@
     </div>
 
     <p class="highcharts-description" style="text-align:center">
-        Gráfico de area sobre las mujeres trabajadoras en Andalucía a lo largo
-        de los años
+        Grafico de barras sobre la poblacion
     </p>
 
     <div style="text-align:center">
@@ -248,13 +242,12 @@
     <h1>Grafico</h1>
     <figure class="highcharts-figure">
         <div id="container" />
-        <p class="highcharts-description">
-        </p>
+        <p class="highcharts-description" />
     </figure>
 </main>
 
 <style>
-    .highcharts-figure{
+    .highcharts-figure {
         min-width: 320px;
         max-width: 500px;
         margin: 1em auto;
@@ -263,6 +256,4 @@
     #container {
         height: 400px;
     }
-
-    
 </style>
