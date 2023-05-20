@@ -49,7 +49,7 @@ loadBackend_RPP_v1(app);
 loadBackend_RPP_v3(app);
 
 // Proxi JRM
-var pathprox = "/proxyjrm"
+var pathprox = "/proxyJRM"
 var apiServerHost = "https://sos2223-22.appspot.com/api/v2/ict-promotion-strategy-stats"
 app.use(pathprox, function(req, res) {
   var url = apiServerHost + req.url;
