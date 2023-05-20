@@ -65,6 +65,7 @@
   }
 
   onMount(async () => {
+   
     await getDataApi1();
     await getDataApi2();
   });
@@ -120,6 +121,7 @@
   <p>Error fetching data from API 2: {error.message}</p>
 {/await}
 
+
 <style>
   table {
     width: 100%;
@@ -149,3 +151,7 @@
     background-color: #d8eaff;
   }
 </style>
+
+
+
+

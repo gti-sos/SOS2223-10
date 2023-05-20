@@ -6,7 +6,7 @@
     let API = "/api/v2/employment-stats";
   
     if (dev) API = "http://localhost:12345" + API;
-  
+  /*
     let results = "";
     let datosAPI1 = "";
     let datosAPI2 = "";
@@ -45,8 +45,9 @@
      // await getDataApi3();
 
     });
+   */ 
   </script>
-  
+  <!--
   {#await getDataApi3()}
     <p>Fetching data from API 1...</p>
   {:then}
@@ -101,4 +102,4 @@
       background-color: #d8eaff;
     }
   </style>
-  
+-->
