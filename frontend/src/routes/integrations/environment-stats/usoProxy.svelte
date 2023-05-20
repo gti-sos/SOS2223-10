@@ -10,7 +10,7 @@
 
     let apiData = "";
     let result = "";
-  let resultStatus = "";
+    let resultStatus = "";
     async function getData() {
         resultStatus = result = "";
 
@@ -29,37 +29,54 @@
         mostrar(apiData);
     }
 
-    // Obtener el elemento del cuerpo de la tabla
     async function mostrar(apiData) {
-        const tableBody = document.getElementById("table-body");
+        const chartContainer = document.getElementById("chart-container");
 
-        console.log(apiData);
-        // Mostrar los datos en la tabla
-        apiData.slice(0,12).forEach((data) => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-    <td>${data.territory}</td>
-    <td>${data.year}</td>
-    <td>${data.jobs_industry}</td>
-    <td>${data.companies_with_innovations}</td>
-    <td>${data.temporary_employment}</td>
-  `;
-            tableBody.appendChild(row);
-        });
+        // Obtener los valores para cada serie de datos
+    //    const territories = apiData.map((data) => data.territory);
+
+        const territories = [...new Set(apiData.map((data) => data.territory))];
+        const jobsIndustry = apiData.map((data) => data.jobs_industry);
+        
+
+        // Configurar el gráfico
+        const chartOptions = {
+            chart: {
+                type: "column",
+            },
+            title: {
+                text: "Datos de empleo e innovación por territorio",
+            },
+            xAxis: {
+                categories: territories,
+            },
+            yAxis: {
+                title: {
+                    text: "Cantidad",
+                },
+            },
+            series: [
+                {
+                    name: "Empleos en la industria",
+                    data: jobsIndustry,
+                },
+              
+            ],
+        };
+
+        // Crear la instancia del gráfico Highcharts
+        Highcharts.chart(chartContainer, chartOptions);
     }
 </script>
 
-<table>
-    <thead>
-        <tr>
-            <th>Territorio</th>
-            <th>Año</th>
-            <th>Empleos en la industria</th>
-            <th>Empresas con innovaciones</th>
-            <th>Empleo temporal</th>
-        </tr>
-    </thead>
-    <tbody id="table-body">
-        <!-- Los datos se agregarán aquí dinámicamente -->
-    </tbody>
-</table>
+<svelte:head>
+  <script
+  src="https://code.highcharts.com/highcharts.js"
+    ></script>
+</svelte:head>
+
+
+<main>
+    <div id="chart-container" style="width: 1000px;height:400px;" />
+  
+  </main>
