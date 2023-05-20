@@ -15,132 +15,114 @@
     let datosMyAPI = "";
     let datosAPI2 = "";
     let resultStatus = "";
-    let statsF = [];
+    let statsE = [];
     let statsM = [];
     let period = "";
+    let auxGlobalPopulation = [];
     let jobs_industry = [];
     let population_over_16_years = "population_over_16_years";
 
-    //const APIIntegracion1 =
-    ("https://sos2223-22.appspot.com/api/v1/jobs-companies-innovation-stats");
-    //const myData = "https://sos2223-10.appspot.com/api/v1/employment-stats";
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    async function getDataApi3() {
-        resultStatus = results = "";
-        const res = await fetch(APIIntegracion1, {
-            method: "GET",
-        });
-
-        try {
-            const dataRecived = await res.json();
-            console.log(dataRecived);
-            results = JSON.stringify(dataRecived, null, 2);
-            //datosAPI2 = dataRecived.elementList.slice(0, 5);
-            datosAPI2 = dataRecived;
-            //console.log(datosAPI2);
-        } catch (error) {
-            console.log(`Error parsing result: ${error}`);
-        }
-
-        const status = await res.status;
-        resultStatus = status; //Sirve para almacenar el codigo de estado de la peticion.
-    }
-    /*
-    async function getMyData() {
-        resultStatus = results = "";
-        const res = await fetch(myData, {
-            method: "GET",
-        });
-
-        try {
-            const dataRecived = await res.json();
-            results = JSON.stringify(dataRecived, null, 2);
-            //datosAPI2 = dataRecived.elementList.slice(0, 5);
-            datosMyAPI = dataRecived;
-            loadChart(datosMyAPI)
-            console.log(datosMyAPI);
-        } catch (error) {
-            console.log(`Error parsing result: ${error}`);
-        }
-
-        const status = await res.status;
-        resultStatus = status; //Sirve para almacenar el codigo de estado de la peticion.
-    }
-    */
     async function getData() {
         console.log("Fetching stats....");
-        const resF = await fetch(
-            "https://get-population.p.rapidapi.com/population",
-            {
-                method: "GET",
-                headers: {
-                    "X-RapidAPI-Key":
-                        "285e4f5ea6msheff84a200cc8afep1645eejsn917e8b5bc539",
-                    "X-RapidAPI-Host": "get-population.p.rapidapi.com",
-                },
-            }
-        );
-        const resM = await fetch(
-            "https://sos2223-10.appspot.com/api/v1/employment-stats",
+        const res = await fetch(
+            "https://my-json-server.typicode.com/rdiazq01/myData/posts",
             {
                 method: "GET",
             }
         );
-        if (resF.ok && resM.ok) {
-            const dataF = await resF.json();
-            //console.log(dataF);
-            const dataM = await resM.json();
-            statsF = dataF;
-            //console.log("Estadísticas recibidas: " + statsF.length);
+        const res1 = await fetch(
+            "https://sos2223-10.appspot.com/api/v1/employment-stats"
+        );
+        if (res.ok && res1.ok) {
+            const data = await res.json();
+            console.log(data);
+            const data1 = await res1.json();
+            statsE = data;
+            console.log("Estadísticas recibidas: " + statsE.length);
             //inicializamos los arrays para mostrar los datos
-            statsM = dataM;
-            //console.log("Estadísticas recibidas: " + statsM.length);
+            myStats = data1;
+            console.log("Estadísticas recibidas: " + myStats.length);
             //inicializamos los arrays para mostrar los datos
         } else {
             console.log("Error cargando los datos");
         }
-        loadChart(statsF, statsM);
+        loadChart(statsE, myStats);
         console.log("Comprobando");
     }
 
-    async function loadChart(statsF, statsM) {
+    async function loadChart(datosE, datosM) {
         var auxiliarPeriodo = [];
         var auxiliarPopulation = [];
-        var auxGlobalPopulation = [];
-        //console.log("Mis datos", statsM);
-        for (var i = 0; i < statsM.length; i++) {
-                //auxiliarPeriodo.push(statsM[i].period);
-                //auxiliarPopulation.push(statsM[i].population_over_16_years);
-            if (statsM[i].period == 2014 && statsM[i].province == "sevilla") {
-                auxiliarPeriodo.push(statsM[i].period);
-                auxiliarPopulation.push(statsM[i].population_over_16_years);
-            }
-            
+        var auxiliarData1 = [];
+        for (var i = 0; i < datosM.length; i++) {
+            // console.log("Se inserta", datosM[i].period);
+            auxiliarPeriodo.push(datosM[i].period);
+            auxiliarPopulation.push(datosM[i].population_over_16_years);
         }
-        auxiliarPeriodo.push(2023); //Actualidad
+        console.log("datosE",datosE);
         console.log(auxiliarPeriodo);
-        auxGlobalPopulation.push(statsF.count);
-        console.log(auxGlobalPopulation);
-
-        //console.log(auxiliarPeriodo);
-        var data = {
-            labels: auxiliarPeriodo,
-            series: [auxiliarPopulation, auxGlobalPopulation]
-        };
-
-        var options = {
-            seriesBarDistance: 15,
-            plugins: [
-                Chartist.plugins.tooltip({
-                    transformTooltipTextFnc: function (value) {
-                        return value.toString();
+        for (var i = 0; i < datosE.length; i++) {
+            console.log(datosE.adult)
+            auxiliarData1.push(datosE[i].adult);
+        }
+        console.log(auxiliarData1)
+        var chart = new Chartist.Line(
+            "#ct-chart",
+            {
+                labels: auxiliarPeriodo,
+                series: [auxiliarPopulation, auxiliarData1],
+            },
+            {
+                axisY: {
+                    onlyInteger: true,
+                    labelInterpolationFnc: function (value) {
+                        return value;
                     },
-                }),
-            ],
-        };
-
-        new Chartist.Bar("#barras-chart", data, options);
+                    axisTitle: "Poblacion mayor de edad", // Título del eje Y
+                },
+                axisX: {
+                    onlyInteger: true,
+                    labelInterpolationFnc: function (value) {
+                        return "Año " + value;
+                    },
+                    axisTitle: "Año", // Título del eje X
+                },
+                chartPadding: {
+                    top: 40,
+                    right: 20,
+                    bottom: 30,
+                    left: 50,
+                },
+                height: "400px",
+                width: "800px",
+                plugins: [
+                    //Chartist.plugins.tooltip({appendToBody:true),
+                    Chartist.plugins.legend({
+                        legendNames: ["Provincias de España", "Andalucia"],
+                    }),
+                    Chartist.plugins.ctAxisTitle({
+                        axisX: {
+                            axisTitle: "Año",
+                            axisClass: "ct-axis-title2",
+                            offset: {
+                                x: 0,
+                                y: 50,
+                            },
+                            textAnchor: "middle",
+                        },
+                        axisY: {
+                            axisTitle: "Poblacion",
+                            axisClass: "ct-axis-title",
+                            offset: {
+                                x: 0,
+                                y: 0,
+                            },
+                            textAnchor: "start",
+                        },
+                    }),
+                ],
+            }
+        );
     }
 
     onMount(async () => {
@@ -149,14 +131,14 @@
 </script>
 
 <svelte:head>
+    <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartist-plugin-tooltips@0.0.17/dist/chartist-plugin-tooltip.min.js
+"></script>
+
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css"
     />
-    <script
-        src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"
-    ></script>
-
     <script
         src="https://cdn.jsdelivr.net/npm/chartist-plugin-legend@0.6.2/chartist-plugin-legend.min.js"
     ></script>
@@ -167,6 +149,8 @@
         src="https://cdn.jsdelivr.net/npm/@kblo55/chartist-plugin-tooltips@0.0.18/dist/chartist-plugin-tooltip.min.js"
     ></script>
 </svelte:head>
+
+<div id="barras-chart" />
 <!-- Poner siempre el html dentro de main-->
 <main>
     <h2 style="text-align: center;">Integracion</h2>
@@ -180,6 +164,7 @@
     </style>
     <div id="ct-chart" style="text-align: center;">
         <style>
+            
       .ct-legend {
         display: flex;
         justify-content: center;

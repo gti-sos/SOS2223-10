@@ -21,16 +21,15 @@
     let population_over_16_years = "population_over_16_years";
 
     const APIIntegracion1 =
-        "https://sos2223-22.appspot.com/api/v1/jobs-companies-innovation-stats";
+        "https://sos2223-22.appspot.com/api/v1/jobs-companies-innovation-stats/loadInitialData";
     const myData = "https://sos2223-10.appspot.com/api/v1/employment-stats";
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+/*
     async function getDataApi3() {
         resultStatus = results = "";
         const res = await fetch(APIIntegracion1, {
             method: "GET",
         });
-
         try {
             const dataRecived = await res.json();
             console.log(dataRecived);
@@ -45,6 +44,7 @@
         const status = await res.status;
         resultStatus = status; //Sirve para almacenar el codigo de estado de la peticion.
     }
+*/
     /*
     async function getMyData() {
         resultStatus = results = "";
@@ -70,7 +70,7 @@
     async function getData() {
         console.log("Fetching stats....");
         const res = await fetch(
-            "https://sos2223-22.appspot.com/api/v1/jobs-companies-innovation-stats"
+            "https://sos2223-22.appspot.com/api/v1/jobs-companies-innovation-stats/loadInitialData"
         );
         const res1 = await fetch(
             "https://sos2223-10.appspot.com/api/v1/employment-stats"
