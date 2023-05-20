@@ -48,6 +48,17 @@
     },
   };
 
+  let cityDictionary = {
+    Córdoba: "Q101948176",
+    Sevilla: "Q8717",
+    Jaén: "Q95025",
+    Granada: "Q8810",
+    Huelva: "Q23984786",
+    Cádiz: "Q15682",
+    Almería: "Q10400",
+    Málaga: "Q116450968",
+  };
+
   let API_URL = "https://sos2223-10.ew.r.appspot.com/api/v3/environment-stats";
 
   async function loadEchart(apiData, weatherData) {
@@ -161,91 +172,85 @@
     chart.setOption(options);
   }
   async function loadEcharts3(cricketData) {
-  // Filtrar los datos para obtener los valores de interés
-  const filteredData = cricketData.values.slice(0, 10); // Obtener hasta 10 jugadores
-  const names = filteredData.map((item) => item.values[1]);
-  const runs = filteredData.map((item) => parseInt(item.values[4]));
+    // Filtrar los datos para obtener los valores de interés
+    const filteredData = cricketData.values.slice(0, 10); // Obtener hasta 10 jugadores
+    const names = filteredData.map((item) => item.values[1]);
+    const runs = filteredData.map((item) => parseInt(item.values[4]));
 
-  // Obtener el elemento HTML donde se mostrará la gráfica
-  const chartElement = document.getElementById("chart3");
+    // Obtener el elemento HTML donde se mostrará la gráfica
+    const chartElement = document.getElementById("chart3");
 
-  // Crear la instancia de ECharts
-  const chart = echarts.init(chartElement);
+    // Crear la instancia de ECharts
+    const chart = echarts.init(chartElement);
 
-  // Configurar las opciones de la gráfica
-  const options = {
-    title: {
-      text: "Runs de jugadores de cricket",
-    },
-    tooltip: {},
-    xAxis: {
-      type: "category",
-      data: names,
-    },
-    yAxis: {
-      type: "value",
-      name: "Runs",
-    },
-    series: [
-      {
-        name: "Runs",
-        type: "line",
-        smooth: true,
-        areaStyle: {},
-        data: runs,
+    // Configurar las opciones de la gráfica
+    const options = {
+      title: {
+        text: "Runs de jugadores de cricket",
       },
-    ],
-  };
+      tooltip: {},
+      xAxis: {
+        type: "category",
+        data: names,
+      },
+      yAxis: {
+        type: "value",
+        name: "Runs",
+      },
+      series: [
+        {
+          name: "Runs",
+          type: "line",
+          smooth: true,
+          areaStyle: {},
+          data: runs,
+        },
+      ],
+    };
 
-  // Establecer las opciones en la gráfica
-  chart.setOption(options);
-}
+    // Establecer las opciones en la gráfica
+    chart.setOption(options);
+  }
 
+  function loadEcharts4(coins) {
+    const chartData = coins.data.coins.map((coin) => ({
+      name: coin.name,
+      value: parseFloat(coin.price),
+    }));
 
+    const chart = echarts.init(document.getElementById("chart4"));
 
-function loadEcharts4(coins) {
-  const chartData = coins.data.coins.map((coin) => ({
-    name: coin.name,
-    value: parseFloat(coin.price)
-  }));
+    const option = {
+      tooltip: {
+        trigger: "item",
+        formatter: "{b}: ${c}",
+      },
+      legend: {
+        orient: "vertical",
+        left: "left",
+        data: chartData.map((coin) => coin.name),
+      },
+      series: [
+        {
+          type: "pie",
+          radius: "55%",
+          center: ["50%", "60%"],
+          data: chartData,
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: "rgba(0, 0, 0, 0.5)",
+            },
+          },
+        },
+      ],
+    };
 
-  const chart = echarts.init(document.getElementById('chart4'));
+    chart.setOption(option);
+  }
 
-  const option = {
-    tooltip: {
-      trigger: 'item',
-      formatter: '{b}: ${c}'
-    },
-    legend: {
-      orient: 'vertical',
-      left: 'left',
-      data: chartData.map((coin) => coin.name)
-    },
-    series: [
-      {
-        type: 'pie',
-        radius: '55%',
-        center: ['50%', '60%'],
-        data: chartData,
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: 'rgba(0, 0, 0, 0.5)'
-          }
-        }
-      }
-    ]
-  };
-
-  chart.setOption(option);
-}
-
-
-
-
-
-
+  
 
   async function getData() {
     resultStatus = result = "";
@@ -285,7 +290,7 @@ function loadEcharts4(coins) {
       }
     }
 
-    const airData = {};
+    /* const airData = {};
     for (const cityData of apiData) {
       const city = cityData.city;
       const coordinates = cityCoordinates[city];
@@ -296,7 +301,7 @@ function loadEcharts4(coins) {
 
         const options = {
           method: "GET",
-          url: "https://air-quality.p.rapidapi.com/current/airqualityyyyyyyyyyyy",
+          url: "https://air-quality.p.rapidapi.com/current/airquality",
           params: {
             lon: lon,
             lat: lat,
@@ -322,75 +327,197 @@ function loadEcharts4(coins) {
       } else {
         console.warn(`No se encontraron coordenadas para ${city}.`);
       }
+    } */
+
+
+    
+
+      console.log("a");
+      loadEchart(apiData, weatherData);
+     // loadEchart2(apiData, airData);
+      
+    }
+  
+
+  let cricketData = {};
+  async function getData2() {
+    const options = {
+      method: "GET",
+      url: "https://cricbuzz-cricket.p.rapidapi.com/stats/v1/team/2",
+      params: {
+        statsType: "mostRuns",
+        year: "2020",
+      },
+      headers: {
+        "X-RapidAPI-Key": "dff350a5e9msh0576314cd591864p1be088jsn092c880c0a12",
+        "X-RapidAPI-Host": "cricbuzz-cricket.p.rapidapi.com",
+      },
+    };
+
+    try {
+      const response = await axios.request(options);
+      cricketData = response.data;
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
     }
 
-    console.log("a");
-    loadEchart(apiData, weatherData);
-    //   loadEchart2(apiData,airData);
+    loadEcharts3(cricketData);
+  }
+  let coins = {};
+  async function getData3() {
+    const options = {
+      method: "GET",
+      url: "https://coinranking1.p.rapidapi.com/coins",
+      params: {
+        referenceCurrencyUuid: "yhjMzLPhuIDl",
+        timePeriod: "24h",
+        "tiers[0]": "1",
+        orderBy: "marketCap",
+        orderDirection: "desc",
+        limit: "10",
+        offset: "0",
+      },
+      headers: {
+        "X-RapidAPI-Key": "dff350a5e9msh0576314cd591864p1be088jsn092c880c0a12",
+        "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
+      },
+    };
+
+    try {
+      const response = await axios.request(options);
+      coins = response.data;
+      console.log(coins);
+    } catch (error) {
+      console.error(error);
+    }
+
+    loadEcharts4(coins);
   }
 
-let cricketData = {};
-async function getData2(){
-const options = {
-  method: 'GET',
-  url: 'https://cricbuzz-cricket.p.rapidapi.com/stats/v1/team/2',
-  params: {
-    statsType: 'mostRuns',
-    year: '2020'
-  },
-  headers: {
-    'X-RapidAPI-Key': 'dff350a5e9msh0576314cd591864p1be088jsn092c880c0a12',
-    'X-RapidAPI-Host': 'cricbuzz-cricket.p.rapidapi.com'
+
+
+
+  let populationData = {};
+
+async function fetchData(city) {
+  
+  
+  const cityId = cityDictionary[city];
+  const options = {
+    method: "GET",
+    url: `https://wft-geo-db.p.rapidapi.com/v1/geo/cities/${cityId}`,
+    headers: {
+      "X-RapidAPI-Key": "dff350a5e9msh0576314cd591864p1be088jsn092c880c0a12",
+      "X-RapidAPI-Host": "wft-geo-db.p.rapidapi.com",
+    },
+  };
+
+  try {
+    const populationResponse = await axios.request(options);
+        const populationForCity = populationResponse.data;
+        populationData[city] = populationForCity;
+    
+  } catch (error) {
+    console.error(error);
   }
-};
+  console.log(populationData);
+ 
+  
 
-
-try {
-	const response = await axios.request(options);
-  cricketData = response.data;
-	console.log(response.data);
-} catch (error) {
-	console.error(error);
+  
 }
 
-loadEcharts3(cricketData);
+let apiData2="";
 
+async function loadData1() {
+
+  resultStatus = result = "";
+
+    // Llamada a la API original
+    const res = await fetch(API, {
+      method: "GET",
+    });
+    try {
+      const dataReceived = await res.json();
+      result = JSON.stringify(dataReceived, null, 2);
+      apiData2 = dataReceived;
+    } catch (error) {
+      console.log(`Error parseando el resultado de la API: ${error}`);
+    }
+  
+  
+  console.log("abbbbbbbb");
+  const cities = [...new Set(apiData2.map((data) => data.city))];
+console.log(cities);
+
+for (const city of cities) {
+  await fetchData(city);
+  await new Promise((resolve) => setTimeout(resolve, 2000));
 }
-let coins ={}; 
-async function getData3(){
-const options = {
-  method: 'GET',
-  url: 'https://coinranking1.p.rapidapi.com/coins',
-  params: {
-    referenceCurrencyUuid: 'yhjMzLPhuIDl',
-    timePeriod: '24h',
-    'tiers[0]': '1',
-    orderBy: 'marketCap',
-    orderDirection: 'desc',
-    limit: '10',
-    offset: '0'
-  },
-  headers: {
-    'X-RapidAPI-Key': 'dff350a5e9msh0576314cd591864p1be088jsn092c880c0a12',
-    'X-RapidAPI-Host': 'coinranking1.p.rapidapi.com'
+
+  console.log(populationData);
+  loadEcharts5(apiData2,populationData);
+  
+}
+
+
+async function loadEcharts5(apiData2, populationData) {
+    // Obtener el elemento HTML donde se mostrará la gráfica
+    const chartElement = document.getElementById("chart5");
+
+    console.log(populationData)
+
+    // Crear la instancia de ECharts
+    const chart = echarts.init(chartElement);
+
+    // Obtener las ciudades y la población
+    const cities = [...new Set(apiData2.map((data) => data.city))];
+    console.log(cities);
+
+    const population = cities.map((city) => populationData[city]?.data?.population || 0);
+    console.log(population);
+
+
+    // Configurar las opciones de la gráfica
+    const options = {
+      title: {
+        text: "Población de ciudades",
+      },
+      tooltip: {},
+      xAxis: {
+        type: "value",
+        name: "Población",
+      },
+      yAxis: {
+        type: "category",
+        data: cities,
+      },
+      series: [
+        {
+          name: "Población",
+          type: "bar",
+          data: population,
+        },
+      ],
+    };
+
+    // Mostrar la gráfica
+    chart.setOption(options);
   }
-};
 
-try {
-	const response = await axios.request(options);
-   coins = response.data;
-    console.log(coins);
-} catch (error) {
-	console.error(error);
-}
 
-loadEcharts4(coins);
-}
+
+
+
 
   onMount(async () => {
     getData();
     getData2();
     getData3();
+  loadData1();
+  
+    
   });
 </script>
 
@@ -403,16 +530,7 @@ loadEcharts4(coins);
 <main>
   <div id="chart" style="width: 1300px;height:400px;" />
   <div id="chart2" style="width: 1300px;height:400px;" />
+  <div id="chart5" style="width: 800px; height: 600px;" />
   <div id="chart3" style="width: 1300px;height:400px;" />
-  <div id="chart4" style="width: 800px; height: 600px;"></div>
-
+  <div id="chart4" style="width: 800px; height: 600px;" />
 </main>
-
-
-
-
-
-
-
-
-

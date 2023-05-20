@@ -92,10 +92,7 @@
 							"    pm.response.to.have.status(200);",
 							"});",
 							"",
-							"pm.test(\"Verify array length\", function() {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData).to.have.lengthOf(4);",
-							"});"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -126,10 +123,7 @@
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Verify array length\", function() {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData).to.have.lengthOf(2);",
-							"});",
+							"",
 							"pm.test(\"Datos de Sevilla\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});"

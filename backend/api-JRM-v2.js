@@ -18,7 +18,15 @@ function loadBackend_JRM_v2(app) {
     ];
 
     db.insert(economy_stats);
-        
+/*
+    app.use("/api/v2/economy-stats/proxy",function(req,res){
+        let urlHost = "https://airbnb13.p.rapidapi.com/search-location?location=Paris&checkin=2023-09-16&checkout=2023-09-17&adults=1&children=0&infants=0&pets=0&page=1&currency=USD";
+        let url = urlHost + req.url;
+        console.log('piped: proxy' + req.url);
+        console.log(url);
+        req.pipe(request(url)).pipe(res);
+    });
+*/      
 
     app.get(BASE_API_URL+"/economy-stats/loadInitialData", (req,res) => {
         console.log("New GET to /economy-stats/loadInitialData");
@@ -310,6 +318,9 @@ function loadBackend_JRM_v2(app) {
             }
         });
     });
+
+    
+    
 
 }
 export{loadBackend_JRM_v2}

@@ -3,6 +3,7 @@ const BASE_API_URL_v1 = "/api/v1";
 
 import express from "express";
 import cors from "cors";
+import request from "request";
 
 import {loadBackend_RPP_v1} from "./backend/api-RPP.js";
 
@@ -20,11 +21,46 @@ import { handler } from "./frontend/build/handler.js";
 
 
 var app = express();
-app.use(cors());         //Para el same Origin Policy
+
 var port = process.env.PORT || 12345;
+
+
 
 //app.use("/",express.static("./public"));
 app.use(express.json());
+
+app.use(cors());         //Para el same Origin Policy
+
+
+
+//Proxy RPP
+
+var pathprox = "/proxyRPP"
+var apiServerHost = "https://sos2223-22.appspot.com/api/v2/jobs-companies-innovation-stats"
+app.use(pathprox, function(req, res) {
+  var url = apiServerHost + req.url;
+  console.log('piped: ' + req.url);
+  req.pipe(request(url)).pipe(res);
+ });
+
+
+loadBackend_RPP_v2(app);
+loadBackend_RPP_v1(app);
+loadBackend_RPP_v3(app);
+
+// Proxi JRM
+var pathprox = "/proxyJRM"
+var apiServerHost = "https://sos2223-22.appspot.com/api/v2/ict-promotion-strategy-stats"
+app.use(pathprox, function(req, res) {
+  var url = apiServerHost + req.url;
+  console.log('piped: ' + req.url);
+  req.pipe(request(url)).pipe(res);
+ });
+
+
+loadBackend_JRM_v1(app);
+loadBackend_JRM_v2(app);
+
 
 
 app.get(BASE_API_URL + "/economy-stats/docs", (req, res) => {
@@ -73,12 +109,12 @@ app.get("/api/v1/environment-stats/docs", (req, res) => {
 
 
 loadBackend_RDQ_v1(app);
-loadBackend_JRM_v1(app);
 loadBackend_RDQ_v2(app);
-loadBackend_JRM_v2(app);
-loadBackend_RPP_v2(app);
-loadBackend_RPP_v1(app);
-loadBackend_RPP_v3(app);
+
+
+
+
+
 
 
 
