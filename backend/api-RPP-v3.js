@@ -21,7 +21,11 @@ function loadBackend_RPP_v3(app) {
                         { year: 2017, city: "Almería", protected_space: 18, area: 163937, fire: 87 },
                         { year: 2017, city: "Cádiz", protected_space: 29, area: 23122, fire: 94 },
                         { year: 2017, city: "Córdoba", protected_space: 19, area: 134597, fire: 78 },
-                        { year: 2017, city: "Almería", protected_space: 29, area: 123937, fire: 95 },
+                        { year: 2017, city: "Granada", protected_space: 17, area: 220314, fire: 131 },
+                        { year: 2017, city: "Huelva", protected_space: 24, area: 31911, fire: 150 },
+                        { year: 2017, city: "Jaén", protected_space: 17, area: 317381, fire: 180 },
+                        { year: 2017, city: "Málaga", protected_space: 30, area: 89272, fire: 95 },
+                        { year: 2017, city: "Sevilla", protected_space: 25, area: 220314, fire: 93 },
                         { year: 2018, city: "Almería", protected_space: 18, area: 163937, fire: 87 },
                         { year: 2018, city: "Cádiz", protected_space: 29, area: 23122, fire: 94 },
                         { year: 2018, city: "Córdoba", protected_space: 19, area: 134597, fire: 78 },
@@ -29,7 +33,7 @@ function loadBackend_RPP_v3(app) {
                         { year: 2018, city: "Huelva", protected_space: 24, area: 31911, fire: 104 },
                         { year: 2018, city: "Jaén", protected_space: 17, area: 317381, fire: 77 },
                         { year: 2018, city: "Málaga", protected_space: 28, area: 89272, fire: 64 },
-                        { year: 2018, city: "Sevilla", protected_space: 24, area: 220868, fire: 64 },
+                        { year: 2017, city: "Sevilla", protected_space: 27, area: 220868, fire: 139 },
         
 
 
@@ -72,7 +76,11 @@ function loadBackend_RPP_v3(app) {
                         { year: 2017, city: "Almería", protected_space: 18, area: 163937, fire: 87 },
                         { year: 2017, city: "Cádiz", protected_space: 29, area: 23122, fire: 94 },
                         { year: 2017, city: "Córdoba", protected_space: 19, area: 134597, fire: 78 },
-                        { year: 2017, city: "Almería", protected_space: 29, area: 123937, fire: 95 },
+                        { year: 2017, city: "Granada", protected_space: 17, area: 220314, fire: 0 },
+                        { year: 2017, city: "Huelva", protected_space: 24, area: 31911, fire: 0 },
+                        { year: 2017, city: "Jaén", protected_space: 17, area: 317381, fire: 0 },
+                        { year: 2017, city: "Málaga", protected_space: 0, area: 0, fire: 95 },
+                        { year: 2017, city: "Sevilla", protected_space: 25, area: 220314, fire: 93 },
                         { year: 2018, city: "Almería", protected_space: 18, area: 163937, fire: 87 },
                         { year: 2018, city: "Cádiz", protected_space: 29, area: 23122, fire: 94 },
                         { year: 2018, city: "Córdoba", protected_space: 19, area: 134597, fire: 78 },
@@ -80,7 +88,8 @@ function loadBackend_RPP_v3(app) {
                         { year: 2018, city: "Huelva", protected_space: 24, area: 31911, fire: 104 },
                         { year: 2018, city: "Jaén", protected_space: 17, area: 317381, fire: 77 },
                         { year: 2018, city: "Málaga", protected_space: 28, area: 89272, fire: 64 },
-                        { year: 2018, city: "Sevilla", protected_space: 24, area: 220868, fire: 64 },
+                        { year: 2017, city: "Sevilla", protected_space: 27, area: 220868, fire: 139 },
+
 
                     ];
                     iniData.forEach((e) => {

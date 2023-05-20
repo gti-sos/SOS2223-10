@@ -93,7 +93,7 @@ import * as echarts from "echarts";
       },
       {
         name: "Población mayor de 16 años",
-        type: "line",
+        type: "bar",
         yAxisIndex: 2,
         data: populationOver16Data,
       },
