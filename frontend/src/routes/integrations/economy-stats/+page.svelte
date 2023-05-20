@@ -6,7 +6,7 @@
 
   let API = "/api/v2/economy-stats";
 
-  if (dev) API = "http://localhost:12345/" + API;
+  if (dev) API = "http://localhost:12345" + API;
 
   let results = "";
   let data = [];
@@ -193,7 +193,7 @@
     const trace3 = {
       x: territory,
       y: tourist,
-      type: "bar",
+      type: "column",
       name: "turistas",
       marker: {
         color: "red",
@@ -203,7 +203,7 @@
     const trace4 = {
       x: territory,
       y: bitRate,
-      type: "scatter",
+      type: "area",
       name: "BitRate",
       marker: {
         color: "yellow",
@@ -227,7 +227,23 @@
         l: 50,
         r: 50,
       },
-      title: "Integración Territorio con latitud y longitud",
+      title: "Integración Precio medio metro cuadrado con precio total",
+    };
+    const layout2 = {
+      xaxis: {
+        type: "category",
+        title: "Territorios",
+      },
+      yaxis: {
+        title: "Valores",
+      },
+      margin: {
+        t: 50,
+        b: 50,
+        l: 50,
+        r: 50,
+      },
+      title: "Integración numero de turistas con la media de bitRate de youtube",
     };
 
     const plotlyScript = document.createElement("script");
@@ -235,13 +251,14 @@
     plotlyScript.onload = () => {
       // Crear la gráfica
       Plotly.newPlot("myDiv", dataPlotly1, layout);
-      Plotly.newPlot("myDiv", dataPlotly2, layout);
+      Plotly.newPlot("myDiv2", dataPlotly2, layout2);
     };
     document.head.appendChild(plotlyScript);
   });
 </script>
 
 <div id="myDiv" />
+<div id="myDiv2" />
 
 <h1>API GEO-DB</h1>
 <table>
