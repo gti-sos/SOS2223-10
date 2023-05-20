@@ -16,7 +16,7 @@
   const APIEx1 =
     "https://trading-view.p.rapidapi.com/v2/auto-complete?text=tesla&lang=en&start=0";
   const apiExterna2 =
-    "https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=50&offset=0";
+  'https://idealista2.p.rapidapi.com/properties/list?locationId=0-EU-IT-RM-01-001-097-09-003&locationName=Caffarella%2C%20Roma&operation=rent&numPage=1&maxItems=40&sort=asc&locale=en&country=it';
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   async function getDataApi1() {
@@ -32,8 +32,8 @@
       const dataRecived = await res.json();
       //console.log(dataRecived);
       results = JSON.stringify(dataRecived, null, 2);
-      datosAPI1 = dataRecived.symbols.slice(10, 15);
-      console.log(datosAPI1);
+      datosAPI1 = dataRecived.symbols.slice(0, 10);
+      console.log("Estos son los datos de la API1",datosAPI1);
     } catch (error) {
       console.log(`Error parsing result: ${error}`);
     }
@@ -45,16 +45,16 @@
     const res = await fetch(apiExterna2, {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "bf07a2acb0msh7f5e40a2ed07776p1bdb14jsndbe5bc17f154",
-        "X-RapidAPI-Host": "coinranking1.p.rapidapi.com",
-      },
+		'X-RapidAPI-Key': 'bf07a2acb0msh7f5e40a2ed07776p1bdb14jsndbe5bc17f154',
+		'X-RapidAPI-Host': 'idealista2.p.rapidapi.com'
+	}
     });
 
     try {
       const dataRecived = await res.json();
-      //console.log(dataRecived);
+      console.log(dataRecived);
       results = JSON.stringify(dataRecived, null, 2);
-      datosAPI2 = dataRecived.data.coins.slice(0, 5);
+      datosAPI2 = dataRecived.elementList.slice(0, 5);
       //console.log(datosAPI2);
     } catch (error) {
       console.log(`Error parsing result: ${error}`);
@@ -101,17 +101,17 @@
   <table>
     <thead>
       <tr>
-        <th>Nombre</th>
-        <th>Posicion</th>
-        <th>Precio en bitcoin</th>
+        <th>Ciudad</th>
+        <th>Barrio</th>
+        <th>Precio</th>
       </tr>
     </thead>
     <tbody>
       {#each datosAPI2 as dato2}
         <tr>
-          <td>{dato2.name}</td>
-          <td>{dato2.rank}</td>
-          <td>{dato2.btcPrice}</td>
+          <td>{dato2.municipality}</td>
+          <td>{dato2.neighborhood}</td>
+          <td>{dato2.price}</td>
         </tr>
       {/each}
     </tbody>
