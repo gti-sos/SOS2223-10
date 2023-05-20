@@ -48,6 +48,20 @@ loadBackend_RPP_v2(app);
 loadBackend_RPP_v1(app);
 loadBackend_RPP_v3(app);
 
+// Proxi JRM
+var pathprox = "/proxyjrm"
+var apiServerHost = "https://sos2223-22.appspot.com/api/v2/ict-promotion-strategy-stats"
+app.use(pathprox, function(req, res) {
+  var url = apiServerHost + req.url;
+  console.log('piped: ' + req.url);
+  req.pipe(request(url)).pipe(res);
+ });
+
+
+loadBackend_JRM_v1(app);
+loadBackend_JRM_v2(app);
+
+
 
 app.get(BASE_API_URL + "/economy-stats/docs", (req, res) => {
     console.log("Se ejecuta" + BASE_API_URL + "/economy-stats/docs");
@@ -95,9 +109,8 @@ app.get("/api/v1/environment-stats/docs", (req, res) => {
 
 
 loadBackend_RDQ_v1(app);
-loadBackend_JRM_v1(app);
 loadBackend_RDQ_v2(app);
-loadBackend_JRM_v2(app);
+
 
 
 
