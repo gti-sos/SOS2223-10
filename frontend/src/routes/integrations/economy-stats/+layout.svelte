@@ -1,6 +1,6 @@
 <script>
     import Integraciones from "./+page.svelte";
-    import Proxy from "./servidorProxi.svelte";
+   // import Proxy from "./servidorProxi.svelte";
    
 </script>
 
@@ -8,7 +8,7 @@
 <main>
     <Integraciones></Integraciones>
     <h3>Servidor de Proxy</h3>
-    <Proxy></Proxy>
+   <!-- <Proxy></Proxy> -->
     
     
     

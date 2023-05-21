@@ -105,43 +105,42 @@
     }
 
     async function loadChart(statsF, statsM) {
-        var auxiliarPeriodo = [];
-        var auxiliarPopulation = [];
-        var auxGlobalPopulation = [];
-        //console.log("Mis datos", statsM);
-        for (var i = 0; i < statsM.length; i++) {
-                //auxiliarPeriodo.push(statsM[i].period);
-                //auxiliarPopulation.push(statsM[i].population_over_16_years);
-            if (statsM[i].period == 2014 && statsM[i].province == "sevilla") {
-                auxiliarPeriodo.push(statsM[i].period);
-                auxiliarPopulation.push(statsM[i].population_over_16_years);
-            }
-            
-        }
-        auxiliarPeriodo.push(2023); //Actualidad
-        console.log(auxiliarPeriodo);
-        auxGlobalPopulation.push(statsF.count);
-        console.log(auxGlobalPopulation);
+    var auxiliarPeriodo = [];
+    var auxiliarPopulation = [];
+    var auxGlobalPopulation = [];
 
-        //console.log(auxiliarPeriodo);
-        var data = {
-            labels: auxiliarPeriodo,
-            series: [auxiliarPopulation, auxGlobalPopulation]
-        };
-
-        var options = {
-            seriesBarDistance: 15,
-            plugins: [
-                Chartist.plugins.tooltip({
-                    transformTooltipTextFnc: function (value) {
-                        return value.toString();
-                    },
-                }),
-            ],
-        };
-
-        new Chartist.Bar("#barras-chart", data, options);
+    for (var i = 0; i < statsM.length; i++) {
+        auxiliarPeriodo.push(statsM[i].period);
+        auxiliarPopulation.push(statsM[i].population_over_16_years);
     }
+
+    auxGlobalPopulation.push(statsF.count);
+    console.log(auxiliarPopulation);
+    console.log(auxGlobalPopulation);
+    var data = {
+        labels: auxiliarPeriodo,
+        series: [auxiliarPopulation, auxGlobalPopulation]
+    };
+
+    var options = {
+        axisX: {
+            labelInterpolationFnc: function (value, index) {
+                // Mostrar todos los valores de period en el eje x
+                return value;
+            }
+        },
+        seriesBarDistance: 15,
+        plugins: [
+            Chartist.plugins.tooltip({
+                transformTooltipTextFnc: function (value) {
+                    return value.toString();
+                },
+            }),
+        ],
+    };
+
+    new Chartist.Bar("#barras-chart", data, options);
+}
 
     onMount(async () => {
         await getData();

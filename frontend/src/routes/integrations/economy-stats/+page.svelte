@@ -18,8 +18,9 @@
   let half_price_m_two = [];
   let tourist = [];
   let precio = []; // Array para almacenar puntuaciones
-  let bitRate = [];
- 
+  let visitas = [];
+  let ciudad = [];
+  let fecha=[];
 
   async function getData() {
     console.log("Fetching stats....");
@@ -30,7 +31,7 @@
       console.log("Estadísticas recibidas: " + stats.length);
       // Inicializamos los arrays para mostrar los datos
       stats.forEach((stat) => {
-        territory.push(stat.territory + "-" + stat.period);
+        territory.push(stat.territory);
         period.push(stat.period);
         finished_house.push(stat.finished_house);
         half_price_m_two.push(stat.half_price_m_two);
@@ -107,8 +108,10 @@
       results = JSON.stringify(response, null, 2);
       if (Array.isArray(response.results)) {
         response.results.forEach((item3) => {
+          console.log(response);
           precio.push(item3.price.total); // Agregar precio total al array
-          //console.log(precio);
+          ciudad.push(item3.city);
+          console.log(precio);
         });
       } else {
         console.log("Error: results is not an array.");
@@ -120,7 +123,7 @@
     resultStatus = status;
   }
 
-  const apiExterna4 = "https://yt-api.p.rapidapi.com/dl?id=arj7oStGLkU";
+  const apiExterna4 = 'https://twitter154.p.rapidapi.com/user/likes?user_id=96479162&limit=10';
   async function getDataApi4() {
     let resultStatus = "";
     let results = "";
@@ -131,7 +134,7 @@
         headers: {
           "X-RapidAPI-Key":
             "1e9cbc92ffmshcd2acf78a6e6212p187ea5jsn23d868ef2151",
-          "X-RapidAPI-Host": "yt-api.p.rapidapi.com",
+          "X-RapidAPI-Host": "twitter154.p.rapidapi.com",
         },
       });
 
@@ -141,33 +144,34 @@
 
       const response = await res.json();
       results = JSON.stringify(response, null, 2);
-
-      const adaptiveFormats = response.adaptiveFormats;
-      if (Array.isArray(adaptiveFormats) && adaptiveFormats.length > 0) {
-        adaptiveFormats.forEach((format) => {
-          bitRate.push(format.averageBitrate);
+      console.log("response", response);
+      if (Array.isArray(response.results)) {
+        response.results.forEach((item4) => {
+          console.log(response);
+          visitas.push(item4.views); // Agregar visitas total al array
+          fecha.push(item4.creation_date);
+          console.log("visitas",visitas);
+          console.log("fecha", fecha);
         });
       } else {
         console.log(
-          "Error: No se encontraron formatos adaptativos o la estructura de la respuesta es incorrecta"
+          "Error: No se encontraron el resultado"
         );
       }
 
       resultStatus = res.status;
     } catch (error) {
       console.log(`Error: ${error.message}`);
-    }
-
-    //console.log("BitRate:", bitRate);
-    //console.log("Result Status:", resultStatus);
-    //console.log("Results:", results);
+    }    
+    console.log("Result Status:", resultStatus);
+    console.log("Results:", results);
   }
 
   onMount(async () => {
     await getData();
     await getDataApi1();
     await getDataApi2();
-    await getDataApi3(); 
+    await getDataApi3();
     await getDataApi4();
 
     const trace1 = {
@@ -181,9 +185,9 @@
     };
 
     const trace2 = {
-      x: territory,
+      x: ciudad,
       y: precio,
-      type: "scatter",
+      type: "bar",
       name: "precio",
       marker: {
         color: "blue",
@@ -191,22 +195,22 @@
     };
 
     const trace3 = {
-      x: territory,
+      x: period,
       y: tourist,
-      type: "column",
-      name: "turistas",
+      mode: "markers",
+      name: "Histograms",
       marker: {
-        color: "red",
+        color: "purple",
       },
     };
 
     const trace4 = {
-      x: territory,
-      y: bitRate,
-      type: "area",
-      name: "BitRate",
+      x: fecha,
+      y: visitas,
+      type: "scatter",
+      name: "Número de visitas",
       marker: {
-        color: "yellow",
+        color: "red",
       },
     };
 
@@ -243,7 +247,8 @@
         l: 50,
         r: 50,
       },
-      title: "Integración numero de turistas con la media de bitRate de youtube",
+      title:
+        "Integración numero de turistas con la media de bitRate de youtube",
     };
 
     const plotlyScript = document.createElement("script");
@@ -356,4 +361,5 @@
     background-color: #ddd;
   }
 </style>
+
 
