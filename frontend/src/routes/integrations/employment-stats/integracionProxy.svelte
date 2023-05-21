@@ -7,6 +7,7 @@
     let API = "/api/v2/employment-stats";
 
     if (dev) API = "http://localhost:12345" + API;
+    let APIproxy = "https://sos2223-10.appspot.com/proxyRDQ";
 
     let results = "";
     let datosAPI1 = "";
@@ -21,15 +22,13 @@
     let period = "";
     let jobs_industry = [];
     let population_over_16_years = "population_over_16_years";
-    //let APIproxy = "https://sos2223-10.appspot.com/proxyRDQ";
 
     async function getData() {
         console.log("Fetching stats....");
         const res = await fetch(
-            "https://sos2223-10.appspot.com/proxyRDQ"
+            APIproxy
         );
-        const res1 = await fetch(
-            "https://sos2223-10.appspot.com/api/v1/employment-stats"
+        const res1 = await fetch(API
         );
         console.log(res);
         if (res.ok && res1.ok) {

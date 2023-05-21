@@ -1,6 +1,7 @@
 <script>
     // @ts-nocheck
     import { onMount } from "svelte";
+    import { dev } from "$app/environment";
     let API = "/api/v2/economy-stats";
 
     if (dev) API = "http://localhost:12345" + API;
@@ -30,12 +31,15 @@
                 finished_house.push(stat.finished_house);
                 half_price_m_two.push(stat.half_price_m_two);
                 tourist.push(stat.tourist);
+                console.log(stats)
             });
         } else {
             console.log("Error cargando los datos");
         }
     }
 
+    let year=[];
+    let wholesale_trade=[];
     async function getData() {
         resultStatus = result = "";
 
@@ -48,7 +52,13 @@
             const dataReceived = await res.json();
             result = JSON.stringify(dataReceived, null, 2);
             apiData = dataReceived;
-            console.log(apiData);    
+            apiData.forEach((stat) => {
+                year.push(stat.year);
+                wholesale_trade.push(stat.wholesale_trade);
+            });
+            console.log(apiData);  
+            console.log(year);
+            console.log(wholesale_trade); 
         } catch (error) {
             console.log(`Error parseando el resultado de la API: ${error}`);
         }
@@ -61,7 +71,7 @@
         const trace3 = {
             x: period,
             y: half_price_m_two,
-            mode: "markers",
+            mode: "column",
             name: "número de turistas",
             marker: {
                 color: "purple",
@@ -69,8 +79,8 @@
         };
 
         const trace4 = {
-            x: apiData.year,
-            y: apiData.wholesale_trade,
+            x: year,
+            y: wholesale_trade,
             type: "scatter",
             name: "Número de visitas",
             marker: {

@@ -50,7 +50,7 @@ loadBackend_RPP_v3(app);
 
 // Proxi JRM
 var pathprox = "/proxyJRM"
-var apiServerHost = 'https://sos2223-22.appspot.com/api/v2/ict-promotion-strategy-stats';
+var apiServerHost = "https://sos2223-22.appspot.com/api/v2/ict-promotion-strategy-stats"
 app.use(pathprox, function(req, res) {
   var url = apiServerHost + req.url;
   console.log('piped: ' + req.url);
@@ -63,7 +63,7 @@ loadBackend_JRM_v2(app);
 
 // Proxy RDQ
 var dirAux = "/proxyRDQ"
-var apiServerMio = "https://sos2223-15.appspot.com/api/v2/jobseekers-studies"
+var apiServerMio = "https://sos2223-15.appspot.com/api/v2/loss-jobs"
 app.use(dirAux, function(req, res) {
   var url = apiServerMio + req.url;
   console.log('piped: ' + req.url);
