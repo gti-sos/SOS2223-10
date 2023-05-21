@@ -1,12 +1,12 @@
 <script>
-    import Integraciones from "./usosIntegraciones.svelte";
+  //  import Integraciones from "./usosIntegraciones.svelte";
     import Proxy from "./servidorProxi.svelte";
    
 </script>
 
 
 <main>
-  <Integraciones></Integraciones> 
+<!--  <Integraciones></Integraciones>  -->
     <h3>Servidor de Proxy</h3>
     <Proxy></Proxy> 
     

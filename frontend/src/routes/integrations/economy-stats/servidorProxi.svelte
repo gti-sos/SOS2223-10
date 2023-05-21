@@ -1,17 +1,24 @@
 <script>
     // @ts-nocheck
     import { onMount } from "svelte";
+    let API = "/api/v2/economy-stats";
+
+    if (dev) API = "http://localhost:12345" + API;
 
     let APIproxy = "https://sos2223-10.appspot.com/proxyJRM";
-
-
+    let stats = [];
     let apiData = "";
     let result = "";
     let resultStatus = "";
+    let territory = [];
+    let period = [];
+    let finished_house = [];
+    let half_price_m_two = [];
+    let tourist = [];
 
     async function getDataMia() {
         console.log("Fetching stats....");
-        const res = await fetch(APIproxy);
+        const res = await fetch(API);
         if (res.ok) {
             const data = await res.json();
             stats = data;
@@ -28,6 +35,7 @@
             console.log("Error cargando los datos");
         }
     }
+
     async function getData() {
         resultStatus = result = "";
 
@@ -35,41 +43,21 @@
         const res = await fetch(APIproxy, {
             method: "GET",
         });
+        console.log(res);
         try {
             const dataReceived = await res.json();
             result = JSON.stringify(dataReceived, null, 2);
             apiData = dataReceived;
+            console.log(apiData);    
         } catch (error) {
             console.log(`Error parseando el resultado de la API: ${error}`);
         }
-
-        mostrar(apiData);
-    }
-
-    // Obtener el elemento del cuerpo de la tabla
-    async function mostrar(apiData) {
-        const tableBody = document.getElementById("table-body");
-
-        console.log(apiData);
-        // Mostrar los datos en la tabla
-        apiData.slice(0, 12).forEach((data) => {
-            const row = document.createElement("tr");
-            row.innerHTML = `
-    <td>${data.territory}</td>
-    <td>${data.year}</td>
-    <td>${data.ict_manufacturing_industry}</td>
-    <td>${data.wholesale_trade}</td>
-    <td>${data.edition_of_computer_program}</td>
-  `;
-            tableBody.appendChild(row);
-        });
     }
 
     onMount(async () => {
         await getData();
         await getDataMia();
-        
-        
+
         const trace3 = {
             x: period,
             y: half_price_m_two,
@@ -81,8 +69,8 @@
         };
 
         const trace4 = {
-            x: year,
-            y: wholesale_trade,
+            x: apiData.year,
+            y: apiData.wholesale_trade,
             type: "scatter",
             name: "Número de visitas",
             marker: {
@@ -117,7 +105,6 @@
         };
         document.head.appendChild(plotlyScript);
     });
-
 </script>
 
 <div id="myDiv2" />
