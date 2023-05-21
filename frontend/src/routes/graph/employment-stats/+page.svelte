@@ -18,7 +18,7 @@
     let anio = "period";
     let pruebas = 0;
     let resultStatus = "";
-
+ 
     async function getData() {
         resultStatus = results = "";
         const res = await fetch(API, {
