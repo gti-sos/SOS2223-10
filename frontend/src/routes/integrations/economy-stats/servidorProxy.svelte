@@ -111,10 +111,10 @@
         plotlyScript.src = "https://cdn.plot.ly/plotly-2.3.0.min.js";
         plotlyScript.onload = () => {
             // Crear la gráfica
-            Plotly.newPlot("myDiv2", dataPlotly4, layout3);
+            Plotly.newPlot("myDiv3", dataPlotly4, layout3);
         };
         document.head.appendChild(plotlyScript);
     });
 </script>
 
-<div id="myDiv2" />
+<div id="myDiv3" />

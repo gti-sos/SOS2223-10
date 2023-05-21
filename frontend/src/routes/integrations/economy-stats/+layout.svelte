@@ -1,11 +1,14 @@
 <script>
-  //  import Integraciones from "./+page.svelte";
+    import Integraciones from "./integraciones.svelte";
     import Proxy from "./servidorProxy.svelte";
    
 </script>
 
 
 <main>
- <!-- <Integraciones></Integraciones> -->
-  <Proxy></Proxy> 
+  <h3>Integraciones</h3>
+  <Integraciones />
+  <h3>Integracion con Proxy</h3>
+  <Proxy />
+  <hr style="margin-left: 100px; margin-right: 100px" />
 </main>
