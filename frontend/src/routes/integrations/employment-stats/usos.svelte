@@ -68,8 +68,10 @@
     //await getDataApi2();
   });
 </script>
-
-{#await getDataApi1()}
+<h2>
+  Datos de equipos ingleses
+</h2>
+  {#await getDataApi1()}
   <p>Fetching data from API 1...</p>
 {:then}
   <table>
@@ -93,7 +95,10 @@
 {:catch error}
   <p>Error fetching data from API 1: {error.message}</p>
 {/await}
-
+<p></p>
+<p></p>
+<h2>Datos de Idealista</h2>
+<p></p>
 {#await getDataApi2()}
   <p>Fetching data from API 2...</p>
 {:then}
