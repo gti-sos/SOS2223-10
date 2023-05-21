@@ -49,10 +49,10 @@ loadBackend_RPP_v1(app);
 loadBackend_RPP_v3(app);
 
 // Proxi JRM
-var pathprox = "/proxyJRM"
-var apiServerHost = 'https://sos2223-22.appspot.com/api/v2/ict-promotion-strategy-stats';
-app.use(pathprox, function(req, res) {
-  var url = apiServerHost + req.url;
+var pathprox1 = "/proxyJRM"
+var apiServerHost1 = 'https://sos2223-22.appspot.com/api/v2/ict-promotion-strategy-stats';
+app.use(pathprox1, function(req, res) {
+  var url = apiServerHost1 + req.url;
   console.log('piped: ' + req.url);
   req.pipe(request(url)).pipe(res);
  });
