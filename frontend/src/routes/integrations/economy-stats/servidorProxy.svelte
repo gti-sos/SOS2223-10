@@ -1,6 +1,7 @@
 <script>
     // @ts-nocheck
     import { onMount } from "svelte";
+    import { dev } from "$app/environment";
     let API = "/api/v2/economy-stats";
 
     if (dev) API = "http://localhost:12345" + API;
@@ -30,12 +31,15 @@
                 finished_house.push(stat.finished_house);
                 half_price_m_two.push(stat.half_price_m_two);
                 tourist.push(stat.tourist);
+                console.log(stats)
             });
         } else {
             console.log("Error cargando los datos");
         }
     }
 
+    let year=[];
+    let wholesale_trade=[];
     async function getData() {
         resultStatus = result = "";
 
@@ -48,7 +52,13 @@
             const dataReceived = await res.json();
             result = JSON.stringify(dataReceived, null, 2);
             apiData = dataReceived;
-            console.log(apiData);    
+            apiData.forEach((stat) => {
+                year.push(stat.year);
+                wholesale_trade.push(stat.wholesale_trade);
+            });
+            console.log(apiData);  
+            console.log(year);
+            console.log(wholesale_trade); 
         } catch (error) {
             console.log(`Error parseando el resultado de la API: ${error}`);
         }
@@ -58,19 +68,19 @@
         await getData();
         await getDataMia();
 
-        const trace3 = {
+        const trace5 = {
             x: period,
             y: half_price_m_two,
-            mode: "markers",
+            type: "area",
             name: "número de turistas",
             marker: {
                 color: "purple",
             },
         };
 
-        const trace4 = {
-            x: apiData.year,
-            y: apiData.wholesale_trade,
+        const trace6 = {
+            x: year,
+            y: wholesale_trade,
             type: "scatter",
             name: "Número de visitas",
             marker: {
@@ -78,9 +88,9 @@
             },
         };
 
-        const dataPlotly2 = [trace3, trace4];
+        const dataPlotly4 = [trace5, trace6];
 
-        const layout2 = {
+        const layout3 = {
             xaxis: {
                 type: "category",
                 title: "Fecha",
@@ -101,10 +111,10 @@
         plotlyScript.src = "https://cdn.plot.ly/plotly-2.3.0.min.js";
         plotlyScript.onload = () => {
             // Crear la gráfica
-            Plotly.newPlot("myDiv2", dataPlotly2, layout2);
+            Plotly.newPlot("myDiv3", dataPlotly4, layout3);
         };
         document.head.appendChild(plotlyScript);
     });
 </script>
 
-<div id="myDiv2" />
+<div id="myDiv3" />
