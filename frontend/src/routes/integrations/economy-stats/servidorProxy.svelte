@@ -68,7 +68,7 @@
         await getData();
         await getDataMia();
 
-        const trace3 = {
+        const trace5 = {
             x: period,
             y: half_price_m_two,
             mode: "column",
@@ -78,7 +78,7 @@
             },
         };
 
-        const trace4 = {
+        const trace6 = {
             x: year,
             y: wholesale_trade,
             type: "scatter",
@@ -88,9 +88,9 @@
             },
         };
 
-        const dataPlotly2 = [trace3, trace4];
+        const dataPlotly4 = [trace5, trace6];
 
-        const layout2 = {
+        const layout3 = {
             xaxis: {
                 type: "category",
                 title: "Fecha",
@@ -111,7 +111,7 @@
         plotlyScript.src = "https://cdn.plot.ly/plotly-2.3.0.min.js";
         plotlyScript.onload = () => {
             // Crear la gráfica
-            Plotly.newPlot("myDiv2", dataPlotly2, layout2);
+            Plotly.newPlot("myDiv2", dataPlotly4, layout3);
         };
         document.head.appendChild(plotlyScript);
     });
