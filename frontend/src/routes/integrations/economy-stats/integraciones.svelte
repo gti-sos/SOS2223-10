@@ -99,7 +99,7 @@
     const res = await fetch(apiExterna3, {
       method: "GET",
       headers: {
-        'X-RapidAPI-Key': '1fcd22e2d6mshe65a5ffe5c21c81p11a806jsn6259cc22b460',
+        'X-RapidAPI-Key': 'dff350a5e9msh0576314cd591864p1be088jsn092c880c0a12',
         'X-RapidAPI-Host': 'airbnb13.p.rapidapi.com'
 
         //"X-RapidAPI-Key": "1e9cbc92ffmshcd2acf78a6e6212p187ea5jsn23d868ef2151",
