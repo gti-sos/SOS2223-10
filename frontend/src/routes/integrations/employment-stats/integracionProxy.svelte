@@ -1,6 +1,7 @@
 <script>
     //@ts-nocheck
     import { onMount } from "svelte";
+    import { BarChart } from "chartist";
     import { dev } from "$app/environment";
     import { Button, Label } from "sveltestrap";
     let API = "/api/v2/employment-stats";
@@ -11,6 +12,7 @@
     let datosAPI1 = "";
     let myStats = [];
     let statsC = [];
+    let statsE = [];
     let datosMyAPI = "";
     let datosAPI2 = "";
     let resultStatus = "";
@@ -19,69 +21,23 @@
     let period = "";
     let jobs_industry = [];
     let population_over_16_years = "population_over_16_years";
-/*
-    const APIIntegracion1 =
-        "https://sos2223-22.appspot.com/api/v1/jobs-companies-innovation-stats";
-    const myData = "https://sos2223-10.appspot.com/api/v1/employment-stats";
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    async function getDataApi3() {
-        resultStatus = results = "";
-        const res = await fetch(APIIntegracion1, {
-            method: "GET",
-        });
-
-        try {
-            const dataRecived = await res.json();
-            console.log(dataRecived);
-            results = JSON.stringify(dataRecived, null, 2);
-            //datosAPI2 = dataRecived.elementList.slice(0, 5);
-            datosAPI2 = dataRecived;
-            //console.log(datosAPI2);
-        } catch (error) {
-            console.log(`Error parsing result: ${error}`);
-        }
-
-        const status = await res.status;
-        resultStatus = status; //Sirve para almacenar el codigo de estado de la peticion.
-    }
-    /*
-    async function getMyData() {
-        resultStatus = results = "";
-        const res = await fetch(myData, {
-            method: "GET",
-        });
-
-        try {
-            const dataRecived = await res.json();
-            results = JSON.stringify(dataRecived, null, 2);
-            //datosAPI2 = dataRecived.elementList.slice(0, 5);
-            datosMyAPI = dataRecived;
-            loadChart(datosMyAPI)
-            console.log(datosMyAPI);
-        } catch (error) {
-            console.log(`Error parsing result: ${error}`);
-        }
-
-        const status = await res.status;
-        resultStatus = status; //Sirve para almacenar el codigo de estado de la peticion.
-    }
-*/
+    //let APIproxy = "https://sos2223-10.appspot.com/proxyRDQ";
 
     async function getData() {
         console.log("Fetching stats....");
         const res = await fetch(
-            "https://sos2223-22.appspot.com/api/v1/jobs-companies-innovation-stats/loadInitialData"
+            "https://sos2223-10.appspot.com/proxyRDQ"
         );
         const res1 = await fetch(
             "https://sos2223-10.appspot.com/api/v1/employment-stats"
         );
+        console.log(res);
         if (res.ok && res1.ok) {
             const data = await res.json();
-            console.log(data);
+            console.log("Datos externos",data);
             const data1 = await res1.json();
-            statsC = data;
-            console.log("Estadísticas recibidas: " + statsC.length);
+            statsE = data;
+            console.log("Estadísticas recibidas: " + statsE.length);
             //inicializamos los arrays para mostrar los datos
             myStats = data1;
             console.log("Estadísticas recibidas: " + myStats.length);
@@ -89,11 +45,11 @@
         } else {
             console.log("Error cargando los datos");
         }
-        loadChart(statsC, myStats);
+        loadChart(statsE, myStats);
         console.log("Comprobando");
     }
 
-    async function loadChart(datosC, datosM) {
+    async function loadChart(datosE, datosM) {
         var auxiliarPeriodo = [];
         var auxiliarPopulation = [];
         var auxiliarJobs = [];
@@ -102,12 +58,13 @@
             auxiliarPeriodo.push(datosM[i].period);
             auxiliarPopulation.push(datosM[i].population_over_16_years);
         }
-        console.log(datosC);
+        console.log(datosE);
         console.log(auxiliarPeriodo);
-        for (var i = 0; i < datosC.length; i++) {
-            auxiliarJobs.push(datosC[i].jobs_industry);
+        for (var i = 0; i < datosE.length; i++) {
+            auxiliarJobs.push(datosE[i].total);
         }
-/*
+
+        /*
         var data = {
             labels: auxiliarPeriodo,
             series: [auxiliarPopulation, auxiliarJobs],
@@ -125,9 +82,20 @@
         };
 
         new Chartist.Bar("#barras-chart", data, options);
-*/
+        */
 
-        var chart = new Chartist.Line(
+        console.log("Auxiliarperiodo", auxiliarPeriodo);
+        console.log("Auxiliarperiodo", auxiliarJobs);
+        console.log("auxiliarPopulation", auxiliarPopulation);
+        new BarChart(
+            "#integracion2Chartist",
+            {
+                labels: auxiliarPeriodo,
+                series: [auxiliarJobs, auxiliarPopulation],
+            }
+        );
+        /*
+        var chart = new Chartist.Bar(
             "#integracion2Chartist",
             {
                 labels: auxiliarPeriodo,
@@ -159,7 +127,10 @@
                 plugins: [
                     //Chartist.plugins.tooltip({appendToBody:true),
                     Chartist.plugins.legend({
-                        legendNames: ["Trabajadores de industrias", "Personas mayores de edad en Andalucía"],
+                        legendNames: [
+                            "Trabajadores de industrias",
+                            "Personas mayores de edad en Andalucía",
+                        ],
                     }),
                     Chartist.plugins.ctAxisTitle({
                         axisX: {
@@ -184,6 +155,7 @@
                 ],
             }
         );
+        */
     }
 
     onMount(async () => {
@@ -235,7 +207,7 @@
 </svelte:head>
 <!-- Poner siempre el html dentro de main-->
 <main>
-    <div id="integracion2Chartist" style="text-align: center;"></div>
+    <div id="integracion2Chartist" style="text-align: center;" />
     <h2 style="text-align: center;">Integracion</h2>
     <div id="barras-chart" />
     <style>
