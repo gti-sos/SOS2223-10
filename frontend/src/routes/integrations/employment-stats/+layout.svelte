@@ -5,11 +5,9 @@
 </script>
 
 <main>
-    <h3>Usos</h3>
     <Usos />
-    <h3>Integracion con Proxy</h3>
+    <h2>Integracion con Proxy</h2>
     <IntegracionProxy />
-    <h3>Integracion2</h3>
     <Integracion2 />
     <hr style="margin-left: 100px; margin-right: 100px" />
 </main>

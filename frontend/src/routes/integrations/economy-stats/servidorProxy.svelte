@@ -71,7 +71,7 @@
         const trace5 = {
             x: period,
             y: half_price_m_two,
-            mode: "column",
+            type: "area",
             name: "número de turistas",
             marker: {
                 color: "purple",
