@@ -13,10 +13,9 @@
   let datosAPI2 = "";
   let resultStatus = "";
 
-  const APIEx1 =
-    "https://trading-view.p.rapidapi.com/v2/auto-complete?text=tesla&lang=en&start=0";
+  const APIEx1 = "https://sportscore1.p.rapidapi.com/sports/1/teams?page=1";
   const apiExterna2 =
-  'https://idealista2.p.rapidapi.com/properties/list?locationId=0-EU-IT-RM-01-001-097-09-003&locationName=Caffarella%2C%20Roma&operation=rent&numPage=1&maxItems=40&sort=asc&locale=en&country=it';
+    "https://idealista2.p.rapidapi.com/properties/list?locationId=0-EU-IT-RM-01-001-097-09-003&locationName=Caffarella%2C%20Roma&operation=rent&numPage=1&maxItems=40&sort=asc&locale=en&country=it";
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   async function getDataApi1() {
@@ -24,16 +23,16 @@
     const res = await fetch(APIEx1, {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "bf07a2acb0msh7f5e40a2ed07776p1bdb14jsndbe5bc17f154",
-        "X-RapidAPI-Host": "trading-view.p.rapidapi.com",
+        "X-RapidAPI-Key": "1fcd22e2d6mshe65a5ffe5c21c81p11a806jsn6259cc22b460",
+        "X-RapidAPI-Host": "sportscore1.p.rapidapi.com",
       },
     });
     try {
       const dataRecived = await res.json();
-      //console.log(dataRecived);
       results = JSON.stringify(dataRecived, null, 2);
-      datosAPI1 = dataRecived.symbols.slice(0, 10);
-      console.log("Estos son los datos de la API1",datosAPI1);
+      //console.log("Results API1", results);
+      datosAPI1 = dataRecived.data.slice(0, 10);
+      //console.log("Estos son los datos de la API1",datosAPI1);
     } catch (error) {
       console.log(`Error parsing result: ${error}`);
     }
@@ -45,14 +44,14 @@
     const res = await fetch(apiExterna2, {
       method: "GET",
       headers: {
-		'X-RapidAPI-Key': 'bf07a2acb0msh7f5e40a2ed07776p1bdb14jsndbe5bc17f154',
-		'X-RapidAPI-Host': 'idealista2.p.rapidapi.com'
-	}
+        "X-RapidAPI-Key": "6e05226348mshbac5baf127d9c4cp13df23jsnfca096197252",
+        "X-RapidAPI-Host": "idealista2.p.rapidapi.com",
+      },
     });
 
     try {
       const dataRecived = await res.json();
-      console.log(dataRecived);
+      //console.log(dataRecived);
       results = JSON.stringify(dataRecived, null, 2);
       datosAPI2 = dataRecived.elementList.slice(0, 5);
       //console.log(datosAPI2);
@@ -65,9 +64,8 @@
   }
 
   onMount(async () => {
-   
-    await getDataApi1();
-    await getDataApi2();
+    //await getDataApi1();
+    //await getDataApi2();
   });
 </script>
 
@@ -85,9 +83,9 @@
     <tbody>
       {#each datosAPI1 as dato1}
         <tr>
-          <td>{dato1.currency_code}</td>
-          <td>{dato1.type}</td>
-          <td>{dato1.exchange}</td>
+          <td>{dato1.name}</td>
+          <td>{dato1.id}</td>
+          <td>{dato1.category_id}</td>
         </tr>
       {/each}
     </tbody>
@@ -121,7 +119,6 @@
   <p>Error fetching data from API 2: {error.message}</p>
 {/await}
 
-
 <style>
   table {
     width: 100%;
@@ -151,7 +148,3 @@
     background-color: #d8eaff;
   }
 </style>
-
-
-
-

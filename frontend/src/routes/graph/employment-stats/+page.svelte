@@ -50,7 +50,7 @@
                 //valoresX.push(graphData[i][propiedadX]);
                 workers.push(graphData[i][propiedadY]);
                 unemployed = 100 - workers;
-                workers = parseFloat(workers)
+                workers = parseFloat(workers);
             }
         }
 
@@ -97,7 +97,7 @@
                     innerSize: "50%",
                     data: [
                         ["Empleados", workers],
-                        ["Desempleados", unemployed]
+                        ["Desempleados", unemployed],
                     ],
                 },
             ],
@@ -114,25 +114,76 @@
         var anyo = [];
         var datosOrdenados = ordenarPorPeriodo(datos);
         for (var i = 0; i < datosOrdenados.length; i++) {
-                anyo.push(datosOrdenados[i][anio]);
-                trabajadoras.push(datosOrdenados[i][trabaj]);
+            anyo.push(datosOrdenados[i][anio]);
+            trabajadoras.push(datosOrdenados[i][trabaj]);
+        }
+        console.log(trabajadoras);
+        console.log(anyo);
+
+        var chart = new Chartist.Line(
+            "#womenGraph",
+            {
+                labels: anyo,
+                series: [trabajadoras]
+            },
+            {
+                axisY: {
+                    onlyInteger: true,
+                    labelInterpolationFnc: function (value) {
+                        return value;
+                    },
+                    axisTitle: "Poblacion mayor de edad", // Título del eje Y
+                },
+                axisX: {
+                    onlyInteger: true,
+                    labelInterpolationFnc: function (value) {
+                        return "Año " + value;
+                    },
+                    axisTitle: "Año", // Título del eje X
+                },
+                chartPadding: {
+                    top: 40,
+                    right: 20,
+                    bottom: 30,
+                    left: 50,
+                },
+                height: "400px",
+                width: "800px",
+                plugins: [
+                    //Chartist.plugins.tooltip({appendToBody:true),
+                    Chartist.plugins.legend({
+                        legendNames: [
+                            "Trabajadores de industrias",
+                            "Personas mayores de edad en Andalucía",
+                        ],
+                    }),
+                    Chartist.plugins.ctAxisTitle({
+                        axisX: {
+                            axisTitle: "Año",
+                            axisClass: "ct-axis-title2",
+                            offset: {
+                                x: 0,
+                                y: 50,
+                            },
+                            textAnchor: "middle",
+                        },
+                        axisY: {
+                            axisTitle: "Poblacion",
+                            axisClass: "ct-axis-title",
+                            offset: {
+                                x: 0,
+                                y: 0,
+                            },
+                            textAnchor: "start",
+                        },
+                    }),
+                ],
             }
-            console.log(trabajadoras);
-        var data = {
-            labels: anyo,
-            series: [trabajadoras],
-        };
-
-        var options = {
-            showArea: true,
-        };
-
-        new Chartist.Line("#ct-chart", data, options);
+        );
     }
 
     onMount(async () => {
         getData();
-        
     });
 </script>
 
@@ -170,7 +221,7 @@
       fontSize: 40,     
     }
     </style>
-    <div id="ct-chart" style="text-align: center;">
+    <div id="womenGraph" style="text-align: center;">
         <style>
       .ct-legend {
         display: flex;
@@ -248,13 +299,12 @@
     <h1>Grafico</h1>
     <figure class="highcharts-figure">
         <div id="container" />
-        <p class="highcharts-description">
-        </p>
+        <p class="highcharts-description" />
     </figure>
 </main>
 
 <style>
-    .highcharts-figure{
+    .highcharts-figure {
         min-width: 320px;
         max-width: 500px;
         margin: 1em auto;
@@ -263,6 +313,4 @@
     #container {
         height: 400px;
     }
-
-    
 </style>
