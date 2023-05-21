@@ -109,12 +109,15 @@
     chart.setOption(options);
   }
 
-  async function loadEchart2(apiData, airData) {
+  /* async function loadEchart2(apiData, airData) {
     // Obtener el elemento HTML donde se mostrará la gráfica
     const chartElement = document.getElementById("chart2");
 
     // Crear la instancia de ECharts
     const chart = echarts.init(chartElement);
+
+    const cities = [...new Set(apiData.map((data) => data.city))];
+
 
     // Configurar las opciones de la gráfica
     const options = {
@@ -126,7 +129,7 @@
         data: ["Incendios", "PM10", "PM25"],
       },
       xAxis: {
-        data: apiData.map((data) => data.city),
+        data: cities,
       },
       yAxis: [
         {
@@ -170,7 +173,7 @@
 
     // Mostrar la gráfica
     chart.setOption(options);
-  }
+  } */
   async function loadEcharts3(cricketData) {
     // Filtrar los datos para obtener los valores de interés
     const filteredData = cricketData.values.slice(0, 10); // Obtener hasta 10 jugadores
@@ -290,8 +293,8 @@
       }
     }
 
-    /* const airData = {};
-    for (const cityData of apiData) {
+     const airData = {};
+    /* for (const cityData of apiData) {
       const city = cityData.city;
       const coordinates = cityCoordinates[city];
 
@@ -327,14 +330,14 @@
       } else {
         console.warn(`No se encontraron coordenadas para ${city}.`);
       }
-    } */
+    }  */
 
 
     
 
       console.log("a");
       loadEchart(apiData, weatherData);
-     // loadEchart2(apiData, airData);
+    // loadEchart2(apiData, airData);
       
     }
   
