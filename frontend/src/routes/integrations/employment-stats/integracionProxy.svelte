@@ -21,7 +21,7 @@
     let period = "";
     let jobs_industry = [];
     let population_over_16_years = "population_over_16_years";
-    //let APIproxy = "https://sos2223-10.appspot.com/proxyRDQ";
+    let APIproxy = "https://sos2223-10.appspot.com/proxyRDQ";
 
     async function getData() {
         console.log("Fetching stats....");

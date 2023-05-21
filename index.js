@@ -63,7 +63,7 @@ loadBackend_JRM_v2(app);
 
 // Proxy RDQ
 var dirAux = "/proxyRDQ"
-var apiServerMio = "https://sos2223-15.appspot.com/api/v2/jobseekers-studies"
+var apiServerMio = "https://sos2223-15.appspot.com/api/v1/jobseekers-studies"
 app.use(dirAux, function(req, res) {
   var url = apiServerMio + req.url;
   console.log('piped: ' + req.url);
