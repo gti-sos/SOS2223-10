@@ -198,7 +198,7 @@
       x: period,
       y: tourist,
       mode: "markers",
-      name: "Histograms",
+      name: "número de turistas",
       marker: {
         color: "purple",
       },
@@ -223,7 +223,7 @@
         title: "Territorios",
       },
       yaxis: {
-        title: "Valores",
+        title: "Turistas",
       },
       margin: {
         t: 50,
@@ -236,10 +236,10 @@
     const layout2 = {
       xaxis: {
         type: "category",
-        title: "Territorios",
+        title: "Fecha",
       },
       yaxis: {
-        title: "Valores",
+        title: "Visitas",
       },
       margin: {
         t: 50,
@@ -248,7 +248,7 @@
         r: 50,
       },
       title:
-        "Integración numero de turistas con la media de bitRate de youtube",
+        "Integración numero de turistas con el número de visitas de tweets",
     };
 
     const plotlyScript = document.createElement("script");
