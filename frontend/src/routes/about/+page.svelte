@@ -101,14 +101,14 @@
                 <div class="section-content">
                     <div class="api-card">
                         <a
-                            href="https://sos2223-10.ew.r.appspot.com/api/v1/economy-stats"
+                            href="https://drive.google.com/file/d/1TPHMxa6unngatJ9sVHvhbcXtzeqZ6ctT/view?usp=sharing"
                             >Video Joaquin Rodríguez Mariscal
                         </a>
                     </div>
                   
                     <div class="api-card">
                         <a
-                            href="https://sos2223-10.ew.r.appspot.com/api/v1/employment-stats"
+                            href="https://drive.google.com/file/d/1q6Gyobd9NqqLBwF4vviHsar4QaGDNDzl/view?usp=sharing"
                             >Video Rafael Díaz Quintero</a
                         >
                     </div>
