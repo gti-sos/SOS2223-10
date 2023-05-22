@@ -44,6 +44,10 @@
                 >Integracion Grupo</a
             >
         </div>
+        <div class = "container">
+            <a href="/about">Videos Explicativos</a
+                >
+        </div>
     </nav>
 </main>
 

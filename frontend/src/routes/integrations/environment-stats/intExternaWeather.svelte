@@ -109,7 +109,7 @@
     chart.setOption(options);
   }
 
-  /* async function loadEchart2(apiData, airData) {
+   async function loadEchart2(apiData, airData) {
     // Obtener el elemento HTML donde se mostrará la gráfica
     const chartElement = document.getElementById("chart2");
 
@@ -173,7 +173,7 @@
 
     // Mostrar la gráfica
     chart.setOption(options);
-  } */
+  } 
   async function loadEcharts3(cricketData) {
     // Filtrar los datos para obtener los valores de interés
     const filteredData = cricketData.values.slice(0, 10); // Obtener hasta 10 jugadores
@@ -294,7 +294,7 @@
     }
 
      const airData = {};
-    /* for (const cityData of apiData) {
+     for (const cityData of apiData) {
       const city = cityData.city;
       const coordinates = cityCoordinates[city];
 
@@ -311,8 +311,10 @@
           },
           headers: {
             //  'X-RapidAPI-Key': 'e52c3722d9msha0d5beb871b5cd4p1175cbjsnfae869968c4f',
-            "X-RapidAPI-Key":
-              "dff350a5e9msh0576314cd591864p1be088jsn092c880c0a12",
+          //  "X-RapidAPI-Key": "dff350a5e9msh0576314cd591864p1be088jsn092c880c0a12",
+          'X-RapidAPI-Key': '1e9cbc92ffmshcd2acf78a6e6212p187ea5jsn23d868ef2151',
+
+
             "X-RapidAPI-Host": "air-quality.p.rapidapi.com",
           },
         };
@@ -330,14 +332,14 @@
       } else {
         console.warn(`No se encontraron coordenadas para ${city}.`);
       }
-    }  */
+    }  
 
 
     
 
       console.log("a");
       loadEchart(apiData, weatherData);
-    // loadEchart2(apiData, airData);
+     loadEchart2(apiData, airData);
       
     }
   

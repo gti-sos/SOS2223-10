@@ -115,7 +115,7 @@
                  
                     <div class="api-card">
                         <a
-                            href="https://sos2223-10.ew.r.appspot.com/api/v1/environment-stats"
+                            href="https://drive.google.com/file/d/1U3VcUN-51qs2gehGTFX8ennXoGWtR9r3/view?usp=share_link"
                             >Video Rushabh Patel</a
                         >
                       
