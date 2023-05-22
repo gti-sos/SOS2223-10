@@ -126,7 +126,7 @@
             l: 50,
             r: 50,
         },
-        title: "Gráfica Plotly",
+        title: "Gráfica Ploty",
     };
 
     onMount(async () => {
