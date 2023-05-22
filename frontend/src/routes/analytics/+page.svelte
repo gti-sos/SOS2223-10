@@ -61,24 +61,25 @@ import * as echarts from "echarts";
     },
     legend: {
       data: ["Área", "Casas terminadas", "Población mayor de 16 años"],
+      top: "10%",
     },
+    grid: {
+    top: "20%", // Ajustar la distancia desde la parte superior
+    bottom: "10%", // Ajustar la distancia desde la parte inferior
+  },
     xAxis: {
       data: andaluciaCities,
     },
     yAxis: [
-      {
-        name: "Área (km²)",
-        type: "value",
-      },
-      {
-        name: "Casas terminadas",
-        type: "value",
-      },
-      {
-        name: "Población mayor de 16 años",
-        type: "value",
-      },
-    ],
+  {
+    name: "Valor",
+    type: "value",
+    axisLabel: {
+      formatter: "{value}" // Mostrar solo el valor numérico
+    }
+  }
+],
+
     series: [
       {
         name: "Área",
@@ -88,13 +89,13 @@ import * as echarts from "echarts";
       {
         name: "Casas terminadas",
         type: "bar",
-        yAxisIndex: 1,
+       
         data: finishedHousesData,
       },
       {
         name: "Población mayor de 16 años",
         type: "bar",
-        yAxisIndex: 2,
+      
         data: populationOver16Data,
       },
     ],
@@ -185,6 +186,6 @@ import * as echarts from "echarts";
 
 
 <main>
-    <div id="chart2" style="width: 100%; height: 400px; margin-top: 20px;"></div>
+    <div id="chart2" style="width: 100%; height: 400px;  margin-top: 20px;"></div>
   </main>
   

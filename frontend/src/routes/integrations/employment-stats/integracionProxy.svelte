@@ -20,6 +20,8 @@
     let stats = "";
     let stats1 = "";
     let period = "";
+    let pop = "";
+    let anyoComunes = [];
     let jobs_industry = [];
     let population_over_16_years = "population_over_16_years";
     //let APIproxy = "https://sos2223-10.appspot.com/proxyRDQ";
@@ -27,14 +29,15 @@
     async function getData() {
         console.log("Fetching stats....");
         const res = await fetch(
-            APIproxy
+            "https://sos2223-10.appspot.com/proxyRDQ"
         );
-        const res1 = await fetch(API
+        const res1 = await fetch(
+            "https://sos2223-10.appspot.com/api/v1/employment-stats"
         );
         console.log(res);
         if (res.ok && res1.ok) {
             const data = await res.json();
-            console.log("Datos externos",data);
+            console.log("Datos externos", data);
             const data1 = await res1.json();
             statsE = data;
             console.log("Estadísticas recibidas: " + statsE.length);
@@ -53,6 +56,16 @@
         var auxiliarPeriodo = [];
         var auxiliarPopulation = [];
         var auxiliarJobs = [];
+        var auxiliarPeriodo2 = [];
+        const diccionario1 = {};
+        const diccionario2 = {};
+        
+
+       
+
+        console.log("diccionario1", diccionario1);
+        console.log("diccionario2", diccionario2);
+
         for (var i = 0; i < datosM.length; i++) {
             //console.log("Se inserta", datosM[i].period);
             auxiliarPeriodo.push(datosM[i].period);
@@ -61,37 +74,41 @@
         console.log(datosE);
         console.log(auxiliarPeriodo);
         for (var i = 0; i < datosE.length; i++) {
+            //if(auxiliarPeriodo.includes(datosE[i].year)){       //solo metemos los que esten en auxiliar periodo
             auxiliarJobs.push(datosE[i].total);
+            auxiliarPeriodo2.push(datosE[i].year);
+            // }
         }
+        let anyoComunes= auxiliarPeriodo.filter((e) => auxiliarPeriodo2.includes(e));
+        
+        for (let i = 0; i < datosM.length; i++) {
+            let periodo = datosM[i].period;
+            if (anyoComunes.includes(periodo)) {
+                let poblacion = datosM[i].population_over_16_years;
+                diccionario1[periodo] = poblacion;
+            }
+        }
+        for (let i = 0; i < datosE.length; i++) {
+            let fecha = datosE[i].year;
+            if (anyoComunes.includes(fecha)) {
+                let pop = datosE[i].total;
+                diccionario2[fecha] = pop;
+            }
+        }
+        console.log("auxiliar periodo", auxiliarPeriodo);
+        console.log("auxiliar periodo2", auxiliarPeriodo2);
 
-        /*
-        var data = {
-            labels: auxiliarPeriodo,
-            series: [auxiliarPopulation, auxiliarJobs],
-        };
-
-        var options = {
-            seriesBarDistance: 15,
-            plugins: [
-                Chartist.plugins.tooltip({
-                    transformTooltipTextFnc: function (value) {
-                        return value.toString();
-                    },
-                }),
-            ],
-        };
-
-        new Chartist.Bar("#barras-chart", data, options);
-        */
-
-        console.log("Auxiliarperiodo", auxiliarPeriodo);
-        console.log("Auxiliarperiodo", auxiliarJobs);
-        console.log("auxiliarPopulation", auxiliarPopulation);
+        console.log("elementos comunes", anyoComunes);
+        const lista1 = Object.values(diccionario1);
+        const lista2 = Object.values(diccionario2);
         new BarChart(
             "#integracion2Chartist",
             {
-                labels: auxiliarPeriodo,
-                series: [auxiliarJobs, auxiliarPopulation],
+                labels: anyoComunes,
+                series: [lista1, lista2],
+            },
+            {
+                fullWidth: true,
             }
         );
         /*
@@ -291,7 +308,6 @@
     <div style="text-align:center">
         <Button color="primary" href="/">Volver a Inicio</Button>
     </div>
-    <h1>Grafico</h1>
     <figure class="highcharts-figure">
         <div id="container" />
         <p class="highcharts-description" />
