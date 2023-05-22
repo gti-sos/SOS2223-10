@@ -96,7 +96,6 @@
                 height: "400px",
                 width: "800px",
                 plugins: [
-                    //Chartist.plugins.tooltip({appendToBody:true),
                     Chartist.plugins.legend({
                         legendNames: ["Provincias de España", "Andalucia"],
                     }),

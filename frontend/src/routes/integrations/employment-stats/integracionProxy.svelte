@@ -101,22 +101,49 @@
         console.log("elementos comunes", anyoComunes);
         const lista1 = Object.values(diccionario1);
         const lista2 = Object.values(diccionario2);
+        /*
         new BarChart(
             "#integracion2Chartist",
             {
                 labels: anyoComunes,
                 series: [lista1, lista2],
-            },
+            },{
+                plugins: [
+                    Chartist.plugins.legend({
+                        legendNames: ["Provincias de España", "Andalucia"],
+                    }),
+                    Chartist.plugins.ctAxisTitle({
+                        axisX: {
+                            axisTitle: "Año",
+                            axisClass: "ct-axis-title2",
+                            offset: {
+                                x: 0,
+                                y: 50,
+                            },
+                            textAnchor: "middle",
+                        },
+                        axisY: {
+                            axisTitle: "Poblacion",
+                            axisClass: "ct-axis-title",
+                            offset: {
+                                x: 0,
+                                y: 0,
+                            },
+                            textAnchor: "start",
+                        },
+                    }),
+                ]
+                },
             {
                 fullWidth: true,
             }
         );
-        /*
-        var chart = new Chartist.Bar(
+        */
+        var chart = new BarChart(
             "#integracion2Chartist",
             {
-                labels: auxiliarPeriodo,
-                series: [auxiliarJobs, auxiliarPopulation],
+                labels: anyoComunes,
+                series: [lista1,lista2]
             },
             {
                 axisY: {
@@ -145,8 +172,8 @@
                     //Chartist.plugins.tooltip({appendToBody:true),
                     Chartist.plugins.legend({
                         legendNames: [
-                            "Trabajadores de industrias",
-                            "Personas mayores de edad en Andalucía",
+                            "Mayores de edad",
+                            "Total desempleados",
                         ],
                     }),
                     Chartist.plugins.ctAxisTitle({
@@ -172,7 +199,6 @@
                 ],
             }
         );
-        */
     }
 
     onMount(async () => {
